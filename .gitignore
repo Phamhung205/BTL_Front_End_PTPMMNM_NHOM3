@@ -1,0 +1,28 @@
+# Environment files
+.env
+.env.local
+.env.production
+
+# Secrets
+secrets.json
+*.key
+*.pem
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies
+/vendor/
+node_modules/
+
+# Logs
+*.log
