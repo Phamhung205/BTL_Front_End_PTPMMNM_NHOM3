@@ -153,9 +153,11 @@ function showConfirmDialog(title, message, onConfirm) {
     confirmCallback = onConfirm;
     if (actionBtn) {
         actionBtn.onclick = function() {
+            // Giữ callback trước khi đóng: closeConfirmDialog() đặt confirmCallback = null
+            const callback = confirmCallback;
             closeConfirmDialog();
-            if (typeof confirmCallback === 'function') {
-                confirmCallback();
+            if (typeof callback === 'function') {
+                callback();
             }
         };
     }

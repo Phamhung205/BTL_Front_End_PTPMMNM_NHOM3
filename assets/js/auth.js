@@ -3,6 +3,7 @@
  * Xử lý Login & Register
  * 
  * KHÔNG lưu password vào localStorage/sessionStorage.
+ * JWT chỉ lưu ở sessionStorage ('auth_token') để gọi API, xóa khi đăng xuất.
  * KHÔNG console.log password/token.
  */
 
@@ -61,11 +62,13 @@ async function handleLogin(e) {
     document.getElementById('password').value = '';
 
     if (result.success) {
-        // Lưu thông tin user cơ bản (KHÔNG lưu password hay token)
+        // Lưu JWT (sessionStorage, mất khi đóng tab) để api.js gửi header Authorization.
+        // KHÔNG lưu password.
         if (result.data) {
-            // Chỉ lưu thông tin hiển thị, không lưu sensitive data
+            if (result.data.token) sessionStorage.setItem('auth_token', result.data.token);
             const userData = {
-                name: result.data.fullName || result.data.name || result.data.userName || '',
+                id: result.data.userId || null,
+                name: result.data.displayName || result.data.fullName || result.data.name || result.data.userName || '',
                 email: result.data.email || email
             };
             sessionStorage.setItem('user_display', JSON.stringify(userData));
@@ -132,8 +135,9 @@ async function handleRegister(e) {
     setButtonLoading('register-btn', 'register-btn-text', 'register-btn-loading', true);
 
     // Call API
+    // Backend (RegisterRequest) nhận trường displayName
     const result = await apiPost('/api/auth/register', {
-        fullName: fullName,
+        displayName: fullName,
         email: email,
         password: password
     });

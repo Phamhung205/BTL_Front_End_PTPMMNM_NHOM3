@@ -13,4 +13,5 @@
     <title><?php echo htmlspecialchars($pageTitle ?? 'Translation Manager', ENT_QUOTES, 'UTF-8'); ?> - Translation Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="<?php echo $baseUrl ?? ''; ?>assets/css/app.css">
+    <script>window.__API_BASE_URL = <?php echo json_encode(defined('API_BASE_URL') ? API_BASE_URL : 'http://localhost:5088'); ?>;</script>
 </head>
