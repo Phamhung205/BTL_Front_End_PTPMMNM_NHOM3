@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -9,7 +9,11 @@ if (process.env.TM_DEMO_ISOLATED !== '1' || runtime.database !== 'translation_ma
 process.env.API_BASE_URL = 'http://127.0.0.1:5088';
 process.env.FRONTEND_BASE_URL = 'http://127.0.0.1:8095';
 const mysql = 'C:/xampp/mysql/bin/mysql.exe', php = 'C:/xampp/php/php.exe';
-const externalBackend = 'E:/Năm 3/Kỳ 1/Phát Triển Phần Mềm Mã Nguồn Mở/BTL/code/Backend/TranslationManager.Backend/TranslationManager.Backend';
+// Backend độc lập: biến môi trường TM_STANDALONE_BACKEND hoặc repo Backend đặt cạnh Frontend.
+const externalBackend = [
+    process.env.TM_STANDALONE_BACKEND,
+    path.join(root, '..', 'BTL_Back_End_PTPMMNM_NHOM3')
+].find(candidate => candidate && existsSync(path.join(candidate, 'TranslationManager.Api.csproj')));
 const results = [], log = []; mkdirSync(path.join(root, 'artifacts'), { recursive: true });
 function sql(query) {
     const res = spawnSync(mysql, ['--host=127.0.0.1', '--port=3307', '--user=root', '--database=translation_manager_demo', '--batch', '--skip-column-names', '--execute', query], { encoding: 'utf8', windowsHide: true });
@@ -33,20 +37,23 @@ function run(label, executable, args, cwd = root) {
 }
 function files(directory, extension) { return readdirSync(directory, { withFileTypes: true }).flatMap(entry => entry.isDirectory() && !['.git', '.local', 'backend', 'node_modules', 'artifacts', 'bin', 'obj'].includes(entry.name) ? files(path.join(directory, entry.name), extension) : entry.isFile() && extension.some(ext => entry.name.endsWith(ext)) ? [path.join(directory, entry.name)] : []); }
 try {
-    run('Build bundled Backend', 'dotnet', ['build', 'backend/TranslationManager.Backend/TranslationManager.Api.csproj', '--no-restore']);
-    run('Build independent Backend', 'dotnet', ['build', 'TranslationManager.Api.csproj', '--no-restore'], externalBackend);
+    // The demo API is running: never overwrite its loaded DLL on Windows.
+    run('Build bundled Backend', 'dotnet', ['build', 'backend/TranslationManager.Backend/TranslationManager.Api.csproj', '--no-restore', '--output', '.local/build/suite-verification']);
+    if (externalBackend) run('Build independent Backend', 'dotnet', ['build', 'TranslationManager.Api.csproj'], externalBackend);
+    else results.push({ label: 'Build independent Backend (không tìm thấy repo Backend; đặt TM_STANDALONE_BACKEND)', success: false, checks: null, groups: null });
     const lint = [];
     for (const file of files(root, ['.php', '.js', '.mjs'])) {
         const res = spawnSync(file.endsWith('.php') ? php : process.execPath, [file.endsWith('.php') ? '-l' : '--check', file], { encoding: 'utf8', windowsHide: true });
         if (res.status !== 0) lint.push(res.stdout + res.stderr);
     }
     results.push({ label: 'PHP / JavaScript syntax', success: lint.length === 0, checks: null, groups: null }); log.push(lint.join('\n')); console.log(lint.length ? 'FAIL syntax' : 'PASS PHP / JavaScript syntax');
-    for (const test of ['source-workspace', 'source-gateway', 'workflow-ui', 'admin-ui', 'workflow-gateway']) run(test, process.execPath, ['tests/' + test + '.mjs']);
+    for (const test of ['sample-imports', 'demo-requirements', 'source-workspace', 'source-gateway', 'workflow-ui', 'admin-ui', 'workflow-gateway']) run(test, process.execPath, ['tests/' + test + '.mjs']);
     run('Translation create/delete on disposable database', process.execPath, ['tests/translation-actions.mjs']);
     run('Source document validation', 'dotnet', ['run', '--project', 'tests/source-document/SourceDocument.Tests.csproj']);
     run('Atomic project setup and scenario 2', process.execPath, ['tests/project-onboarding.mjs']);
     for (const test of ['integration', 'workflow-integration', 'admin-integration']) run(test, process.execPath, ['tests/' + test + '.mjs']);
-    for (const test of ['duc-translation-release', 'manh-source-management']) run(test, process.execPath, ['backend/TranslationManager.Backend/tests/api/' + test + '.test.mjs', 'http://127.0.0.1:5088']);
+    for (const test of ['duc-translation-release', 'duc-import-security', 'manh-source-management']) run(test, process.execPath, ['backend/TranslationManager.Backend/tests/api/' + test + '.test.mjs', 'http://127.0.0.1:5088']);
+    run('Đề tài 3: 5 phép thử bắt buộc + 2 tình huống (website mẫu)', process.execPath, ['tests/required-tests.mjs']);
 } finally {
     // Remove only records created during this run; baseline/demo data remains in place.
     try {

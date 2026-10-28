@@ -39,6 +39,24 @@ PASSWORD_MIN_LENGTH=6
 
 Kiểm tra http://127.0.0.1:5088/health: phải trả `status: OK`, `database: CONNECTED`. Khi đổi Backend hoặc CSDL, đăng nhập lại.
 
+## Lưu ý môi trường Windows
+
+- Các script `.ps1` chạy được bằng **Windows PowerShell 5.1** (mặc định của Windows) và PowerShell 7; tệp được lưu UTF-8 có BOM để giữ đúng tiếng Việt.
+- Lệnh `dotnet` phải có trong PATH (.NET 10 SDK). Nếu cài SDK vào thư mục người dùng: `$env:PATH = "$env:USERPROFILE\.dotnet;$env:PATH"`.
+- MariaDB của XAMPP **không tạo được CSDL demo trong thư mục có ký tự tiếng Việt** (ví dụ `...\BTL Xây dựng hệ thống...`). Khi đó `prepare-demo.ps1` dừng và in lệnh tạo junction ASCII; chạy script từ đường dẫn junction:
+
+```powershell
+New-Item -ItemType Directory -Force C:\TMWork | Out-Null
+cmd /c mklink /J C:\TMWork\BTL_Front_End_PTPMMNM_NHOM3 "<đường dẫn Frontend>"
+cmd /c mklink /J C:\TMWork\BTL_Back_End_PTPMMNM_NHOM3 "<đường dẫn Backend>"
+cd C:\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+.\scripts\prepare-demo.ps1
+$env:NODE_OPTIONS = '--preserve-symlinks --preserve-symlinks-main'   # để Node giữ đường dẫn junction khi chạy test-all
+.\scripts\test-all.ps1
+```
+
+`tests/all.mjs` build Backend độc lập từ biến `TM_STANDALONE_BACKEND`, hoặc repo `BTL_Back_End_PTPMMNM_NHOM3` đặt cạnh Frontend.
+
 ## Bộ demo riêng và kiểm thử
 
 ```powershell

@@ -42,12 +42,14 @@ if (!project) {
         zh: { 'app.title': chinese[0], 'app.subtitle': chinese[1], 'home.welcome': chinese[2], 'home.courses': chinese[3], 'menu.home': chinese[4], 'menu.profile': chinese[5], 'menu.results': chinese[6], 'actions.save': chinese[7], 'actions.cancel': chinese[8], 'actions.submit': chinese[9] }
     };
     for (const locale of ['en', 'zh']) {
+        // Translator chỉ được dịch khóa đã được Manager giao, nên phân công trước khi dịch.
+        const unassigned = await api(path + '/translations?locale=' + locale, 'GET', undefined, manager.token);
+        await api(path + '/translations/assign', 'PUT', { localeCode: locale, stringIds: unassigned.map(row => row.stringId), userId: translator.id }, manager.token);
         const rows = await api(path + '/translations?locale=' + locale, 'GET', undefined, manager.token);
         for (const row of rows) {
             const saved = await api(path + '/translations', 'POST', { stringId: row.stringId, localeCode: locale, value: values[locale][row.key], status: 'translated', expectedRowVersion: row.rowVersion }, translator.token);
             await api(path + '/translations/' + saved.id + '/approve', 'POST', { expectedRowVersion: saved.rowVersion }, reviewer.token);
         }
-        await api(path + '/translations/assign', 'PUT', { localeCode: locale, stringIds: rows.map(row => row.stringId), userId: translator.id }, manager.token);
     }
     await api(path + '/releases', 'POST', { versionName: '1.0.0', note: 'Snapshot đã duyệt đầy đủ để demo tải JSON/ZIP.' }, manager.token);
     const current = await api(path + '/translations?locale=en', 'GET', undefined, manager.token);

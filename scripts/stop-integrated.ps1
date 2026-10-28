@@ -1,4 +1,4 @@
-$projectRoot = Split-Path -Parent $PSScriptRoot
+﻿$projectRoot = Split-Path -Parent $PSScriptRoot
 $ErrorActionPreference = 'Stop'
 $expectedCommands = @{
     8095 = 'router.php'
@@ -10,9 +10,17 @@ foreach ($port in @(8095, 5088, 3307)) {
     if (!$listener) { continue }
     $processInfo = Get-CimInstance Win32_Process -Filter "ProcessId=$($listener.OwningProcess)"
     if (!$processInfo.CommandLine -or !$processInfo.CommandLine.Contains($expectedCommands[$port])) { throw "Tiến trình tại cổng $port không thuộc bộ chạy này." }
-    if ($port -eq 3307) {
-        & C:\xampp\mysql\bin\mysqladmin.exe --host=127.0.0.1 --port=3307 --user=root shutdown
-        if ($LASTEXITCODE -ne 0) { throw 'Không dừng được MariaDB kiểm thử.' }
-    } else { Stop-Process -Id $listener.OwningProcess }
+    $ownedProcess = Get-Process -Id $listener.OwningProcess -ErrorAction SilentlyContinue
+    try {
+        if ($port -eq 3307) {
+            & C:\xampp\mysql\bin\mysqladmin.exe --host=127.0.0.1 --port=3307 --user=root shutdown
+            if ($LASTEXITCODE -ne 0) { throw 'Không dừng được MariaDB kiểm thử.' }
+        } else { Stop-Process -Id $listener.OwningProcess }
+        # Closing the TCP listener is earlier than releasing ibdata1 / loaded DLLs on Windows.
+        # Wait for this exact process, so a subsequent start cannot race with its shutdown.
+        if ($ownedProcess -and !$ownedProcess.WaitForExit(30000)) {
+            throw "Tiến trình demo tại cổng $port chưa thoát hẳn; chưa được khởi động lại."
+        }
+    } finally { if ($ownedProcess) { $ownedProcess.Dispose() } }
 }
 Write-Output 'Đã dừng các dịch vụ tích hợp local. Dữ liệu .local/mysql-api được giữ lại.'

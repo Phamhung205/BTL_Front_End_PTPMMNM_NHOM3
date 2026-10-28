@@ -1,0 +1,210 @@
+/* =========================================================
+   Lumière Beauty – Custom CSS
+   Tailwind is the primary utility layer; this file handles
+   animations, custom effects, and anything Tailwind can't do.
+   ========================================================= */
+
+/* ── Base Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+/* ── Typography ── */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Navbar ── */
+.navbar-transparent {
+  background: transparent;
+}
+.navbar-scrolled {
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.navbar-scrolled .nav-link,
+.navbar-scrolled .logo-text {
+  color: #262626 !important;
+}
+.navbar-scrolled .icon-btn,
+.navbar-scrolled .lang-btn {
+  color: #525252 !important;
+  border-color: #e5e5e5 !important;
+}
+.navbar-scrolled .lang-btn:hover {
+  background: #fce7f3 !important;
+  color: #db2777 !important;
+}
+.navbar-scrolled .icon-btn:hover {
+  background: #f5f5f5 !important;
+}
+
+/* Active nav link underline */
+.nav-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #f9a8d4, #f43f5e);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Language Button ── */
+.lang-btn {
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+}
+
+/* ── Hero Section ── */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    #3b0a1f 0%,
+    #6b1b3e 25%,
+    #be185d 55%,
+    #f43f5e 75%,
+    #fb7185 100%
+  );
+}
+
+/* ── Floating Animations ── */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.05); }
+}
+.animate-pulse-slow { animation: pulseSlow 4s ease-in-out infinite; }
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+.animate-bounce-slow { animation: bounceSlow 2s ease-in-out infinite; }
+
+/* ── Marquee ── */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  animation: marquee 28s linear infinite;
+}
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Category Cards ── */
+.category-card {
+  transition: transform 0.3s ease;
+}
+.category-card:hover { transform: translateY(-4px); }
+
+/* ── Product Cards ── */
+.product-card {
+  border: 1px solid #f5f5f5;
+}
+.product-card:hover { border-color: #fecdd3; }
+
+/* ── Filter Buttons ── */
+.filter-btn {
+  background: #f5f5f5;
+  color: #525252;
+  border: 1px solid transparent;
+}
+.filter-btn:hover {
+  background: #fce7f3;
+  color: #db2777;
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, #f9a8d4, #f43f5e);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+}
+
+/* ── Promo Banner ── */
+.promo-banner {
+  background:
+    linear-gradient(to right, rgba(15,15,15,0.9) 0%, rgba(15,15,15,0.5) 50%, transparent 100%),
+    linear-gradient(135deg, #6b1b3e 0%, #be185d 50%, #f9a8d4 100%);
+  min-height: 320px;
+}
+
+/* ── Review Cards ── */
+.review-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(244, 63, 94, 0.1);
+}
+
+/* ── Instagram Items ── */
+.insta-item {
+  transition: transform 0.3s ease;
+}
+.insta-item:hover { transform: scale(0.97); }
+
+/* ── Scrollbar Hide ── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Toast ── */
+#toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+/* ── Scroll Top Button ── */
+#scrollTopBtn.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Cart Drawer ── */
+#cartDrawer.open { transform: translateX(0); }
+#cartOverlay.open { opacity: 1; pointer-events: all; }
+
+/* ── Page Inner (for sub-pages) ── */
+.page-header {
+  background: linear-gradient(135deg, #3b0a1f 0%, #be185d 60%, #f9a8d4 100%);
+}
+
+/* ── Hover underline utility ── */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.hover-underline:hover::after { width: 100%; }
+
+/* ── Grid responsive helper ── */
+@media (max-width: 480px) {
+  .hero-gradient { background-size: cover; }
+}
+
+/* ── Focus visible ── */
+button:focus-visible, a:focus-visible {
+  outline: 2px solid #f9a8d4;
+  outline-offset: 3px;
+}

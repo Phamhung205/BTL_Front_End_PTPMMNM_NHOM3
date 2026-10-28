@@ -49,6 +49,7 @@ include __DIR__ . '/../layout/header.php';
             <div id="translation-bulk" class="hidden workflow-card flex flex-wrap items-center gap-3">
                 <div id="translation-manager-bulk-actions" class="contents">
                     <button id="bulk-create-missing" type="button" class="workflow-primary">Thêm tất cả bản ghi còn thiếu</button>
+                    <?php if ($workflowModule === 'translations'): ?><button id="bulk-import-translations" type="button" class="workflow-primary">Nhập bản dịch từ tệp JSON</button><?php endif; ?>
                 </div>
                 <button id="translation-select-results" type="button" class="text-indigo-600 text-sm">Chọn tất cả kết quả</button>
                 <button id="translation-clear-selection" type="button" class="text-gray-600 text-sm" disabled>Bỏ chọn tất cả</button>
@@ -66,6 +67,7 @@ include __DIR__ . '/../layout/header.php';
                 <p class="w-full text-xs text-gray-500">Chọn từng khóa bằng checkbox; giữ Shift rồi chọn khóa cuối để chọn cả dải. “Chọn tất cả kết quả” áp dụng qua mọi trang.</p>
                 <p class="w-full text-xs text-gray-500">Áp dụng cho ngôn ngữ đích đang chọn. Thêm tất cả chỉ tạo bản ghi trống để dịch; xóa sẽ xóa vĩnh viễn bản dịch cùng bình luận và lịch sử, giữ khóa nguồn và bản phát hành đã có.</p>
             </div>
+            <section id="translation-import-report" class="hidden workflow-card space-y-2" role="status" aria-live="polite"></section>
             <p id="translation-count" role="status" class="text-sm text-gray-500"></p>
             <div class="workflow-card p-0 table-responsive"><table><thead><tr><th><input id="translation-select-all" type="checkbox" aria-label="Chọn tất cả khóa trên trang"></th><th>Khóa / Nội dung nguồn</th><th>Bản dịch</th><th>Trạng thái / Phân công</th><th>Thao tác</th></tr></thead><tbody id="translations-body"></tbody></table></div>
             <div id="translation-pagination" class="flex gap-4 items-center"><button id="translation-previous" type="button" class="text-indigo-600">Trang trước</button><span id="translation-page" class="text-sm"></span><button id="translation-next" type="button" class="text-indigo-600">Trang sau</button></div>
@@ -75,7 +77,7 @@ include __DIR__ . '/../layout/header.php';
             <form id="release-form" class="hidden workflow-card space-y-4">
                 <h2 class="font-semibold">Tạo bản phát hành</h2>
                 <p class="text-sm text-gray-500">Toàn bộ bản dịch phải được duyệt. Bản phát hành lưu nội dung cố định theo phiên bản nguồn hiện tại.</p>
-                <div><label for="release-version" class="workflow-label">Phiên bản</label><input id="release-version" required maxlength="60" pattern="[A-Za-z0-9][A-Za-z0-9._-]*" placeholder="1.0.0" class="workflow-input"></div>
+                <div><label for="release-version" class="workflow-label">Phiên bản</label><input id="release-version" required maxlength="60" pattern="[A-Za-z0-9][A-Za-z0-9._\-]*" placeholder="1.0.0" class="workflow-input"></div>
                 <div><label for="release-note" class="workflow-label">Ghi chú</label><textarea id="release-note" rows="3" maxlength="1000" class="workflow-input"></textarea></div>
                 <button id="release-publish" type="submit" class="workflow-primary" disabled>Phát hành</button>
             </form>
@@ -97,5 +99,5 @@ include __DIR__ . '/../layout/header.php';
     </main>
 </div>
 <?php include __DIR__ . '/../ui/toast.php'; include __DIR__ . '/../ui/modal.php'; ?>
-<script src="../../assets/js/shared/api.js"></script><script src="../../assets/js/shared/ui.js"></script><script src="../../assets/js/translations/workspace.js?v=<?= filemtime(__DIR__ . '/../../assets/js/translations/workspace.js') ?>"></script><?php if ($workflowModule === 'translations'): ?><script src="../../assets/js/memory/index.js?v=<?= filemtime(__DIR__ . '/../../assets/js/memory/index.js') ?>"></script><?php endif; ?>
+<script src="../../assets/js/shared/api.js"></script><script src="../../assets/js/shared/ui.js?v=<?= filemtime(__DIR__ . '/../../assets/js/shared/ui.js') ?>"></script><script src="../../assets/js/translations/workspace.js?v=<?= filemtime(__DIR__ . '/../../assets/js/translations/workspace.js') ?>"></script><?php if ($workflowModule === 'translations'): ?><script src="../../assets/js/memory/index.js?v=<?= filemtime(__DIR__ . '/../../assets/js/memory/index.js') ?>"></script><?php endif; ?>
 </body></html>

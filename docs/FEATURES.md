@@ -54,6 +54,11 @@ API bổ sung:
 | DELETE | `/api/projects/{id}/translations/{translationId}` | JSON `expectedRowVersion` |
 | DELETE | `/api/projects/{id}/translations` | JSON `localeCode`, `items: [{translationId, expectedRowVersion}]` |
 | POST | `/api/projects/{id}/translations/approve` | JSON `items: [{translationId, expectedRowVersion}]` |
+| POST | `/api/projects/{id}/translations/import` | JSON `localeCode`, `rawJson`, `status` (`translated`/`draft`), `overwrite` |
+
+**Nhập bản dịch từ tệp JSON** (Manager, trang Bản dịch): chọn một hoặc nhiều tệp của ngôn ngữ đích đang chọn; trang gộp theo khóa rồi gửi `rawJson`. Backend đối chiếu với khóa nguồn đang dùng trong một giao dịch: bản khớp biến lưu theo trạng thái chọn (mặc định Chờ duyệt), bản thiếu/thừa biến lưu nháp, nội dung rỗng/khóa không có trong nguồn bị bỏ qua; nhập lại cùng nội dung không thay đổi gì; bản đang có nội dung khác chỉ bị thay khi bật ghi đè (row_version tăng nên người đang sửa từ bản cũ nhận 409). Không bao giờ tự duyệt. Báo cáo hiển thị ngay trên trang, lịch sử ghi thao tác `imported`.
+
+**Nhập nguồn** (trang Phiên bản nguồn): chọn nhiều tệp để gộp; hộp xác nhận so sánh với khóa đang dùng (`GET /translation-keys?status=active`) để hiển thị trước số khóa mới/sửa/giữ nguyên/sẽ bị đánh dấu xóa.
 
 Xóa hàng loạt tối đa 10.000 bản ghi/lần và thực hiện trong một giao dịch. Nếu một bản dịch đã đổi phiên bản, không còn tồn tại hoặc sai dự án/ngôn ngữ, toàn bộ yêu cầu bị từ chối trước khi xóa. Không cần thêm bảng/cột mới.
 

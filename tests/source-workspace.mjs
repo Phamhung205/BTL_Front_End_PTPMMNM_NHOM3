@@ -87,4 +87,29 @@ location.search = '?project_id=999';
 handler = () => ok(projects); await context.initializeSourceWorkspace();
 check(element('source-content').classList.contains('hidden') && element('source-error-message').textContent.includes('được phép xem'), 'Invalid project URL does not display another project silently');
 check(element('source-project').disabled === false, 'Invalid project can be recovered by choosing an authorized project');
+// Real import regressions: preserve all keys and reject ambiguous files before preview/submission.
+const unusual = new Map([['__proto__.polluted', 'X'], ['constructor.prototype.other', 'Y'], ['toString.title', 'Z'], ['normal', 'Tiếng Việt 中文']]);
+context.unusual = unusual;
+const encoded = context.localeJsonFromMap(unusual);
+check(JSON.parse(encoded).__proto__.polluted === 'X' && JSON.parse(encoded).constructor.prototype.other === 'Y', 'Special JSON property names survive nested reconstruction');
+check(evaluate('({}).polluted === undefined && ({}).other === undefined'), 'Import does not write to Object.prototype');
+check(context.readSourceValues(encoded).size === 4 && context.readSourceValues(encoded).get('normal') === unusual.get('normal'), 'Nested reconstruction preserves every key and Unicode');
+for (const raw of ['{"x":"a","x":"b"}', '{"x":"a","\\u0078":"a"}', '{"a.b":"same","a":{"b":"same"}}']) {
+    assert.throws(() => context.readSourceValues(raw), /lặp|trùng/);
+    check(true, 'Reject duplicate source names/normalized paths: ' + raw);
+}
+const docs = [{ name: 'one.json', data: { common: { title: 'Same' } } }, { name: 'two.json', data: { 'common.title': 'Same', other: 'New' } }];
+check(context.mergeLocaleJsonDocuments(docs).size === 2, 'Identical keys across separate files merge once');
+assert.throws(() => context.mergeLocaleJsonDocuments([...docs, { name: 'conflict.json', data: { 'common.title': 'Different' } }]), /khác nhau/);
+check(true, 'Conflicting values across files are rejected');
+await assert.rejects(context.readLocaleJsonFiles([{ name: 'duplicate.json', size: 17, text: async () => '{"x":"a","x":"b"}' }]), /lặp/);
+check(true, 'Translation file reader rejects duplicate properties before JSON.parse discards them');
+evaluate('sourceWorkspace.project = sourceWorkspace.projects[0]');
+element('source-version-name').value = 'v2'; element('source-json').value = '{"hello":"Hello"}';
+handler = () => ({ success: false, status: 503 });
+await context.confirmSourceImport({ preventDefault() {} });
+check(element('source-error-message').textContent.includes('xem trước'), 'Preview API failure blocks source import and explains retry');
+handler = () => { throw new Error('Network unavailable'); };
+await context.confirmSourceImport({ preventDefault() {} });
+check(element('source-error-message').textContent === 'Network unavailable', 'Preview network failure is handled without an unhandled rejection');
 console.log(`Completed ${count} source workspace behavior checks.`);

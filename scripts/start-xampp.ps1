@@ -1,5 +1,12 @@
-$projectRoot = Split-Path -Parent $PSScriptRoot
+﻿$projectRoot = Split-Path -Parent $PSScriptRoot
 $ErrorActionPreference = 'Stop'
+# Tương thích Windows PowerShell 5.1 (.NET Framework không có RandomNumberGenerator.GetBytes(int)).
+function New-RandomBase64([int]$Count) {
+    $bytes = New-Object byte[] $Count
+    $generator = [Security.Cryptography.RandomNumberGenerator]::Create()
+    try { $generator.GetBytes($bytes) } finally { $generator.Dispose() }
+    return [Convert]::ToBase64String($bytes)
+}
 Set-Location -LiteralPath $projectRoot
 $localRoot = Join-Path $projectRoot '.local'
 $backendDirectory = Join-Path $projectRoot 'backend\TranslationManager.Backend'
@@ -44,18 +51,19 @@ if (!(Test-Path -LiteralPath (Join-Path $backendDirectory 'obj\project.assets.js
     dotnet restore $projectFile --packages (Join-Path $localRoot 'nuget')
     if ($LASTEXITCODE -ne 0) { throw 'NuGet restore thất bại.' }
 }
-dotnet build $projectFile --no-restore
-if ($LASTEXITCODE -ne 0) { throw 'Backend build thất bại.' }
-
 # Always restart our Backend so an old demo process cannot keep port 3307.
 if ($backendListener) {
     Stop-Process -Id $backendListener.OwningProcess
     for ($attempt = 0; $attempt -lt 40 -and (Get-XamppListener 5088); $attempt++) { Start-Sleep -Milliseconds 100 }
     if (Get-XamppListener 5088) { throw 'Backend cũ chưa dừng tại cổng 5088.' }
 }
+# Windows locks the running DLL: stop the verified local API before rebuilding it.
+dotnet build $projectFile --no-restore
+if ($LASTEXITCODE -ne 0) { throw 'Backend build thất bại.' }
+
 $databaseKey = Join-Path $localRoot 'backend-jwt.3306.translation_manager.key'
 if (!(Test-Path -LiteralPath $databaseKey)) {
-    [IO.File]::WriteAllText($databaseKey, [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(64)))
+    [IO.File]::WriteAllText($databaseKey, (New-RandomBase64 64))
 }
 Copy-Item -LiteralPath $databaseKey -Destination (Join-Path $localRoot 'backend-jwt.key') -Force
 $savedEnvironment = @{}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n-document-title="contact.lien_he_lumiere_beauty">Liên Hệ – Lumière Beauty</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { serif: ['Playfair Display','Georgia','serif'], sans: ['Inter','system-ui','sans-serif'] },
+        colors: {
+          blush: { 50:'#fdf2f8',100:'#fce7f3',200:'#fbcfe8',300:'#f9a8d4',400:'#f472b6',500:'#ec4899',600:'#db2777' },
+          rose:  { 500:'#f43f5e', 600:'#e11d48' }
+        }
+      }}
+    };
+  </script>
+</head>
+<body class="font-sans bg-white text-neutral-800 antialiased">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 navbar-scrolled">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="../index.html" class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blush-400 to-rose-500 flex items-center justify-center shadow-md">
+            <i class="fa-solid fa-spa text-white text-sm"></i>
+          </div>
+          <span class="font-serif text-2xl font-bold text-neutral-800 tracking-wide" data-i18n="common.lumiere">Lumière</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="../index.html"  class="nav-link text-neutral-600 hover:text-neutral-900 font-medium text-sm" data-i18n="common.trang_chu">Trang Chủ</a>
+          <a href="products.html" class="nav-link text-neutral-600 hover:text-neutral-900 font-medium text-sm" data-i18n="common.san_pham">Sản Phẩm</a>
+          <a href="about.html"    class="nav-link text-neutral-600 hover:text-neutral-900 font-medium text-sm" data-i18n="common.ve_chung_toi">Về Chúng Tôi</a>
+          <a href="contact.html"  class="nav-link text-blush-500 font-semibold text-sm" data-i18n="common.lien_he">Liên Hệ</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="langToggleBtn" onclick="toggleLang()"
+            class="lang-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:bg-blush-50 text-xs font-semibold tracking-wider transition-all hover:scale-105">
+            <i class="fa-solid fa-globe text-xs"></i>
+            <span id="langLabel" data-i18n-skip>VI</span>
+          </button>
+          <button class="text-neutral-500 hover:text-neutral-800 p-2 rounded-full hover:bg-neutral-100 transition-all" onclick="openCart()">
+            <i class="fa-solid fa-bag-shopping text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header pt-36 pb-16 text-center">
+    <p class="text-blush-200 text-xs font-semibold uppercase tracking-widest mb-3" data-i18n="contact.ket_noi_voi_chung_toi">Kết Nối Với Chúng Tôi</p>
+    <h1 class="font-serif text-4xl md:text-6xl font-bold text-white mb-4" data-i18n="common.lien_he">Liên Hệ</h1>
+    <p class="text-white/70 text-sm"><span data-i18n="common.trang_chu_2">Trang Chủ &nbsp;/&nbsp;</span> <span class="text-white" data-i18n="common.lien_he">Liên Hệ</span></p>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-20">
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+
+      <!-- Info -->
+      <div>
+        <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-4" data-i18n="contact.thong_tin">Thông Tin</p>
+        <h2 class="font-serif text-4xl font-bold text-neutral-800 mb-6 leading-tight" data-i18n="contact.chung_toi_luon_san_sang_lang_nghe_ban">Chúng tôi luôn sẵn sàng lắng nghe bạn</h2>
+        <p class="text-neutral-500 leading-relaxed mb-10" data-i18n="contact.du_ban_can_tu_van_san_pham_ho_tro_don_hang_hay">Dù bạn cần tư vấn sản phẩm, hỗ trợ đơn hàng hay chỉ muốn chia sẻ về hành trình làm đẹp của mình — đội ngũ Lumière luôn ở đây cho bạn.</p>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-blush-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-location-dot text-blush-500 text-lg"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-neutral-800 mb-1" data-i18n="contact.dia_chi">Địa Chỉ</p>
+              <p class="text-neutral-500 text-sm leading-relaxed"><span data-i18n="contact.123_nguyen_hue_phuong_ben_nghe_quan_1">123 Nguyễn Huệ, Phường Bến Nghé, Quận 1</span><br/><span data-i18n="contact.tp_ho_chi_minh_viet_nam">TP. Hồ Chí Minh, Việt Nam</span></p>
+            </div>
+          </div>
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-phone text-emerald-500 text-lg"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-neutral-800 mb-1" data-i18n="contact.dien_thoai">Điện Thoại</p>
+              <p class="text-neutral-500 text-sm" data-i18n="contact.1800_1234_mien_phi_8_00_22_00">1800 1234 (Miễn phí, 8:00 – 22:00)</p>
+              <p class="text-neutral-500 text-sm" data-i18n="contact.0909_123_456_zalo_whatsapp">0909 123 456 (Zalo / WhatsApp)</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-envelope text-purple-500 text-lg"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-neutral-800 mb-1" data-i18n="contact.email">Email</p>
+              <p class="text-neutral-500 text-sm">hello@lumiere.vn</p>
+              <p class="text-neutral-500 text-sm">support@lumiere.vn</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-clock text-amber-500 text-lg"></i>
+            </div>
+            <div>
+              <p class="font-semibold text-neutral-800 mb-1" data-i18n="contact.gio_lam_viec">Giờ Làm Việc</p>
+              <p class="text-neutral-500 text-sm" data-i18n="contact.thu_hai_thu_sau_8_00_22_00">Thứ Hai – Thứ Sáu: 8:00 – 22:00</p>
+              <p class="text-neutral-500 text-sm" data-i18n="contact.thu_bay_chu_nhat_9_00_20_00">Thứ Bảy – Chủ Nhật: 9:00 – 20:00</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="mt-10 flex gap-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-blush-100 hover:bg-blush-500 flex items-center justify-center text-blush-500 hover:text-white transition-all hover:scale-110">
+            <i class="fa-brands fa-facebook-f text-sm"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-blush-100 hover:bg-blush-500 flex items-center justify-center text-blush-500 hover:text-white transition-all hover:scale-110">
+            <i class="fa-brands fa-instagram text-sm"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-blush-100 hover:bg-blush-500 flex items-center justify-center text-blush-500 hover:text-white transition-all hover:scale-110">
+            <i class="fa-brands fa-tiktok text-sm"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-blush-100 hover:bg-blush-500 flex items-center justify-center text-blush-500 hover:text-white transition-all hover:scale-110">
+            <i class="fa-brands fa-youtube text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="bg-white rounded-3xl shadow-xl border border-neutral-100 p-8 md:p-10">
+        <h3 class="font-serif text-2xl font-bold text-neutral-800 mb-2" data-i18n="contact.gui_tin_nhan">Gửi Tin Nhắn</h3>
+        <p class="text-neutral-400 text-sm mb-8" data-i18n="contact.chung_toi_se_phan_hoi_trong_vong_24_gio_lam_viec">Chúng tôi sẽ phản hồi trong vòng 24 giờ làm việc.</p>
+
+        <form onsubmit="handleSubmit(event)" class="space-y-5">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.ho_ten">Họ tên *</label>
+              <input type="text" placeholder="Nguyễn Thị An" required
+                class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm transition-colors placeholder-neutral-300" data-i18n-placeholder="contact.nguyen_thi_an"/>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.dien_thoai_2">Điện thoại</label>
+              <input type="tel" placeholder="0909 000 000"
+                class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm transition-colors placeholder-neutral-300"/>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.email_2">Email *</label>
+            <input type="email" placeholder="email@example.com" required
+              class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm transition-colors placeholder-neutral-300"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.chu_de">Chủ đề</label>
+            <select class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm text-neutral-600 bg-white transition-colors cursor-pointer">
+              <option>Tư vấn sản phẩm</option>
+              <option>Đơn hàng &amp; giao hàng</option>
+              <option>Đổi trả &amp; hoàn tiền</option>
+              <option>Hợp tác kinh doanh</option>
+              <option>Khác</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.noi_dung">Nội dung *</label>
+            <textarea rows="5" placeholder="Nhập nội dung tin nhắn của bạn..." required
+              class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm transition-colors placeholder-neutral-300 resize-none"></textarea>
+          </div>
+          <button type="submit"
+            class="w-full bg-gradient-to-r from-blush-500 to-rose-500 text-white font-semibold py-4 rounded-xl hover:shadow-lg hover:scale-[1.01] transition-all text-sm">
+            <i class="fa-solid fa-paper-plane mr-2"></i><span data-i18n="contact.gui_tin_nhan">Gửi Tin Nhắn</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP placeholder -->
+  <section class="h-64 bg-gradient-to-br from-blush-50 via-white to-rose-50 flex items-center justify-center border-t border-neutral-100">
+    <div class="text-center">
+      <i class="fa-solid fa-map-location-dot text-5xl text-blush-200 mb-3"></i>
+      <p class="text-neutral-400 text-sm" data-i18n="contact.ban_do_se_duoc_nhung_tai_day">Bản đồ sẽ được nhúng tại đây</p>
+    </div>
+  </section>
+
+  <!-- CART DRAWER -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity" onclick="closeCart()"></div>
+  <div id="cartDrawer" class="fixed top-0 right-0 h-full w-80 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300">
+    <div class="flex items-center justify-between p-6 border-b">
+      <h3 class="font-serif text-xl font-bold" data-i18n="common.gio_hang">Giỏ Hàng</h3>
+      <button onclick="closeCart()" class="w-8 h-8 rounded-full hover:bg-neutral-100 flex items-center justify-center"><i class="fa-solid fa-xmark text-neutral-500"></i></button>
+    </div>
+    <div class="p-6"><p class="text-neutral-400 text-sm text-center mt-10" data-i18n="common.gio_hang_trong">Giỏ hàng trống</p></div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-neutral-900 text-white px-6 py-3.5 rounded-full shadow-xl flex items-center gap-3 text-sm font-medium translate-y-20 opacity-0 transition-all duration-300">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMsg"></span>
+  </div>
+
+  <button id="scrollTopBtn" onclick="scrollToTop()"
+    class="fixed bottom-6 right-6 w-11 h-11 bg-blush-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all hover:scale-110 z-30">
+    <i class="fa-solid fa-chevron-up text-sm"></i>
+  </button>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <!-- Translation Manager: cấu hình tải từ trang Phát hành, client đọc gói đã phát hành -->
+<script src="../translation-manager.config.js"></script>
+<script src="../translation-manager.js"></script>
+<script src="../js/lang.js"></script>
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      showToast('Tin nhắn đã được gửi thành công! Chúng tôi sẽ phản hồi sớm.');
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

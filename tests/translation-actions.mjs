@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
 import { randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -54,7 +54,8 @@ function gatewayRaw(endpoint, method = 'GET', body, query) {
 async function gateway(...args) { const response = await gatewayRaw(...args); const text = await response.text(); return { status: response.status, data: text ? JSON.parse(text) : null }; }
 
 await freePort(5092); await freePort(8096);
-assert.equal(path.resolve(sql('SELECT @@datadir;', 'mysql')).toLowerCase(), path.resolve(root, '.local/mysql-api').toLowerCase(), 'Only the workspace MariaDB may host the disposable test database.');
+// MariaDB uses the ASCII junction, while Node resolves import.meta.url to its physical path.
+assert.equal(realpathSync(sql('SELECT @@datadir;', 'mysql')).toLowerCase(), realpathSync(path.join(root, '.local/mysql-api')).toLowerCase(), 'Only the workspace MariaDB may host the disposable test database.');
 assert.equal(sql("SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name='" + database + "';", 'mysql'), '0');
 const build = spawnSync('dotnet', ['build', 'backend/TranslationManager.Backend/TranslationManager.Api.csproj', '--no-restore', '--output', '.local/build/translation-actions'], { cwd: root, windowsHide: true, encoding: 'utf8' });
 assert.equal(build.status, 0, build.stdout + build.stderr);

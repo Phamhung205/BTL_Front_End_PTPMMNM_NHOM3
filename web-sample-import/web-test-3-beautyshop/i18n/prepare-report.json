@@ -1,0 +1,26 @@
+{
+  "locale": "vi",
+  "keys": 179,
+  "pages": [
+    {
+      "file": "index.html",
+      "tagged": 146,
+      "existing": 0
+    },
+    {
+      "file": "pages/about.html",
+      "tagged": 48,
+      "existing": 0
+    },
+    {
+      "file": "pages/contact.html",
+      "tagged": 39,
+      "existing": 0
+    },
+    {
+      "file": "pages/products.html",
+      "tagged": 59,
+      "existing": 0
+    }
+  ]
+}

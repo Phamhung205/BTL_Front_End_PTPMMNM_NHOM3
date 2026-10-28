@@ -224,15 +224,17 @@ include __DIR__ . '/../layout/header.php';
                                 for="source-file"
                                 class="block text-sm font-medium mb-2"
                             >
-                                Tệp JSON (tối đa 2 MB)
+                                Tệp JSON (tối đa 2 MB; có thể chọn nhiều tệp của cùng ngôn ngữ nguồn để gộp)
                             </label>
 
                             <input
                                 id="source-file"
                                 type="file"
+                                multiple
                                 accept=".json,application/json"
                                 class="w-full text-sm"
                             >
+                            <p id="source-file-summary" role="status" class="text-xs text-gray-500 mt-1"></p>
                         </div>
 
                         <!-- Hiển thị JSON -->
@@ -426,8 +428,8 @@ include __DIR__ . '/../layout/header.php';
     <?php include __DIR__ . '/../ui/modal.php'; ?>
 
     <script src="../../assets/js/shared/api.js"></script>
-    <script src="../../assets/js/shared/ui.js"></script>
-    <script src="../../assets/js/source/workspace.js"></script>
+    <script src="../../assets/js/shared/ui.js?v=<?php echo filemtime(__DIR__ . '/../../assets/js/shared/ui.js'); ?>"></script>
+    <script src="../../assets/js/source/workspace.js?v=<?php echo filemtime(__DIR__ . '/../../assets/js/source/workspace.js'); ?>"></script>
 
 </body>
 </html>

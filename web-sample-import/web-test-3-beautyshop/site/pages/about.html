@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n-document-title="about.ve_chung_toi_lumiere_beauty">Về Chúng Tôi – Lumière Beauty</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { serif: ['Playfair Display','Georgia','serif'], sans: ['Inter','system-ui','sans-serif'] },
+        colors: {
+          blush: { 50:'#fdf2f8',100:'#fce7f3',200:'#fbcfe8',300:'#f9a8d4',400:'#f472b6',500:'#ec4899',600:'#db2777' },
+          rose:  { 500:'#f43f5e', 600:'#e11d48' }
+        }
+      }}
+    };
+  </script>
+</head>
+<body class="font-sans bg-white text-neutral-800 antialiased">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 navbar-scrolled">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="../index.html" class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blush-400 to-rose-500 flex items-center justify-center shadow-md">
+            <i class="fa-solid fa-spa text-white text-sm"></i>
+          </div>
+          <span class="font-serif text-2xl font-bold text-neutral-800 tracking-wide" data-i18n="common.lumiere">Lumière</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="../index.html"  class="nav-link text-neutral-600 hover:text-neutral-900 font-medium text-sm tracking-wide" data-i18n="common.trang_chu">Trang Chủ</a>
+          <a href="products.html" class="nav-link text-neutral-600 hover:text-neutral-900 font-medium text-sm tracking-wide" data-i18n="common.san_pham">Sản Phẩm</a>
+          <a href="about.html"    class="nav-link text-blush-500 font-semibold text-sm tracking-wide" data-i18n="common.ve_chung_toi">Về Chúng Tôi</a>
+          <a href="contact.html"  class="nav-link text-neutral-600 hover:text-neutral-900 font-medium text-sm tracking-wide" data-i18n="common.lien_he">Liên Hệ</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="langToggleBtn" onclick="toggleLang()"
+            class="lang-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:bg-blush-50 text-xs font-semibold tracking-wider transition-all hover:scale-105">
+            <i class="fa-solid fa-globe text-xs"></i>
+            <span id="langLabel" data-i18n-skip>VI</span>
+          </button>
+          <button class="text-neutral-500 hover:text-neutral-800 p-2 rounded-full hover:bg-neutral-100 transition-all" onclick="openCart()">
+            <i class="fa-solid fa-bag-shopping text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header pt-36 pb-16 text-center">
+    <p class="text-blush-200 text-xs font-semibold uppercase tracking-widest mb-3" data-i18n="about.cau_chuyen_cua_chung_toi">Câu chuyện của chúng tôi</p>
+    <h1 class="font-serif text-4xl md:text-6xl font-bold text-white mb-4" data-i18n="about.ve_lumiere">Về Lumière</h1>
+    <p class="text-white/70 text-sm"><span data-i18n="common.trang_chu_2">Trang Chủ &nbsp;/&nbsp;</span> <span class="text-white" data-i18n="common.ve_chung_toi">Về Chúng Tôi</span></p>
+  </div>
+
+  <!-- MISSION -->
+  <section class="max-w-5xl mx-auto px-4 py-24 text-center">
+    <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-4" data-i18n="about.su_menh">Sứ Mệnh</p>
+    <h2 class="font-serif text-4xl md:text-5xl font-bold text-neutral-800 mb-6 leading-tight">
+      <span data-i18n="about.ve_dep_khong_phai_la_tieu_chuan">"Vẻ đẹp không phải là tiêu chuẩn,</span><br/>
+      <em class="text-blush-500" data-i18n="about.ve_dep_la_su_tu_tin">vẻ đẹp là sự tự tin."</em>
+    </h2>
+    <p class="text-neutral-500 text-lg leading-relaxed max-w-3xl mx-auto" data-i18n="about.lumiere_duoc_thanh_lap_nam_2018_voi_niem_tin">
+      Lumière được thành lập năm 2018 với niềm tin rằng mọi người phụ nữ đều xứng đáng được chăm sóc bởi những sản phẩm làm đẹp an toàn, hiệu quả và đẳng cấp — không phân biệt xuất phát điểm hay ngân sách.
+    </p>
+  </section>
+
+  <!-- STATS BANNER -->
+  <section class="bg-gradient-to-r from-blush-50 to-rose-50 py-16">
+    <div class="max-w-5xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <p class="font-serif text-5xl font-bold text-blush-500 mb-2">8+</p>
+        <p class="text-neutral-500 text-sm uppercase tracking-widest" data-i18n="about.nam_kinh_nghiem">Năm kinh nghiệm</p>
+      </div>
+      <div>
+        <p class="font-serif text-5xl font-bold text-blush-500 mb-2">200+</p>
+        <p class="text-neutral-500 text-sm uppercase tracking-widest" data-i18n="common.san_pham_2">Sản phẩm</p>
+      </div>
+      <div>
+        <p class="font-serif text-5xl font-bold text-blush-500 mb-2">5K+</p>
+        <p class="text-neutral-500 text-sm uppercase tracking-widest" data-i18n="common.khach_hang">Khách hàng</p>
+      </div>
+      <div>
+        <p class="font-serif text-5xl font-bold text-blush-500 mb-2">15+</p>
+        <p class="text-neutral-500 text-sm uppercase tracking-widest" data-i18n="about.quoc_gia">Quốc gia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="max-w-7xl mx-auto px-4 py-24">
+    <div class="text-center mb-14">
+      <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-3" data-i18n="about.gia_tri_cot_loi">Giá Trị Cốt Lõi</p>
+      <h2 class="font-serif text-4xl font-bold text-neutral-800" data-i18n="about.nhung_dieu_chung_toi_tin">Những Điều Chúng Tôi Tin</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="p-8 rounded-3xl bg-gradient-to-br from-blush-50 to-rose-50 border border-blush-100 text-center hover:-translate-y-2 transition-transform">
+        <div class="w-16 h-16 rounded-2xl bg-blush-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blush-200">
+          <i class="fa-solid fa-leaf text-white text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-neutral-800" data-i18n="about.thien_nhien_an_toan">Thiên Nhiên &amp; An Toàn</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed" data-i18n="about.tat_ca_san_pham_duoc_chiet_xuat_tu_thien_nhien">Tất cả sản phẩm được chiết xuất từ thiên nhiên, không chứa paraben, cruelty-free và thân thiện với môi trường.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 text-center hover:-translate-y-2 transition-transform">
+        <div class="w-16 h-16 rounded-2xl bg-purple-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-purple-200">
+          <i class="fa-solid fa-flask text-white text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-neutral-800" data-i18n="about.khoa_hoc_doi_moi">Khoa Học &amp; Đổi Mới</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed" data-i18n="about.phong_lab_nghien_cuu_hien_dai_hop_tac_cung_cac">Phòng lab nghiên cứu hiện đại, hợp tác cùng các chuyên gia da liễu hàng đầu để mang lại công thức tối ưu nhất.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100 text-center hover:-translate-y-2 transition-transform">
+        <div class="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-amber-200">
+          <i class="fa-solid fa-heart text-white text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-neutral-800" data-i18n="about.trao_yeu_thuong">Trao Yêu Thương</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed" data-i18n="about.10_loi_nhuan_duoc_trao_tang_cho_cac_chuong_trinh">10% lợi nhuận được trao tặng cho các chương trình hỗ trợ phụ nữ khởi nghiệp và bảo vệ môi trường.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="bg-neutral-50 py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-14">
+        <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-3" data-i18n="about.con_nguoi">Con Người</p>
+        <h2 class="font-serif text-4xl font-bold text-neutral-800" data-i18n="about.doi_ngu_sang_lap">Đội Ngũ Sáng Lập</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+        <div class="text-center group">
+          <div class="w-28 h-28 rounded-full bg-gradient-to-br from-blush-300 to-rose-400 mx-auto mb-5 flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-user text-white text-4xl"></i>
+          </div>
+          <h4 class="font-serif text-lg font-bold text-neutral-800" data-i18n="about.linh_nguyen">Linh Nguyễn</h4>
+          <p class="text-blush-500 text-sm mb-2" data-i18n="about.ceo_co_founder">CEO &amp; Co-Founder</p>
+          <p class="text-neutral-400 text-xs leading-relaxed" data-i18n="about.15_nam_kinh_nghiem_trong_nganh_lam_dep_tung_la">15 năm kinh nghiệm trong ngành làm đẹp, từng là Beauty Director tại L'Oréal Paris.</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-28 h-28 rounded-full bg-gradient-to-br from-purple-300 to-indigo-400 mx-auto mb-5 flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-user text-white text-4xl"></i>
+          </div>
+          <h4 class="font-serif text-lg font-bold text-neutral-800" data-i18n="about.ha_tran">Hà Trần</h4>
+          <p class="text-blush-500 text-sm mb-2" data-i18n="about.head_of_r_d">Head of R&D</p>
+          <p class="text-neutral-400 text-xs leading-relaxed" data-i18n="about.tien_si_hoa_hoc_chuyen_gia_cong_thuc_my_pham_huu">Tiến sĩ Hóa học, chuyên gia công thức mỹ phẩm hữu cơ với 50+ bằng sáng chế quốc tế.</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-28 h-28 rounded-full bg-gradient-to-br from-amber-300 to-orange-400 mx-auto mb-5 flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-user text-white text-4xl"></i>
+          </div>
+          <h4 class="font-serif text-lg font-bold text-neutral-800" data-i18n="about.mai_le">Mai Lê</h4>
+          <p class="text-blush-500 text-sm mb-2" data-i18n="about.creative_director">Creative Director</p>
+          <p class="text-neutral-400 text-xs leading-relaxed" data-i18n="about.designer_my_pham_va_makeup_artist_da_cong_tac">Designer mỹ phẩm và makeup artist đã cộng tác cùng Vogue Việt Nam, Harper's Bazaar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 px-4 text-center">
+    <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-4" data-i18n="about.bat_dau_hanh_trinh">Bắt Đầu Hành Trình</p>
+    <h2 class="font-serif text-4xl md:text-5xl font-bold text-neutral-800 mb-6"><span data-i18n="about.kham_pha_bo_suu_tap">Khám phá bộ sưu tập</span><br/><span data-i18n="about.cua_chung_toi">của chúng tôi</span></h2>
+    <a href="products.html"
+      class="inline-flex items-center gap-2 bg-gradient-to-r from-blush-500 to-rose-500 text-white font-semibold px-10 py-4 rounded-full hover:shadow-xl hover:scale-105 transition-all text-sm">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span data-i18n="about.mua_sam_ngay">Mua Sắm Ngay</span>
+    </a>
+  </section>
+
+  <!-- CART DRAWER -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity" onclick="closeCart()"></div>
+  <div id="cartDrawer" class="fixed top-0 right-0 h-full w-80 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300">
+    <div class="flex items-center justify-between p-6 border-b">
+      <h3 class="font-serif text-xl font-bold" data-i18n="common.gio_hang">Giỏ Hàng</h3>
+      <button onclick="closeCart()" class="w-8 h-8 rounded-full hover:bg-neutral-100 flex items-center justify-center"><i class="fa-solid fa-xmark text-neutral-500"></i></button>
+    </div>
+    <div class="p-6"><p class="text-neutral-400 text-sm text-center mt-10" data-i18n="common.gio_hang_trong">Giỏ hàng trống</p></div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-neutral-900 text-white px-6 py-3.5 rounded-full shadow-xl flex items-center gap-3 text-sm font-medium translate-y-20 opacity-0 transition-all duration-300">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMsg"></span>
+  </div>
+
+  <button id="scrollTopBtn" onclick="scrollToTop()"
+    class="fixed bottom-6 right-6 w-11 h-11 bg-blush-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all hover:scale-110 z-30">
+    <i class="fa-solid fa-chevron-up text-sm"></i>
+  </button>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <!-- Translation Manager: cấu hình tải từ trang Phát hành, client đọc gói đã phát hành -->
+<script src="../translation-manager.config.js"></script>
+<script src="../translation-manager.js"></script>
+<script src="../js/lang.js"></script>
+</body>
+</html>

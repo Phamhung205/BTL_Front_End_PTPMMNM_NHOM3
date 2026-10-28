@@ -98,6 +98,7 @@ Hợp đồng cần thống nhất khi bàn giao phần API:
 | Đăng nhập từ server/script | POST `/api/auth/login`, email/password → token |
 | Import nguồn | POST `/api/projects/{id}/source-versions/import`, `{versionName, rawJson}` |
 | Liệt kê khóa để lấy stringId | GET `/api/projects/{id}/translations?locale=vi` |
+| Nhập bản dịch có sẵn của website (Manager) | POST `/api/projects/{id}/translations/import`, `{localeCode, rawJson, status: "translated"\|"draft", overwrite}` — không tự duyệt; sai biến lưu nháp; báo cáo khóa không có trong nguồn/rỗng/giữ bản cũ |
 | Phân công | PUT `/api/projects/{id}/translations/assign`, `{localeCode,stringIds,userId}` |
 | Lưu/gửi duyệt | POST `/api/projects/{id}/translations`, `{stringId,localeCode,value,status,expectedRowVersion}` |
 | Duyệt | POST `/api/projects/{id}/translations/{translationId}/approve`, `{expectedRowVersion}` |
@@ -139,4 +140,8 @@ Chọn cách chuyển dần sang khóa giao diện:
 4. Import toàn bộ nguồn, dịch/duyệt rồi tải JSON đã phát hành. Cách đọc và thay text có trong `examples/website/app.js`.
 5. Bài viết hoặc mô tả sản phẩm lưu trong CSDL nên có bảng nội dung theo locale, không trộn mọi dữ liệu động vào gói nhãn UI. Không thể chỉ import JSON rồi tự động dịch một website đang hardcode chữ; website cần bước gắn khóa này.
 
-Mỗi lần nhập nguồn là toàn bộ snapshot; khóa vắng mặt được hiểu là đã xóa. Không import một đoạn JSON nhỏ để cập nhật vài câu của dự án lớn.
+Mỗi lần nhập nguồn là toàn bộ snapshot; khóa vắng mặt được hiểu là đã xóa. Không import một đoạn JSON nhỏ để cập nhật vài câu của dự án lớn. Trang Phiên bản nguồn cho chọn **nhiều tệp cùng lúc** (ví dụ `vi.json` + `vi 2.json`) để gộp thành một snapshot, và hộp xác nhận **xem trước** số khóa mới/sửa/giữ nguyên/sẽ bị xóa kèm danh sách khóa sẽ bị xóa trước khi nhập.
+
+Bản dịch đã có sẵn của website (en.json, ja.json...) nhập ở trang **Bản dịch → Nhập bản dịch từ tệp JSON** cho ngôn ngữ đích đang chọn (cũng chọn được nhiều tệp). Công cụ chuẩn bị website và 3 website mẫu đã chuẩn bị sẵn: [web-sample-import/README.md](../web-sample-import/README.md) — `scripts/website-i18n/prepare-site.mjs` tách chữ HTML thành khóa + JSON nguồn, `scripts/website-i18n/js-dictionary-to-json.mjs` chuyển từ điển kiểu `languages.js` sang JSON.
+
+Bộ kiểm thử theo 5 phép thử bắt buộc và 2 tình huống của đề tài: [PHEP_THU_BAT_BUOC.md](PHEP_THU_BAT_BUOC.md).

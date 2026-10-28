@@ -1,5 +1,7 @@
 # Review đề tài 3 sau cập nhật ngày 28 tháng 10 năm 2026
 
+> Báo cáo lịch sử. Kết quả sau đợt hoàn thiện mới nhất và cách trình diễn: [DEMO_NHOM3.md](DEMO_NHOM3.md). Fashion hiện đã đủ bản dịch vi/en/ja; bộ tổng đạt 21/21 và Chrome 45/45.
+
 Đã đối chiếu mã frontend, backend độc lập và backend đi kèm với đề tài 3 trong DE_TAI_BTL.docx, gồm yêu cầu chung, năm nhóm chức năng, hai yêu cầu kỹ thuật, dữ liệu, hai tình huống và năm phép thử bắt buộc.
 
 **Kết luận:** các nhóm chức năng và cơ chế xử lý chính đã có triển khai, dữ liệu demo và kiểm thử tương ứng. Hồ sơ nộp bài vẫn cần nhóm hoàn thiện LICENSE, thông tin/phân công thành viên, minh chứng cộng tác và release GitHub; công nghệ backend C# cần giảng viên duyệt theo yêu cầu chung. Chưa đủ căn cứ kết luận nghiệm thu hoặc chấm điểm cuối cùng.

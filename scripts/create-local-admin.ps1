@@ -1,5 +1,12 @@
-param([string]$Email = 'admin@translationmanager.local')
+﻿param([string]$Email = 'admin@translationmanager.local')
 $ErrorActionPreference = 'Stop'
+# Tương thích Windows PowerShell 5.1 (.NET Framework không có RandomNumberGenerator.GetBytes(int)).
+function New-RandomBase64([int]$Count) {
+    $bytes = New-Object byte[] $Count
+    $generator = [Security.Cryptography.RandomNumberGenerator]::Create()
+    try { $generator.GetBytes($bytes) } finally { $generator.Dispose() }
+    return [Convert]::ToBase64String($bytes)
+}
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $backendDirectory = Join-Path $projectRoot 'backend\TranslationManager.Backend'
 $privateDirectory = Join-Path $projectRoot '.local'
@@ -9,7 +16,7 @@ if (Test-Path -LiteralPath $accountPath) {
     $account = Get-Content -LiteralPath $accountPath -Raw | ConvertFrom-Json
     if ($account.email -ne $Email) { throw 'File Admin riêng đã thuộc email khác. Không ghi đè thông tin đang có.' }
 } else {
-    $account = @{ email = $Email; password = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(24)); displayName = 'Quản trị hệ thống'; database = 'translation_manager'; port = 3306 }
+    $account = @{ email = $Email; password = (New-RandomBase64 24); displayName = 'Quản trị hệ thống'; database = 'translation_manager'; port = 3306 }
     $account | ConvertTo-Json | Set-Content -LiteralPath $accountPath -Encoding utf8
 }
 $settings = Get-Content -LiteralPath (Join-Path $backendDirectory 'appsettings.json') -Raw | ConvertFrom-Json
@@ -22,7 +29,7 @@ $savedEnvironment = @{}
 foreach ($key in @('ConnectionStrings__Default','Jwt__Key','BootstrapAdmin__Email','BootstrapAdmin__DisplayName','BootstrapAdmin__Password')) { $savedEnvironment[$key] = [Environment]::GetEnvironmentVariable($key,'Process') }
 try {
     $env:ConnectionStrings__Default = $connection.get_ConnectionString()
-    $env:Jwt__Key = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(64))
+    $env:Jwt__Key = New-RandomBase64 64
     $env:BootstrapAdmin__Email = $account.email; $env:BootstrapAdmin__DisplayName = $account.displayName; $env:BootstrapAdmin__Password = $account.password
     Push-Location -LiteralPath $backendDirectory
     try { dotnet (Join-Path $backendDirectory 'bin\Debug\net10.0\TranslationManager.Api.dll') --create-local-admin }

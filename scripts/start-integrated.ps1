@@ -1,9 +1,24 @@
-param([ValidateSet('translation_manager', 'translation_manager_demo')][string]$DatabaseName = 'translation_manager')
+﻿param([ValidateSet('translation_manager', 'translation_manager_demo')][string]$DatabaseName = 'translation_manager')
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $ErrorActionPreference = 'Stop'
+# Tương thích Windows PowerShell 5.1 (.NET Framework không có RandomNumberGenerator.GetBytes(int)).
+function New-RandomBase64([int]$Count) {
+    $bytes = New-Object byte[] $Count
+    $generator = [Security.Cryptography.RandomNumberGenerator]::Create()
+    try { $generator.GetBytes($bytes) } finally { $generator.Dispose() }
+    return [Convert]::ToBase64String($bytes)
+}
 Set-Location -LiteralPath $projectRoot
 $localRoot = Join-Path $projectRoot '.local'
 $dbDirectory = Join-Path $localRoot 'mysql-api'
+# mysql_install_db.exe/mysqld của MariaDB không mở được thư mục có ký tự Unicode (ví dụ tên tiếng Việt có dấu).
+if ($dbDirectory -match '[^\u0000-\u007F]') {
+    throw ("Đường dẫn dự án có ký tự Unicode nên MariaDB không tạo được CSDL demo: $projectRoot`n" +
+        "Tạo junction ASCII rồi chạy lại script từ đó (không cần quyền admin, không sao chép file):`n" +
+        "  New-Item -ItemType Directory -Force C:\TMWork | Out-Null`n" +
+        "  cmd /c mklink /J C:\TMWork\BTL_Front_End_PTPMMNM_NHOM3 `"$projectRoot`"`n" +
+        "  cd C:\TMWork\BTL_Front_End_PTPMMNM_NHOM3; .\scripts\prepare-demo.ps1")
+}
 $backendDirectory = Join-Path $projectRoot 'backend\TranslationManager.Backend'
 $mysqlBin = 'C:\xampp\mysql\bin'
 $phpPath = 'C:\xampp\php\php.exe'
@@ -34,14 +49,20 @@ if (!(Assert-OwnedPort 3307 (Join-Path $dbDirectory 'my.ini'))) {
 }
 # Chỉ nạp schema vào MariaDB riêng tại cổng 3307 đã xác minh ở trên.
 function Read-DatabaseSql([string]$Path) { return ([IO.File]::ReadAllText($Path) -replace '\btranslation_manager\b', $DatabaseName) }
-Read-DatabaseSql (Join-Path $backendDirectory 'database\schema.sql') | & (Join-Path $mysqlBin 'mysql.exe') --host=127.0.0.1 --port=3307 --user=root --default-character-set=utf8mb4
-if ($LASTEXITCODE -ne 0) { throw 'Không nạp được schema.' }
-Read-DatabaseSql (Join-Path $backendDirectory 'database\seed.sql') | & (Join-Path $mysqlBin 'mysql.exe') --host=127.0.0.1 --port=3307 --user=root --default-character-set=utf8mb4
-if ($LASTEXITCODE -ne 0) { throw 'Không nạp được locale seed.' }
+function Install-DatabaseSql([string]$Path) {
+    # PowerShell 5.1 otherwise encodes native stdin as ASCII, replacing Vietnamese/Chinese with '?'.
+    $savedSqlEncoding = $script:OutputEncoding
+    $script:OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+    try {
+        Read-DatabaseSql $Path | & (Join-Path $mysqlBin 'mysql.exe') --host=127.0.0.1 --port=3307 --user=root --default-character-set=utf8mb4
+        if ($LASTEXITCODE -ne 0) { throw "Không nạp được SQL: $Path" }
+    } finally { $script:OutputEncoding = $savedSqlEncoding }
+}
+Install-DatabaseSql (Join-Path $backendDirectory 'database\schema.sql')
+Install-DatabaseSql (Join-Path $backendDirectory 'database\seed.sql')
 # Upgrade only this isolated database; CREATE TABLE IF NOT EXISTS cannot upgrade existing tables.
 foreach ($migration in @('002_duc_translation_release.sql', '003_manh_source_management.sql', '004_system_admin.sql')) {
-    Read-DatabaseSql (Join-Path $backendDirectory ('database\migrations\' + $migration)) | & (Join-Path $mysqlBin 'mysql.exe') --host=127.0.0.1 --port=3307 --user=root --default-character-set=utf8mb4
-    if ($LASTEXITCODE -ne 0) { throw "Không nâng cấp được database kiểm thử: $migration" }
+    Install-DatabaseSql (Join-Path $backendDirectory ('database\migrations\' + $migration))
 }
 $jwtFile = Join-Path $localRoot 'backend-jwt.key'
 $runtimeFile = Join-Path $localRoot 'integrated-runtime.json'
@@ -57,10 +78,10 @@ if ($backendListener -and ($previousDatabase -ne $DatabaseName -or $previousPort
 $previousKey = Join-Path $localRoot ('backend-jwt.' + $previousDatabase + '.key')
 if ($previousPort -eq 3307 -and (Test-Path -LiteralPath $jwtFile) -and !(Test-Path -LiteralPath $previousKey)) { Copy-Item -LiteralPath $jwtFile -Destination $previousKey }
 $databaseKey = Join-Path $localRoot ('backend-jwt.' + $DatabaseName + '.key')
-if (!(Test-Path -LiteralPath $databaseKey)) { [IO.File]::WriteAllText($databaseKey, [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(64))) }
+if (!(Test-Path -LiteralPath $databaseKey)) { [IO.File]::WriteAllText($databaseKey, (New-RandomBase64 64)) }
 Copy-Item -LiteralPath $databaseKey -Destination $jwtFile -Force
 if (!(Test-Path -LiteralPath $jwtFile)) {
-    [IO.File]::WriteAllText($jwtFile, [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(64)))
+    [IO.File]::WriteAllText($jwtFile, (New-RandomBase64 64))
 }
 if (!$backendListener) {
     dotnet restore (Join-Path $backendDirectory 'TranslationManager.Api.csproj') --packages (Join-Path $localRoot 'nuget')

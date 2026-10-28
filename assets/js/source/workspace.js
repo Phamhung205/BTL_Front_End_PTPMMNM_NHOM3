@@ -391,38 +391,43 @@ function removeSourceLocale(locale) {
     });
 }
 
-// Đọc nội dung file JSON người dùng đã chọn.
+// Đọc tệp JSON đã chọn; nhiều tệp của cùng ngôn ngữ nguồn (vd. vi.json + "vi 2.json") được gộp theo khóa.
 async function readSourceFile(event) {
     const request = ++sourceWorkspace.fileRequest;
-    const file = event.target.files?.[0];
+    const files = [...(event.target.files || [])];
+    setTextContent('source-file-summary', '');
 
-    if (!file) {
+    if (!files.length) {
         sourceWorkspace.readingFile = false;
         return;
     }
 
     const textarea = document.getElementById('source-json');
     textarea.value = '';
-
-    if (file.size > 2 * 1024 * 1024) {
-        sourceWorkspace.readingFile = false;
-        sourceError('Tệp JSON nguồn tối đa 2 MB.');
-        event.target.value = '';
-        return;
-    }
-
     sourceWorkspace.readingFile = true;
 
     try {
-        const text = await file.text();
+        const documents = await readLocaleJsonFiles(files);
 
         if (request !== sourceWorkspace.fileRequest) return;
 
-        textarea.value = text.replace(/^\uFEFF/, '');
+        if (documents.length === 1) {
+            textarea.value = documents[0].text;
+        } else {
+            const merged = mergeLocaleJsonDocuments(documents);
+            textarea.value = localeJsonFromMap(merged);
+            setTextContent(
+                'source-file-summary',
+                'Đã gộp ' + documents.length + ' tệp (' +
+                documents.map(item => item.name).join(', ') +
+                ') thành ' + merged.size + ' khóa.'
+            );
+        }
         hideElement('source-error');
-    } catch (_) {
+    } catch (error) {
         if (request === sourceWorkspace.fileRequest) {
-            sourceError('Không đọc được tệp JSON. Hãy thử lại.');
+            sourceError(error.message || 'Không đọc được tệp JSON. Hãy thử lại.');
+            event.target.value = '';
         }
     } finally {
         if (request === sourceWorkspace.fileRequest) {
@@ -431,8 +436,13 @@ async function readSourceFile(event) {
     }
 }
 
-// SỬA LỖI: Chấp nhận khóa có dấu chấm và object lồng nhau.
+// Kiểm tra JSON nguồn; trả về số khóa (giữ hợp đồng cũ).
 function validateSourceJson(rawJson) {
+    return readSourceValues(rawJson).size;
+}
+
+// Chấp nhận khóa có dấu chấm và object lồng nhau; trả về bảng khóa → nội dung nguồn.
+function readSourceValues(rawJson) {
     if (new TextEncoder().encode(rawJson).length > 2 * 1024 * 1024) {
         throw new Error('JSON nguồn tối đa 2 MB.');
     }
@@ -440,90 +450,48 @@ function validateSourceJson(rawJson) {
     let data;
 
     try {
-        data = JSON.parse(rawJson);
-    } catch (_) {
+        data = parseLocaleJson(rawJson);
+    } catch (error) {
+        if (!(error instanceof SyntaxError)) throw error;
         throw new Error(
             'JSON sai cú pháp. Hãy kiểm tra dấu ngoặc, dấu phẩy và dấu nháy kép.'
         );
     }
 
-    let count = 0;
-    const paths = new Set();
+    // Cùng quy tắc với Backend: object lồng nhau, giá trị chuỗi, không mảng/object rỗng/khóa xung đột.
+    const values = mergeLocaleJsonDocuments([{ name: 'JSON nguồn', data }]);
 
-    const walk = (node, path, depth) => {
-        if (depth > 64) {
-            throw new Error('JSON vượt quá độ sâu 64 cấp.');
-        }
-
-        if (typeof node === 'string' && path) {
-            if (node.length > 10000) {
-                throw new Error('Mỗi nội dung nguồn tối đa 10000 ký tự.');
-            }
-
-            if (paths.has(path)) {
-                throw new Error('Khóa dịch bị trùng đường dẫn: ' + path);
-            }
-
-            paths.add(path);
-            count++;
-            return;
-        }
-
-        if (!node ||
-            typeof node !== 'object' ||
-            Array.isArray(node) ||
-            !Object.keys(node).length) {
-            throw new Error(
-                'Nguồn phải là object lồng nhau với giá trị chuỗi, không chứa object rỗng hoặc mảng.'
-            );
-        }
-
-        Object.entries(node).forEach(([key, value]) => {
-            // Hỗ trợ:
-            // {"home.title": "Trang chủ"}
-            // {"home": {"title": "Trang chủ"}}
-            if (key.split('.').some(segment =>
-                !segment || segment !== segment.trim()
-            )) {
-                throw new Error(
-                    'Tên khóa không được có đoạn rỗng hoặc khoảng trắng đầu/cuối (ví dụ: home.title).'
-                );
-            }
-
-            const next = path ? path + '.' + key : key;
-
-            if (next.length > 500) {
-                throw new Error('Đường dẫn khóa JSON tối đa 500 ký tự.');
-            }
-
-            walk(value, next, depth + 1);
-        });
-    };
-
-    walk(data, '', 1);
-
-    // Phát hiện xung đột giữa khóa cha và khóa con.
-    for (const path of paths) {
-        for (
-            let dot = path.indexOf('.');
-            dot !== -1;
-            dot = path.indexOf('.', dot + 1)
-        ) {
-            const parent = path.slice(0, dot);
-
-            if (paths.has(parent)) {
-                throw new Error(
-                    'Khóa dịch xung đột: "' + parent +
-                    '" vừa là chuỗi vừa là nhóm của "' + path + '".'
-                );
-            }
+    for (const value of values.values()) {
+        if (value.length > 10000) {
+            throw new Error('Mỗi nội dung nguồn tối đa 10000 ký tự.');
         }
     }
 
-    return count;
+    return values;
 }
 
-function confirmSourceImport(event) {
+/** So sánh nguồn mới với khóa đang dùng để Manager thấy trước khóa mới / sửa / sẽ bị đánh dấu xóa. */
+async function previewSourceImport(values) {
+    const result = await apiGet(sourceRoute('translationKeys'), { query: { q: '', status: 'active' } });
+    const current = result.success ? apiCollection(result.data) : null;
+    if (!current) throw new Error('Không tải được nguồn hiện tại để xem trước khác biệt. Hãy thử lại trước khi nhập.');
+
+    const active = new Map(current.map(key => [key.key, key.sourceText]));
+    const preview = { added: 0, changed: 0, unchanged: 0, deleted: [] };
+
+    values.forEach((value, key) => {
+        if (!active.has(key)) preview.added++;
+        else if (active.get(key) !== value) preview.changed++;
+        else preview.unchanged++;
+    });
+    active.forEach((_, key) => {
+        if (!values.has(key)) preview.deleted.push(key);
+    });
+
+    return preview;
+}
+
+async function confirmSourceImport(event) {
     event.preventDefault();
 
     if (!sourceManager()) return;
@@ -538,30 +506,62 @@ function confirmSourceImport(event) {
         .value.trim();
 
     const rawJson = document.getElementById('source-json').value;
-    let count;
+    let values;
 
     try {
         if (!versionName || versionName.length > 120) {
             throw new Error('Tên phiên bản cần từ 1 đến 120 ký tự.');
         }
 
-        count = validateSourceJson(rawJson);
+        values = readSourceValues(rawJson);
     } catch (error) {
         sourceError(error.message);
         return;
     }
+
+    const project = sourceWorkspace.project;
+    let preview;
+    try { preview = await previewSourceImport(values); }
+    catch (error) {
+        if (sourceWorkspace.project === project) sourceError(error.message || 'Không tải được nguồn hiện tại. Hãy thử lại.');
+        return;
+    }
+
+    if (sourceWorkspace.project !== project) return;
 
     const content = document.createElement('div');
     content.className = 'space-y-4';
 
     const note = document.createElement('p');
     note.textContent = 'Nhập phiên bản “' + versionName +
-        '” với ' + count + ' khóa vào ' +
-        sourceWorkspace.project.name +
+        '” với ' + values.size + ' khóa vào ' +
+        project.name +
         '? Khóa cũ vắng mặt sẽ được đánh dấu đã xóa. Nguồn thay đổi sẽ yêu cầu xem lại bản dịch liên quan.';
+    content.append(note);
+
+    // Xem trước khác biệt so với nguồn đang dùng.
+    if (preview) {
+        const summary = document.createElement('p');
+        summary.className = 'text-sm font-medium';
+        summary.textContent = 'So với nguồn đang dùng: +' + preview.added + ' khóa mới · ' +
+            preview.changed + ' khóa sửa nội dung · ' +
+            preview.unchanged + ' giữ nguyên · ' +
+            preview.deleted.length + ' khóa sẽ bị đánh dấu xóa.';
+        content.append(summary);
+
+        if (preview.deleted.length) {
+            const warning = document.createElement('p');
+            warning.className = 'text-sm text-amber-700';
+            warning.textContent = 'Các khóa sau không có trong tệp mới: ' +
+                preview.deleted.slice(0, 15).join(', ') +
+                (preview.deleted.length > 15 ? ' … và ' + (preview.deleted.length - 15) + ' khóa khác' : '') +
+                '. Nếu tệp chỉ chứa một phần nguồn, hãy chọn đồng thời mọi tệp nguồn để không mất khóa không liên quan.';
+            content.append(warning);
+        }
+    }
 
     const error = modalError('source-import-error');
-    content.append(note, error);
+    content.append(error);
 
     const endpoint = sourceRoute('sourceVersions') + '/import';
 

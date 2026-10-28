@@ -196,6 +196,79 @@ function collectionState(prefix, state, message) {
     const error = document.querySelector('#' + prefix + '-error .error-message');
     if (error && message) error.textContent = message;
 }
+// ===== Đọc và gộp tệp JSON ngôn ngữ (dùng cho nhập nguồn và nhập bản dịch) =====
+const LOCALE_JSON_MAX_BYTES = 2 * 1024 * 1024;
+// JSON.parse normally discards repeated property names before validation can see them.
+function parseLocaleJson(text) {
+    const data = JSON.parse(text);
+    const stack = [];
+    for (const token of text.match(/"(?:\\[\s\S]|[^"\\])*"|[{}\[\]:,]|[^\s{}\[\]:,"]+/g) || []) {
+        const frame = stack.at(-1);
+        if (token === '{' || token === '[') {
+            stack.push({ object: token === '{', key: true, names: new Set() });
+            if (stack.length > 64) throw new Error('JSON vượt quá độ sâu 64 cấp.');
+        } else if (token === '}' || token === ']') stack.pop();
+        else if (frame?.object && token === ',') frame.key = true;
+        else if (frame?.object && token === ':') frame.key = false;
+        else if (frame?.object && frame.key && token.startsWith('"')) {
+            const name = JSON.parse(token);
+            if (frame.names.has(name)) throw new Error('Khóa JSON bị lặp: ' + name);
+            frame.names.add(name);
+        }
+    }
+    return data;
+}
+async function readLocaleJsonFiles(fileList) {
+    const files = [...(fileList || [])];
+    if (!files.length) throw new Error('Chưa chọn tệp JSON.');
+    if (files.reduce((total, file) => total + file.size, 0) > LOCALE_JSON_MAX_BYTES) throw new Error('Tổng dung lượng các tệp JSON tối đa 2 MB.');
+    const documents = [];
+    for (const file of files) {
+        const text = (await file.text()).replace(/^﻿/, '');
+        try { documents.push({ name: file.name, text, data: parseLocaleJson(text) }); }
+        catch (error) { throw new Error(file.name + ': ' + (error instanceof SyntaxError ? 'JSON sai cú pháp. Hãy kiểm tra dấu ngoặc, dấu phẩy và dấu nháy kép.' : error.message)); }
+    }
+    return documents;
+}
+/** Gộp nhiều tệp (ví dụ vi.json + "vi 2.json") thành một bảng khóa phẳng; cùng khóa khác nội dung thì báo lỗi. */
+function mergeLocaleJsonDocuments(documents) {
+    const values = new Map(), origin = new Map();
+    let documentPaths;
+    const walk = (node, path, file, depth) => {
+        if (depth > 64) throw new Error(file + ': JSON vượt quá độ sâu 64 cấp.');
+        if (typeof node === 'string' && path) {
+            if (documentPaths.has(path)) throw new Error(file + ': khóa dịch bị trùng đường dẫn: ' + path);
+            documentPaths.add(path);
+            if (values.has(path) && values.get(path) !== node) throw new Error('Khóa "' + path + '" có nội dung khác nhau trong ' + origin.get(path) + ' và ' + file + '.');
+            values.set(path, node); origin.set(path, file); return;
+        }
+        if (!node || typeof node !== 'object' || Array.isArray(node) || !Object.keys(node).length)
+            throw new Error(file + ': chỉ hỗ trợ object lồng nhau với giá trị chuỗi; không dùng mảng, số, null hoặc object rỗng (tại "' + (path || 'gốc') + '").');
+        Object.entries(node).forEach(([key, value]) => {
+            if (key.split('.').some(segment => !segment || segment !== segment.trim())) throw new Error(file + ': tên khóa "' + key + '" không hợp lệ.');
+            const next = path ? path + '.' + key : key;
+            if (next.length > 500) throw new Error(file + ': đường dẫn khóa tối đa 500 ký tự.');
+            walk(value, next, file, depth + 1);
+        });
+    };
+    documents.forEach(item => { documentPaths = new Set(); walk(item.data, '', item.name, 1); });
+    for (const key of values.keys()) {
+        for (let dot = key.indexOf('.'); dot !== -1; dot = key.indexOf('.', dot + 1)) {
+            if (values.has(key.slice(0, dot))) throw new Error('Khóa "' + key.slice(0, dot) + '" vừa là chuỗi vừa là nhóm của "' + key + '".');
+        }
+    }
+    return values;
+}
+/** Chuyển bảng khóa phẳng về JSON lồng nhau để người dùng đọc lại trước khi nhập. */
+function localeJsonFromMap(values) {
+    const root = Object.create(null);
+    [...values.keys()].sort().forEach(key => {
+        const parts = key.split('.'); let node = root;
+        parts.slice(0, -1).forEach(part => { node = node[part] ??= Object.create(null); });
+        node[parts.at(-1)] = values.get(key);
+    });
+    return JSON.stringify(root, null, 2);
+}
 function loadUserDisplay() {
     let user = {};
     try { user = JSON.parse(sessionStorage.getItem('user_display') || '{}'); } catch (_) {}

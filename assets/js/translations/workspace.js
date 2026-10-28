@@ -2,7 +2,7 @@
 const workflow = { module: '', projects: [], project: null, members: [], locales: [], rows: [], stats: [], selected: new Set(), selectionAnchor: null, request: 0, detail: 0, page: 1, activityPage: 1, busy: false, ready: false };
 const workflowPaths = { languages: 'languages', source_versions: 'source-versions', translation_keys: 'translation-keys', translations: 'translations', reviews: 'reviews', releases: 'releases', history: 'history' };
 const translationLabels = { missing: 'Chưa dịch', draft: 'Nháp', translated: 'Chờ duyệt', needs_review: 'Cần sửa / nguồn thay đổi', approved: 'Đã duyệt' };
-const activityLabels = { created: 'Tạo bản ghi dịch', saved_draft: 'Lưu nháp', submitted: 'Gửi duyệt', approved: 'Duyệt bản dịch', rejected: 'Từ chối bản dịch', assigned: 'Phân công', unassigned: 'Gỡ phân công', commented: 'Bình luận', source_imported: 'Nhập nguồn', published: 'Phát hành' };
+const activityLabels = { created: 'Tạo bản ghi dịch', imported: 'Nhập bản dịch từ tệp', saved_draft: 'Lưu nháp', submitted: 'Gửi duyệt', approved: 'Duyệt bản dịch', rejected: 'Từ chối bản dịch', assigned: 'Phân công', unassigned: 'Gỡ phân công', commented: 'Bình luận', source_imported: 'Nhập nguồn', published: 'Phát hành' };
 const wf = id => document.getElementById(id);
 const wfRoute = name => apiEndpoint(name, workflow.project?.id);
 const wfManager = () => projectRole(workflow.project) === 'manager';
@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wf('translation-clear-selection')?.addEventListener('click', () => { workflow.selected.clear(); workflow.selectionAnchor = null; renderTranslations(); });
     wf('bulk-delete')?.addEventListener('click', deleteSelectedWorkflowTranslations);
     wf('bulk-create-missing')?.addEventListener('click', createMissingWorkflowTranslations);
+    wf('bulk-import-translations')?.addEventListener('click', importWorkflowTranslations);
     wf('release-form')?.addEventListener('submit', publishWorkflowRelease);
     wf('release-api-config-download')?.addEventListener('click', downloadPublishedApiConfig);
     wf('release-api-config-copy')?.addEventListener('click', copyPublishedApiConfig);
@@ -300,6 +301,77 @@ function createMissingWorkflowTranslations() {
         () => apiPost(route, { localeCode: locale }),
         data => `Đã thêm ${data.created} bản ghi dịch trống; giữ nguyên ${data.existing} bản ghi đã có.`,
         { confirmText: 'Thêm tất cả', busyText: 'Đang thêm...' });
+}
+/** Nhập bản dịch có sẵn của website (en.json, en2.json...) cho ngôn ngữ đích đang chọn; bản nhập vào vẫn phải duyệt. */
+function importWorkflowTranslations() {
+    if (!wfManager() || workflow.busy) return;
+    const projectId = workflow.project.id, locale = wf('translation-locale').value;
+    const localeLabel = wf('translation-locale').selectedOptions[0]?.textContent || locale;
+    const form = document.createElement('form'); form.className = 'space-y-4';
+    form.append(wfText('p', `Nhập bản dịch có sẵn cho ${localeLabel}. Có thể chọn nhiều tệp của cùng ngôn ngữ (ví dụ en.json và en2.json); các tệp được gộp theo khóa.`, 'text-sm'));
+    const file = modalField(form, 'translation-import-file', 'Tệp JSON bản dịch', '', 'file');
+    file.accept = '.json,application/json'; file.multiple = true;
+    const summary = wfText('p', 'Chưa chọn tệp.', 'text-sm text-gray-600'); summary.setAttribute('role', 'status'); form.append(summary);
+    const status = modalField(form, 'translation-import-status', 'Trạng thái sau khi nhập', '', 'select');
+    wfOption(status, 'translated', 'Gửi duyệt — Reviewer xác nhận trước khi phát hành'); wfOption(status, 'draft', 'Lưu nháp');
+    status.value = 'translated';
+    const overwriteLabel = document.createElement('label'); overwriteLabel.className = 'flex items-start gap-2 text-sm';
+    const overwrite = document.createElement('input'); overwrite.type = 'checkbox'; overwrite.id = 'translation-import-overwrite'; overwrite.className = 'mt-1';
+    overwriteLabel.append(overwrite, wfText('span', 'Thay bản dịch đang có nếu nội dung khác (mặc định giữ bản đang có).'));
+    form.append(overwriteLabel, wfText('p', 'Không tự duyệt. Bản thiếu/thừa biến như {name}, {count} được lưu nháp; khóa không có trong nguồn và nội dung rỗng bị bỏ qua và liệt kê trong báo cáo.', 'text-xs text-gray-500'));
+    const error = modalError('translation-import-error'); form.append(error);
+    let merged = null, readRequest = 0;
+    file.addEventListener('change', async () => {
+        const request = ++readRequest; merged = null; error.classList.add('hidden');
+        summary.textContent = 'Đang đọc tệp...';
+        try {
+            const documents = await readLocaleJsonFiles(file.files);
+            const values = mergeLocaleJsonDocuments(documents);
+            if (request !== readRequest) return;
+            merged = values;
+            summary.textContent = `${documents.length} tệp (${documents.map(item => item.name).join(', ')}) · ${values.size} khóa sau khi gộp.`;
+        } catch (exception) {
+            if (request === readRequest) { summary.textContent = 'Chưa chọn tệp hợp lệ.'; error.textContent = exception.message; error.classList.remove('hidden'); }
+        }
+    });
+    openModal('Nhập bản dịch từ tệp JSON', form, async () => {
+        if (!merged || !merged.size) { error.textContent = 'Hãy chọn tệp JSON bản dịch hợp lệ.'; error.classList.remove('hidden'); return; }
+        if (!wfManager() || workflow.busy || workflow.project?.id !== projectId || wf('translation-locale').value !== locale) {
+            error.textContent = 'Dự án hoặc ngôn ngữ đã thay đổi. Đóng hộp thoại và chọn lại thao tác.'; error.classList.remove('hidden'); return;
+        }
+        const rawJson = JSON.stringify(Object.fromEntries(merged));
+        setModalBusy(true); wfSetBusy(true);
+        let result;
+        try { result = await apiPost(wfRoute('translations') + '/import', { localeCode: locale, rawJson, status: status.value, overwrite: overwrite.checked }); }
+        finally { wfSetBusy(false); setModalBusy(false); }
+        if (!result.success) { error.textContent = result.message; error.classList.remove('hidden'); return; }
+        closeModal();
+        renderTranslationImportReport(result.data, localeLabel);
+        showToast(`Đã nhập ${result.data.created + result.data.updated} bản dịch ${locale}.`, 'success');
+        await loadWorkflowModule();
+    }, { confirmText: 'Nhập bản dịch', busyText: 'Đang nhập...' });
+}
+function renderTranslationImportReport(data, localeLabel) {
+    const box = wf('translation-import-report');
+    if (!box) return;
+    box.replaceChildren(wfText('h2', 'Kết quả nhập bản dịch ' + localeLabel, 'font-semibold'),
+        wfText('p', `${data.total} khóa trong tệp: ${data.created} thêm mới · ${data.updated} cập nhật · ${data.unchanged} trùng nội dung, giữ nguyên trạng thái · ${data.keptExisting} giữ bản đang có · ${data.notInSource} không có trong nguồn · ${data.empty} rỗng · ${data.tooLong || 0} quá dài · ${data.placeholderMismatch} sai biến trong tệp.`, 'text-sm'),
+        wfText('p', `${data.savedDraft || 0} bản sai biến đã được nhập và lưu nháp. Bản được giữ lại không thay đổi nội dung hoặc trạng thái.`, 'text-sm'),
+        wfText('p', data.status === 'translated' ? 'Bản mới/cập nhật khớp biến được gửi Chờ duyệt — Reviewer cần duyệt trước khi phát hành.' : 'Bản mới/cập nhật được lưu nháp.', 'text-xs text-gray-500'));
+    const detail = (title, items, total) => {
+        if (!total) return;
+        const block = document.createElement('details');
+        block.append(wfText('summary', `${title} (${total})`, 'cursor-pointer text-sm font-medium'),
+            wfText('p', items.join(', ') + (total > items.length ? ` … và ${total - items.length} khóa khác` : ''), 'font-mono text-xs mt-2 break-words'));
+        box.append(block);
+    };
+    detail('Sai biến thay thế trong tệp', (data.placeholderIssues || []).map(item => item.key + ' (' + [item.missing?.length ? 'thiếu ' + item.missing.join(' ') : '', item.extra?.length ? 'thừa ' + item.extra.join(' ') : ''].filter(Boolean).join('; ') + ')'), data.placeholderMismatch);
+    detail('Không có trong nguồn — bỏ qua', data.notInSourceKeys || [], data.notInSource);
+    detail('Nội dung rỗng — bỏ qua', data.emptyKeys || [], data.empty);
+    detail('Giữ bản dịch đang có', data.keptExistingKeys || [], data.keptExisting);
+    detail('Quá 10.000 ký tự — bỏ qua', data.tooLongKeys || [], data.tooLong);
+    box.append(actionButton('Ẩn báo cáo', () => box.classList.add('hidden')));
+    box.classList.remove('hidden');
 }
 function deleteWorkflowTranslation(row) {
     if (!row.translationId) return;

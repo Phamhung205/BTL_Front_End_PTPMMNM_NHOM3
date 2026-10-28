@@ -162,7 +162,7 @@ API bổ sung trong WorkspaceController:
 
 Nếu CSDL MariaDB đã có đủ bảng nhưng dùng schema cũ, cần migration 002 rồi 003. Controller mới không thêm bảng. Lượt này migration chỉ được chạy trên database kiểm thử riêng ở cổng 3307, không sửa database XAMPP cổng 3306.
 
-Hai Backend build thành công. Bộ Translation/Release đạt 13/13 nhóm, Source/Locale đạt 10/10 nhóm; luồng đầy đủ qua gateway đạt 53/53 kiểm tra trên MariaDB kiểm thử. Chi tiết sử dụng ở WORKFLOW_FEATURES.md trong Frontend.
+Hai Backend build thành công. Bộ Translation/Release đạt 13/13 nhóm, Source/Locale đạt 10/10 nhóm; luồng đầy đủ qua gateway đạt 53/53 kiểm tra trên MariaDB kiểm thử. Chi tiết sử dụng ở docs/FEATURES.md trong Frontend.
 
 ## Admin hệ thống và demo
 
@@ -173,3 +173,11 @@ Admin quản lý tài khoản, khóa/mở, vai trò hệ thống, toàn bộ d�
 Admin đầu tiên được tạo bằng CLI --bootstrap-admin với BootstrapAdmin__Email, BootstrapAdmin__DisplayName, BootstrapAdmin__Password (12+ ký tự), connection string và JWT phù hợp. Lệnh không cấp thêm Admin nếu đã có Admin, không có bootstrap API công khai.
 
 Frontend có scripts/prepare-demo.ps1 và scripts/test-all.ps1. Bộ demo dùng translation_manager_demo ở MariaDB riêng cổng 3307. Hướng dẫn và tài khoản demo: docs/SETUP.md trong Frontend. Không áp dụng mật khẩu demo vào hệ thống thật.
+
+## Import bản dịch JSON — cập nhật 29/10/2026
+
+Manager gọi POST /api/projects/{projectId}/translations/import với localeCode, rawJson, status (draft/translated) và overwrite. Bản nhập không tự duyệt. Báo cáo trả created/updated/unchanged/keptExisting, empty/notInSource/tooLong, placeholderMismatch (sai biến trong tệp), savedDraft (số bản sai biến thực sự được ghi và lưu nháp), kèm danh sách khóa.
+
+Khóa sai dự án/đã xóa/không tồn tại không được ghi. Cùng nội dung giữ nguyên trạng thái; đổi nội dung khi overwrite=true thì cần duyệt lại. Giá trị trên 10.000 ký tự bị bỏ qua theo khóa trong import bản dịch; import nguồn vẫn từ chối toàn bộ tài liệu nếu có giá trị quá dài. Giới hạn tài liệu JSON vẫn là 2 MB.
+
+Kiểm thử hồi quy: tests/api/duc-import-security.test.mjs (6 nhóm). Hướng dẫn chạy, dữ liệu đủ 2 dự án/3 ngôn ngữ/ít nhất 100 khóa và hai tình huống nằm trong docs/DEMO_NHOM3.md của repo frontend.

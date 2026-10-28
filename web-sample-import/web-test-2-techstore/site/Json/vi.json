@@ -1,0 +1,47 @@
+
+{
+  "common": {
+    "languages": {
+      "english": "English",
+      "japanese": "日本語",
+      "korean": "한국어",
+      "vietnamese": "Tiếng Việt"
+    },
+    "nav": {
+      "back_to_home": "Về trang chủ",
+      "login": "Đăng Nhập"
+    }
+  },
+  "login": {
+    "form": {
+      "dashboard_link": "Dashboard",
+      "demo_label": "Demo:",
+      "email_label": "Email",
+      "email_placeholder": "your@email.com",
+      "error": "Email hoặc mật khẩu không chính xác.",
+      "forgot_password": "Quên mật khẩu?",
+      "heading": "Đăng Nhập",
+      "no_account": "Chưa có tài khoản?",
+      "password_label": "Mật Khẩu",
+      "password_placeholder": "••••••••",
+      "register_now": "Đăng ký ngay",
+      "remember_me": "Ghi nhớ đăng nhập",
+      "separator": "hoặc đăng nhập bằng email",
+      "submit": "Đăng Nhập"
+    },
+    "page": {
+      "title": "TechStore – Đăng Nhập"
+    },
+    "status": {
+      "pending": "Đang đăng nhập...",
+      "success": "Thành công!"
+    },
+    "welcome": {
+      "description": "Đăng nhập để tiếp tục mua sắm và theo dõi đơn hàng của bạn.",
+      "perk_exclusive": "Ưu đãi độc quyền cho thành viên",
+      "perk_points": "Tích điểm đổi quà mỗi lần mua",
+      "perk_tracking": "Theo dõi đơn hàng realtime",
+      "title": "Chào Mừng Trở Lại!"
+    }
+  }
+}

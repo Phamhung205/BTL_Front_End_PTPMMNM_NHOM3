@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n-document-title="index.lumiere_beauty_my_pham_cao_cap">Lumière Beauty – Mỹ Phẩm Cao Cấp</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              rose:    { 50: '#fff1f2', 100: '#ffe4e6', 200: '#fecdd3', 300: '#fda4af', 400: '#fb7185', 500: '#f43f5e', 600: '#e11d48', 700: '#be123c' },
+              blush:   { 50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899', 600: '#db2777' },
+              cream:   { 50: '#fefce8', 100: '#fef9c3', 200: '#fef08a', 300: '#fde047' },
+              gold:    { 400: '#f59e0b', 500: '#d97706', 600: '#b45309' },
+              neutral: { 50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 800: '#262626', 900: '#171717' },
+            },
+            fontFamily: {
+              serif: ['Playfair Display', 'Georgia', 'serif'],
+              sans:  ['Inter', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="font-sans bg-neutral-50 text-neutral-800 antialiased">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 navbar-transparent">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+
+          <!-- Logo -->
+          <a href="index.html" class="flex items-center gap-2 group">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blush-400 to-rose-500 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-spa text-white text-sm"></i>
+            </div>
+            <span class="font-serif text-2xl font-bold text-white logo-text tracking-wide" data-i18n="common.lumiere">Lumière</span>
+          </a>
+
+          <!-- Desktop Nav Links -->
+          <div class="hidden md:flex items-center gap-8">
+            <a href="index.html"        class="nav-link text-white/90 hover:text-white font-medium text-sm tracking-wide transition-colors" data-i18n="common.trang_chu">Trang Chủ</a>
+            <a href="pages/products.html" class="nav-link text-white/90 hover:text-white font-medium text-sm tracking-wide transition-colors" data-i18n="common.san_pham">Sản Phẩm</a>
+            <a href="pages/about.html"   class="nav-link text-white/90 hover:text-white font-medium text-sm tracking-wide transition-colors" data-i18n="common.ve_chung_toi">Về Chúng Tôi</a>
+            <a href="pages/contact.html" class="nav-link text-white/90 hover:text-white font-medium text-sm tracking-wide transition-colors" data-i18n="common.lien_he">Liên Hệ</a>
+          </div>
+
+          <!-- Right Actions -->
+          <div class="flex items-center gap-3">
+
+            <!-- Language Toggle Button -->
+            <button id="langToggleBtn" onclick="toggleLang()"
+              class="lang-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/40 text-white/90 hover:bg-white/20 text-xs font-semibold tracking-wider transition-all duration-200 hover:scale-105 backdrop-blur-sm"
+              title="Chuyển đổi ngôn ngữ" data-i18n-title="index.chuyen_doi_ngon_ngu">
+              <i class="fa-solid fa-globe text-xs"></i>
+              <span id="langLabel" data-i18n-skip>VI</span>
+            </button>
+
+            <!-- Search -->
+            <button class="icon-btn text-white/90 hover:text-white p-2 rounded-full hover:bg-white/20 transition-all" title="Tìm kiếm" data-i18n-title="index.tim_kiem">
+              <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            </button>
+
+            <!-- Wishlist -->
+            <button class="icon-btn text-white/90 hover:text-white p-2 rounded-full hover:bg-white/20 transition-all relative" title="Yêu thích" data-i18n-title="index.yeu_thich">
+              <i class="fa-regular fa-heart text-sm"></i>
+              <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-rose-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold">3</span>
+            </button>
+
+            <!-- Cart -->
+            <button class="icon-btn text-white/90 hover:text-white p-2 rounded-full hover:bg-white/20 transition-all relative" title="Giỏ hàng" onclick="openCart()" data-i18n-title="index.gio_hang">
+              <i class="fa-solid fa-bag-shopping text-sm"></i>
+              <span id="cartCount" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-blush-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold">2</span>
+            </button>
+
+            <!-- Mobile Menu -->
+            <button id="mobileMenuBtn" class="md:hidden text-white p-2 rounded-full hover:bg-white/20 transition-all" onclick="toggleMobileMenu()">
+              <i class="fa-solid fa-bars text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-white/20 shadow-lg">
+        <div class="px-6 py-4 space-y-3">
+          <a href="index.html"           class="block py-2 text-neutral-700 hover:text-blush-500 font-medium text-sm transition-colors" data-i18n="common.trang_chu">Trang Chủ</a>
+          <a href="pages/products.html"  class="block py-2 text-neutral-700 hover:text-blush-500 font-medium text-sm transition-colors" data-i18n="common.san_pham">Sản Phẩm</a>
+          <a href="pages/about.html"     class="block py-2 text-neutral-700 hover:text-blush-500 font-medium text-sm transition-colors" data-i18n="common.ve_chung_toi">Về Chúng Tôi</a>
+          <a href="pages/contact.html"   class="block py-2 text-neutral-700 hover:text-blush-500 font-medium text-sm transition-colors" data-i18n="common.lien_he">Liên Hệ</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+      <!-- Gradient Background -->
+      <div class="absolute inset-0 hero-gradient"></div>
+
+      <!-- Floating decorative circles -->
+      <div class="absolute top-1/4 left-10 w-64 h-64 rounded-full bg-blush-300/20 blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-1/3 right-10 w-80 h-80 rounded-full bg-rose-300/20 blur-3xl animate-pulse-slow" style="animation-delay:1.5s"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-pink-200/10 blur-3xl"></div>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-5 py-2 mb-6 text-white text-sm font-medium">
+          <i class="fa-solid fa-star text-yellow-300 text-xs"></i>
+          <span data-i18n="index.bo_suu_tap_thu_dong_2026">Bộ sưu tập Thu / Đông 2026</span>
+        </div>
+
+        <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+          <span data-i18n="index.ve_dep">Vẻ Đẹp</span> <span class="italic text-blush-200" data-i18n="index.thuan_khiet">Thuần Khiết</span><br/>
+          <span class="text-white/80 text-4xl md:text-5xl font-normal" data-i18n="index.toa_sang_moi_ngay">Toả Sáng Mỗi Ngày</span>
+        </h1>
+
+        <p class="text-white/80 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed font-light" data-i18n="index.kham_pha_bo_suu_tap_my_pham_cao_cap_duoc_chung">
+          Khám phá bộ sưu tập mỹ phẩm cao cấp, được chưng cất từ những tinh chất thiên nhiên quý hiếm dành riêng cho người phụ nữ hiện đại.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="pages/products.html"
+            class="btn-primary inline-flex items-center gap-2 bg-white text-blush-600 font-semibold px-8 py-4 rounded-full hover:bg-blush-50 transition-all hover:scale-105 hover:shadow-xl shadow-lg text-sm tracking-wide">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span data-i18n="index.kham_pha_ngay">Khám Phá Ngay</span>
+          </a>
+          <a href="pages/about.html"
+            class="inline-flex items-center gap-2 border-2 border-white/60 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/20 backdrop-blur-sm transition-all hover:scale-105 text-sm tracking-wide">
+            <i class="fa-regular fa-circle-play"></i>
+            <span data-i18n="index.xem_video">Xem Video</span>
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+          <div class="text-center">
+            <p class="font-serif text-3xl font-bold text-white">5K+</p>
+            <p class="text-white/60 text-xs mt-1 uppercase tracking-widest" data-i18n="common.khach_hang">Khách hàng</p>
+          </div>
+          <div class="text-center border-x border-white/20">
+            <p class="font-serif text-3xl font-bold text-white">200+</p>
+            <p class="text-white/60 text-xs mt-1 uppercase tracking-widest" data-i18n="common.san_pham_2">Sản phẩm</p>
+          </div>
+          <div class="text-center">
+            <p class="font-serif text-3xl font-bold text-white">4.9</p>
+            <p class="text-white/60 text-xs mt-1 uppercase tracking-widest" data-i18n="index.danh_gia">Đánh giá</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 animate-bounce-slow">
+        <span class="text-xs uppercase tracking-widest" data-i18n="index.cuon_xuong">Cuộn xuống</span>
+        <i class="fa-solid fa-chevron-down text-sm"></i>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE BRANDS ===== -->
+    <section class="py-5 bg-white border-y border-neutral-100 overflow-hidden">
+      <div class="marquee-container">
+        <div class="marquee-track">
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.chanel">Chanel</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.dior">Dior</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.lancome">Lancôme</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.estee_lauder">Estée Lauder</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.mac">MAC</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.nars">NARS</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.urban_decay">Urban Decay</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.charlotte_tilbury">Charlotte Tilbury</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.chanel">Chanel</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.dior">Dior</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.lancome">Lancôme</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.estee_lauder">Estée Lauder</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.mac">MAC</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.nars">NARS</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.urban_decay">Urban Decay</span>
+          <span class="mx-10 text-neutral-300 font-serif text-lg font-semibold tracking-widest uppercase" data-i18n="index.charlotte_tilbury">Charlotte Tilbury</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-3" data-i18n="index.danh_muc_noi_bat">Danh Mục Nổi Bật</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-neutral-800" data-i18n="index.kham_pha_theo_loai">Khám Phá Theo Loại</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <!-- Category Card -->
+        <div class="category-card group cursor-pointer">
+          <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gradient-to-br from-rose-100 to-blush-200 shadow-md hover:shadow-xl transition-shadow">
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
+              <div class="w-16 h-16 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-face-smile-beam text-blush-500 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-neutral-800 text-center" data-i18n="index.trang_diem">Trang Điểm</h3>
+              <p class="text-neutral-500 text-xs text-center" data-i18n="index.48_san_pham">48 sản phẩm</p>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-blush-400 to-rose-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl"></div>
+          </div>
+        </div>
+
+        <div class="category-card group cursor-pointer">
+          <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gradient-to-br from-purple-100 to-pink-100 shadow-md hover:shadow-xl transition-shadow">
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
+              <div class="w-16 h-16 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-droplet text-purple-400 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-neutral-800 text-center" data-i18n="common.duong_da">Dưỡng Da</h3>
+              <p class="text-neutral-500 text-xs text-center" data-i18n="index.62_san_pham">62 sản phẩm</p>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-purple-400 to-pink-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl"></div>
+          </div>
+        </div>
+
+        <div class="category-card group cursor-pointer">
+          <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gradient-to-br from-amber-100 to-yellow-100 shadow-md hover:shadow-xl transition-shadow">
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
+              <div class="w-16 h-16 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-spray-can-sparkles text-amber-400 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-neutral-800 text-center" data-i18n="common.nuoc_hoa">Nước Hoa</h3>
+              <p class="text-neutral-500 text-xs text-center" data-i18n="index.35_san_pham">35 sản phẩm</p>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-amber-400 to-yellow-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl"></div>
+          </div>
+        </div>
+
+        <div class="category-card group cursor-pointer">
+          <div class="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gradient-to-br from-emerald-100 to-teal-100 shadow-md hover:shadow-xl transition-shadow">
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
+              <div class="w-16 h-16 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-leaf text-emerald-500 text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold text-neutral-800 text-center" data-i18n="common.thien_nhien">Thiên Nhiên</h3>
+              <p class="text-neutral-500 text-xs text-center" data-i18n="index.27_san_pham">27 sản phẩm</p>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-b-2xl"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED PRODUCTS ===== -->
+    <section class="py-20 bg-gradient-to-b from-white to-blush-50/30">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+          <div>
+            <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-3" data-i18n="index.best_sellers">Best Sellers</p>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-neutral-800"><span data-i18n="common.san_pham">Sản Phẩm</span><br/><span data-i18n="index.ban_chay">Bán Chạy</span></h2>
+          </div>
+          <a href="pages/products.html" class="inline-flex items-center gap-2 text-blush-500 hover:text-blush-600 font-semibold text-sm transition-colors group">
+            <span data-i18n="index.xem_tat_ca">Xem tất cả</span>
+            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+
+        <!-- Product Filters -->
+        <div class="flex gap-3 mb-10 overflow-x-auto pb-2 scrollbar-hide">
+          <button class="filter-btn active flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all" data-i18n="common.tat_ca">Tất cả</button>
+          <button class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all" data-i18n="index.son_moi">Son môi</button>
+          <button class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all" data-i18n="index.kem_nen">Kem nền</button>
+          <button class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all" data-i18n="common.mat">Mắt</button>
+          <button class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all" data-i18n="common.serum">Serum</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+          <!-- Product Card 1 -->
+          <div class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="relative overflow-hidden aspect-square bg-gradient-to-br from-rose-50 to-blush-50">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fa-solid fa-kiss-wink-heart text-7xl text-blush-200 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-rose-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider" data-i18n="common.new">New</span>
+              </div>
+              <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors">
+                  <i class="fa-regular fa-heart text-sm"></i>
+                </button>
+                <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-blush-500 transition-colors">
+                  <i class="fa-regular fa-eye text-sm"></i>
+                </button>
+              </div>
+              <!-- Quick Add -->
+              <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
+                onclick="addToCart(this, 'Son Môi Velvet Rouge')">
+                <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-blush-400 text-[11px] font-semibold uppercase tracking-widest mb-1" data-i18n="common.son_moi">Son Môi</p>
+              <h3 class="font-serif font-semibold text-neutral-800 text-sm mb-2 line-clamp-2" data-i18n="common.son_moi_velvet_rouge_do_dao">Son Môi Velvet Rouge – Đỏ Đào</h3>
+              <div class="flex items-center gap-1 mb-3">
+                <div class="flex">
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star-half-stroke text-amber-400 text-xs"></i>
+                </div>
+                <span class="text-neutral-400 text-xs">(128)</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-blush-600 font-bold text-base">350.000 ₫</span>
+                  <span class="text-neutral-400 text-xs line-through ml-2">450.000 ₫</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="relative overflow-hidden aspect-square bg-gradient-to-br from-purple-50 to-indigo-50">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fa-solid fa-flask text-7xl text-purple-200 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-amber-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">-22%</span>
+              </div>
+              <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors">
+                  <i class="fa-regular fa-heart text-sm"></i>
+                </button>
+                <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-blush-500 transition-colors">
+                  <i class="fa-regular fa-eye text-sm"></i>
+                </button>
+              </div>
+              <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
+                onclick="addToCart(this, 'Serum Vitamin C')">
+                <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-purple-400 text-[11px] font-semibold uppercase tracking-widest mb-1" data-i18n="common.serum">Serum</p>
+              <h3 class="font-serif font-semibold text-neutral-800 text-sm mb-2" data-i18n="index.serum_vitamin_c_sang_da_chuyen_sau">Serum Vitamin C Sáng Da Chuyên Sâu</h3>
+              <div class="flex items-center gap-1 mb-3">
+                <div class="flex">
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                </div>
+                <span class="text-neutral-400 text-xs">(256)</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-blush-600 font-bold text-base">620.000 ₫</span>
+                  <span class="text-neutral-400 text-xs line-through ml-2">795.000 ₫</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="relative overflow-hidden aspect-square bg-gradient-to-br from-amber-50 to-yellow-50">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fa-solid fa-spray-can text-7xl text-amber-200 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors">
+                  <i class="fa-regular fa-heart text-sm"></i>
+                </button>
+              </div>
+              <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
+                onclick="addToCart(this, 'Nước Hoa Miss Dior')">
+                <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-amber-500 text-[11px] font-semibold uppercase tracking-widest mb-1" data-i18n="common.nuoc_hoa">Nước Hoa</p>
+              <h3 class="font-serif font-semibold text-neutral-800 text-sm mb-2" data-i18n="common.nuoc_hoa_miss_dior_blooming_bouquet">Nước Hoa Miss Dior Blooming Bouquet</h3>
+              <div class="flex items-center gap-1 mb-3">
+                <div class="flex">
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-regular fa-star text-amber-400 text-xs"></i>
+                </div>
+                <span class="text-neutral-400 text-xs">(89)</span>
+              </div>
+              <div>
+                <span class="text-blush-600 font-bold text-base">1.850.000 ₫</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Card 4 -->
+          <div class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="relative overflow-hidden aspect-square bg-gradient-to-br from-pink-50 to-rose-50">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fa-solid fa-wand-magic-sparkles text-7xl text-pink-200 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider" data-i18n="common.hot">Hot</span>
+              </div>
+              <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors">
+                  <i class="fa-regular fa-heart text-sm"></i>
+                </button>
+              </div>
+              <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
+                onclick="addToCart(this, 'Mascara Volume')">
+                <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-pink-400 text-[11px] font-semibold uppercase tracking-widest mb-1" data-i18n="common.mascara">Mascara</p>
+              <h3 class="font-serif font-semibold text-neutral-800 text-sm mb-2" data-i18n="index.mascara_day_mi_sieu_volume_24h">Mascara Dày Mi Siêu Volume 24H</h3>
+              <div class="flex items-center gap-1 mb-3">
+                <div class="flex">
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                </div>
+                <span class="text-neutral-400 text-xs">(312)</span>
+              </div>
+              <div>
+                <span class="text-blush-600 font-bold text-base">285.000 ₫</span>
+                <span class="text-neutral-400 text-xs line-through ml-2">320.000 ₫</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BANNER PROMO ===== -->
+    <section class="py-16 px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="promo-banner rounded-3xl overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/60 to-transparent"></div>
+          <div class="relative z-10 p-10 md:p-16 max-w-xl">
+            <p class="text-blush-300 text-xs font-semibold uppercase tracking-widest mb-3" data-i18n="index.uu_dai_dac_biet">Ưu đãi đặc biệt</p>
+            <h2 class="font-serif text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              <span data-i18n="index.nhan_ngay">Nhận Ngay</span> <br/>
+              <span class="text-blush-300" data-i18n="index.30_giam_gia">30% Giảm Giá</span>
+            </h2>
+            <p class="text-white/70 mb-8 text-sm leading-relaxed" data-i18n="index.ap_dung_cho_don_hang_dau_tien_khi_dang_ky_thanh">Áp dụng cho đơn hàng đầu tiên khi đăng ký thành viên. Ưu đãi có hạn, nhanh tay đăng ký ngay!</p>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input type="email" placeholder="Nhập email của bạn..."
+                class="flex-1 px-5 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder-white/40 text-sm focus:outline-none focus:border-blush-400 transition-colors" data-i18n-placeholder="index.nhap_email_cua_ban"/>
+              <button class="px-6 py-3 bg-blush-500 hover:bg-blush-600 text-white font-semibold rounded-full transition-all hover:scale-105 text-sm whitespace-nowrap shadow-lg" data-i18n="index.dang_ky_ngay">
+                Đăng Ký Ngay
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-3" data-i18n="index.khach_hang_noi_gi">Khách Hàng Nói Gì</p>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold text-neutral-800"><span data-i18n="index.danh_gia_tu">Đánh Giá Từ</span><br/><span data-i18n="index.cong_dong">Cộng Đồng</span></h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Review 1 -->
+          <div class="review-card p-6 rounded-2xl bg-gradient-to-br from-blush-50 to-rose-50 border border-blush-100">
+            <div class="flex mb-4">
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+            </div>
+            <p class="text-neutral-600 text-sm leading-relaxed mb-6 italic" data-i18n="index.son_moi_velvet_rouge_thuc_su_an_tuong_mau_dep">"Son môi Velvet Rouge thực sự ấn tượng! Màu đẹp, lên môi mịn, dưỡng ẩm tốt và giữ màu cả ngày. Tôi đã mua 3 màu và không hối hận chút nào!"</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blush-400 to-rose-400 flex items-center justify-center text-white font-bold text-sm">M</div>
+              <div>
+                <p class="font-semibold text-neutral-800 text-sm" data-i18n="index.minh_thu">Minh Thư</p>
+                <p class="text-neutral-400 text-xs" data-i18n="index.ha_noi">Hà Nội</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-card p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 md:mt-6">
+            <div class="flex mb-4">
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+            </div>
+            <p class="text-neutral-600 text-sm leading-relaxed mb-6 italic" data-i18n="index.serum_vitamin_c_cua_shop_lam_da_minh_sang_hon">"Serum Vitamin C của shop làm da mình sáng hơn thấy rõ chỉ sau 2 tuần. Giao hàng nhanh, đóng gói cẩn thận, sẽ ủng hộ lâu dài!"</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 flex items-center justify-center text-white font-bold text-sm">L</div>
+              <div>
+                <p class="font-semibold text-neutral-800 text-sm" data-i18n="index.lan_anh">Lan Anh</p>
+                <p class="text-neutral-400 text-xs" data-i18n="index.tp_ho_chi_minh">TP. Hồ Chí Minh</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-card p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
+            <div class="flex mb-4">
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+              <i class="fa-solid fa-star-half-stroke text-amber-400 text-sm"></i>
+            </div>
+            <p class="text-neutral-600 text-sm leading-relaxed mb-6 italic" data-i18n="index.mui_huong_cua_nuoc_hoa_miss_dior_that_su_quyen">"Mùi hương của Nước Hoa Miss Dior thật sự quyến rũ và lưu hương lâu. Shop tư vấn rất nhiệt tình, mình rất hài lòng với trải nghiệm mua sắm!"</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-400 flex items-center justify-center text-white font-bold text-sm">H</div>
+              <div>
+                <p class="font-semibold text-neutral-800 text-sm" data-i18n="index.hoa_tran">Hoa Trần</p>
+                <p class="text-neutral-400 text-xs" data-i18n="index.da_nang">Đà Nẵng</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHY US ===== -->
+    <section class="py-20 bg-gradient-to-b from-blush-50/50 to-white px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <p class="text-blush-500 text-sm font-semibold uppercase tracking-widest mb-3" data-i18n="index.cam_ket_cua_chung_toi">Cam Kết Của Chúng Tôi</p>
+          <h2 class="font-serif text-4xl font-bold text-neutral-800" data-i18n="index.tai_sao_chon_lumiere">Tại Sao Chọn Lumière?</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-blush-100 flex items-center justify-center mx-auto mb-4 group-hover:bg-blush-500 transition-colors group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-shield-halved text-blush-500 text-2xl group-hover:text-white transition-colors"></i>
+            </div>
+            <h3 class="font-serif font-semibold text-neutral-800 mb-2" data-i18n="index.hang_chinh_hang">Hàng Chính Hãng</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="index.100_san_pham_co_chung_nhan_nguon_goc_ro_rang">100% sản phẩm có chứng nhận, nguồn gốc rõ ràng</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-500 transition-colors group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-truck-fast text-emerald-500 text-2xl group-hover:text-white transition-colors"></i>
+            </div>
+            <h3 class="font-serif font-semibold text-neutral-800 mb-2" data-i18n="index.giao_hang_nhanh">Giao Hàng Nhanh</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="index.giao_trong_2_4_gio_tai_noi_thanh_mien_phi_tu">Giao trong 2–4 giờ tại nội thành, miễn phí từ 500K</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mx-auto mb-4 group-hover:bg-amber-500 transition-colors group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-rotate-left text-amber-500 text-2xl group-hover:text-white transition-colors"></i>
+            </div>
+            <h3 class="font-serif font-semibold text-neutral-800 mb-2" data-i18n="index.doi_tra_de_dang">Đổi Trả Dễ Dàng</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="index.chinh_sach_hoan_tra_trong_30_ngay_khong_can_ly">Chính sách hoàn trả trong 30 ngày không cần lý do</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-500 transition-colors group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-headset text-purple-500 text-2xl group-hover:text-white transition-colors"></i>
+            </div>
+            <h3 class="font-serif font-semibold text-neutral-800 mb-2" data-i18n="index.ho_tro_24_7">Hỗ Trợ 24/7</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed" data-i18n="index.doi_ngu_chuyen_gia_lam_dep_san_sang_tu_van_moi">Đội ngũ chuyên gia làm đẹp sẵn sàng tư vấn mọi lúc</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INSTAGRAM GRID ===== -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-10">
+          <p class="text-neutral-400 text-sm mb-2" data-i18n="index.theo_doi_chung_toi">Theo dõi chúng tôi</p>
+          <h2 class="font-serif text-3xl font-bold text-neutral-800" data-i18n="index.lumiere_beauty">@lumiere.beauty</h2>
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+          <div class="insta-item aspect-square rounded-xl bg-gradient-to-br from-rose-200 to-blush-300 relative overflow-hidden group cursor-pointer">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </div>
+          </div>
+          <div class="insta-item aspect-square rounded-xl bg-gradient-to-br from-purple-200 to-pink-200 relative overflow-hidden group cursor-pointer">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </div>
+          </div>
+          <div class="insta-item aspect-square rounded-xl bg-gradient-to-br from-amber-200 to-orange-200 relative overflow-hidden group cursor-pointer">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </div>
+          </div>
+          <div class="insta-item aspect-square rounded-xl bg-gradient-to-br from-emerald-200 to-teal-200 relative overflow-hidden group cursor-pointer">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </div>
+          </div>
+          <div class="insta-item aspect-square rounded-xl bg-gradient-to-br from-blush-200 to-rose-300 relative overflow-hidden group cursor-pointer">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </div>
+          </div>
+          <div class="insta-item aspect-square rounded-xl bg-gradient-to-br from-indigo-200 to-purple-200 relative overflow-hidden group cursor-pointer">
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <i class="fa-brands fa-instagram text-white text-2xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-neutral-900 text-white pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <!-- Brand -->
+          <div class="md:col-span-1">
+            <div class="flex items-center gap-2 mb-5">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blush-400 to-rose-500 flex items-center justify-center">
+                <i class="fa-solid fa-spa text-white text-sm"></i>
+              </div>
+              <span class="font-serif text-2xl font-bold" data-i18n="common.lumiere">Lumière</span>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed mb-6" data-i18n="index.chung_toi_mang_den_ve_dep_thuan_khiet_tu_nhien">Chúng tôi mang đến vẻ đẹp thuần khiết, tự nhiên và đẳng cấp cho mỗi người phụ nữ Việt Nam.</p>
+            <div class="flex gap-3">
+              <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-blush-500 flex items-center justify-center transition-colors">
+                <i class="fa-brands fa-facebook-f text-sm"></i>
+              </a>
+              <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-blush-500 flex items-center justify-center transition-colors">
+                <i class="fa-brands fa-instagram text-sm"></i>
+              </a>
+              <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-blush-500 flex items-center justify-center transition-colors">
+                <i class="fa-brands fa-tiktok text-sm"></i>
+              </a>
+              <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-blush-500 flex items-center justify-center transition-colors">
+                <i class="fa-brands fa-youtube text-sm"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div>
+            <h4 class="font-serif font-semibold mb-5 text-white" data-i18n="common.san_pham">Sản Phẩm</h4>
+            <ul class="space-y-3">
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="index.trang_diem">Trang Điểm</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="common.duong_da">Dưỡng Da</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="common.nuoc_hoa">Nước Hoa</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="index.cham_soc_toc">Chăm Sóc Tóc</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="common.thien_nhien">Thiên Nhiên</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-serif font-semibold mb-5 text-white" data-i18n="index.ho_tro">Hỗ Trợ</h4>
+            <ul class="space-y-3">
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="index.chinh_sach_doi_tra">Chính Sách Đổi Trả</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="index.huong_dan_mua_hang">Hướng Dẫn Mua Hàng</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="index.cau_hoi_thuong_gap">Câu Hỏi Thường Gặp</a></li>
+              <li><a href="#" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="index.theo_doi_don_hang">Theo Dõi Đơn Hàng</a></li>
+              <li><a href="pages/contact.html" class="text-neutral-400 hover:text-blush-300 text-sm transition-colors" data-i18n="common.lien_he">Liên Hệ</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-serif font-semibold mb-5 text-white" data-i18n="common.lien_he">Liên Hệ</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-2.5 text-neutral-400 text-sm">
+                <i class="fa-solid fa-location-dot text-blush-400 mt-0.5 flex-shrink-0"></i>
+                <span data-i18n="index.123_nguyen_hue_q_1_tp_ho_chi_minh">123 Nguyễn Huệ, Q.1, TP. Hồ Chí Minh</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-neutral-400 text-sm">
+                <i class="fa-solid fa-phone text-blush-400 flex-shrink-0"></i>
+                <span data-i18n="index.1800_1234_mien_phi">1800 1234 (Miễn phí)</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-neutral-400 text-sm">
+                <i class="fa-solid fa-envelope text-blush-400 flex-shrink-0"></i>
+                <span>hello@lumiere.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-neutral-500 text-xs" data-i18n="index.2026_lumiere_beauty_bao_luu_moi_quyen">© 2026 Lumière Beauty. Bảo lưu mọi quyền.</p>
+          <div class="flex items-center gap-4">
+            <img src="https://img.shields.io/badge/VISA-1A1F71?style=flat&logo=visa&logoColor=white" alt="Visa" class="h-5 opacity-60 hover:opacity-100 transition-opacity"/>
+            <img src="https://img.shields.io/badge/Mastercard-EB001B?style=flat&logo=mastercard&logoColor=white" alt="Mastercard" class="h-5 opacity-60 hover:opacity-100 transition-opacity"/>
+            <span class="text-neutral-500 text-xs" data-i18n="index.zalopay_momo_cod">ZaloPay · MoMo · COD</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== CART DRAWER ===== -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity" onclick="closeCart()"></div>
+    <div id="cartDrawer" class="fixed top-0 right-0 h-full w-80 md:w-96 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300">
+      <div class="flex items-center justify-between p-6 border-b border-neutral-100">
+        <h3 class="font-serif text-xl font-bold" data-i18n="common.gio_hang">Giỏ Hàng</h3>
+        <button onclick="closeCart()" class="w-8 h-8 rounded-full hover:bg-neutral-100 flex items-center justify-center transition-colors">
+          <i class="fa-solid fa-xmark text-neutral-500"></i>
+        </button>
+      </div>
+      <div id="cartItems" class="p-6 flex-1 overflow-y-auto space-y-4">
+        <!-- Cart items injected by JS -->
+        <div class="flex gap-4 items-start">
+          <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-rose-100 to-blush-100 flex-shrink-0 flex items-center justify-center">
+            <i class="fa-solid fa-kiss-wink-heart text-2xl text-blush-300"></i>
+          </div>
+          <div class="flex-1">
+            <p class="font-medium text-sm text-neutral-800" data-i18n="index.son_moi_velvet_rouge">Son Môi Velvet Rouge</p>
+            <p class="text-neutral-400 text-xs mt-0.5" data-i18n="index.do_dao_x1">Đỏ đào · x1</p>
+            <p class="text-blush-600 font-semibold text-sm mt-1">350.000 ₫</p>
+          </div>
+          <button class="text-neutral-300 hover:text-rose-400 transition-colors"><i class="fa-solid fa-trash text-xs"></i></button>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-100 to-indigo-100 flex-shrink-0 flex items-center justify-center">
+            <i class="fa-solid fa-flask text-2xl text-purple-300"></i>
+          </div>
+          <div class="flex-1">
+            <p class="font-medium text-sm text-neutral-800" data-i18n="index.serum_vitamin_c">Serum Vitamin C</p>
+            <p class="text-neutral-400 text-xs mt-0.5" data-i18n="index.30ml_x1">30ml · x1</p>
+            <p class="text-blush-600 font-semibold text-sm mt-1">620.000 ₫</p>
+          </div>
+          <button class="text-neutral-300 hover:text-rose-400 transition-colors"><i class="fa-solid fa-trash text-xs"></i></button>
+        </div>
+      </div>
+      <div class="p-6 border-t border-neutral-100">
+        <div class="flex justify-between mb-4">
+          <span class="text-neutral-500 text-sm" data-i18n="index.tam_tinh">Tạm tính</span>
+          <span class="font-bold text-neutral-800" id="cartTotal">970.000 ₫</span>
+        </div>
+        <button class="w-full bg-gradient-to-r from-blush-500 to-rose-500 text-white font-semibold py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all text-sm">
+          <span data-i18n="common.thanh_toan_ngay">Thanh Toán Ngay</span> <i class="fa-solid fa-arrow-right ml-2"></i>
+        </button>
+        <button onclick="closeCart()" class="w-full mt-3 text-neutral-400 hover:text-neutral-600 text-sm transition-colors" data-i18n="index.tiep_tuc_mua_sam">
+          Tiếp tục mua sắm
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== TOAST NOTIFICATION ===== -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-neutral-900 text-white px-6 py-3.5 rounded-full shadow-xl flex items-center gap-3 text-sm font-medium translate-y-20 opacity-0 transition-all duration-300">
+      <i class="fa-solid fa-circle-check text-emerald-400"></i>
+      <span id="toastMsg" data-i18n="index.da_them_vao_gio_hang">Đã thêm vào giỏ hàng!</span>
+    </div>
+
+    <!-- ===== SCROLL TO TOP ===== -->
+    <button id="scrollTopBtn" onclick="scrollToTop()"
+      class="fixed bottom-6 right-6 w-11 h-11 bg-blush-500 hover:bg-blush-600 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all hover:scale-110 z-30">
+      <i class="fa-solid fa-chevron-up text-sm"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <!-- Translation Manager: cấu hình tải từ trang Phát hành, client đọc gói đã phát hành -->
+<script src="translation-manager.config.js"></script>
+<script src="translation-manager.js"></script>
+<script src="js/lang.js"></script>
+  </body>
+</html>

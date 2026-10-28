@@ -70,7 +70,9 @@ try {
         ['/api/projects/1/source-versions/2/changes', 'GET', undefined, { compareToVersionId: '../1' }],
         ['/api/projects/1/source-versions/2', 'DELETE'], ['/api/projects/1/translation-keys', 'POST', {}]
     ]) check((await call(endpoint, method, body, query)).status === 400, 'Reject unsupported route/query ' + endpoint);
-    const context = vm.createContext({ document: { addEventListener() {} }, TextEncoder });
+    const context = vm.createContext({ document: { addEventListener() {} }, window: { addEventListener() {} }, TextEncoder });
+    // Như trang thật (source.php): ui.js nạp trước workspace.js và cung cấp bộ gộp/kiểm tra JSON dùng chung.
+    vm.runInContext(readFileSync(new URL('../assets/js/shared/ui.js', import.meta.url), 'utf8'), context);
     vm.runInContext(readFileSync(new URL('../assets/js/source/workspace.js', import.meta.url), 'utf8'), context);
     check(context.validateSourceJson('{"menu":{"open":"Mở"},"empty":""}') === 2, 'Frontend validates nested sources and empty strings');
     check(context.validateSourceJson('{"a.b":"x"}') === 1, 'Frontend accepts documented dotted key paths');

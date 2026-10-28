@@ -1,4 +1,4 @@
-$projectRoot = Split-Path -Parent $PSScriptRoot
+﻿$projectRoot = Split-Path -Parent $PSScriptRoot
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $projectRoot
 & (Join-Path $PSScriptRoot 'start-integrated.ps1') -DatabaseName 'translation_manager_demo'

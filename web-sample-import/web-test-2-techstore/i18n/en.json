@@ -1,0 +1,65 @@
+{
+  "common": {
+    "actions": {
+      "manage": "Manage",
+      "view_all": "See all"
+    },
+    "categories": {
+      "accessories": "Accessory",
+      "audio": "Sound",
+      "laptop": "Laptop",
+      "phone": "Phone"
+    },
+    "languages": {
+      "english": "English",
+      "japanese": "日本語",
+      "korean": "한국어",
+      "vietnamese": "Vietnamese"
+    },
+    "nav": {
+      "back_to_home": "Back to Home",
+      "login": "Log In",
+      "products": "Product"
+    }
+  },
+  "dashboard": {
+    "quick_actions": {
+      "notifications": "Notification"
+    }
+  },
+  "home": {
+    "title": "Discover the Future of Technology"
+  },
+  "login": {
+    "form": {
+      "dashboard_link": "Dashboard",
+      "demo_label": "Demo",
+      "email_label": "Email",
+      "email_placeholder": "your@email.com",
+      "error": "Invalid email or password.",
+      "forgot_password": "Forgot Password?",
+      "heading": "Log In",
+      "no_account": "Don't Have an Account?",
+      "password_label": "Password",
+      "password_placeholder": "••••••••",
+      "register_now": "Register Now",
+      "remember_me": "Remember Me",
+      "separator": "Or Sign In with Email",
+      "submit": "Log In"
+    },
+    "page": {
+      "title": "TechStore – Log In"
+    },
+    "status": {
+      "pending": "Logging In...",
+      "success": "Success!"
+    },
+    "welcome": {
+      "description": "Log in to continue shopping and track your orders.",
+      "perk_exclusive": "Exclusive Offers for Members",
+      "perk_points": "Earn Reward Points with Every Purchase",
+      "perk_tracking": "Track Orders in Real Time",
+      "title": "Welcome Back!"
+    }
+  }
+}

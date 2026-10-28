@@ -273,6 +273,12 @@ $allowed = match (true) {
         $endpoint
     ) === 1 => ['POST'],
 
+    // Nhập bản dịch có sẵn từ JSON (Manager); bản dịch nhập vào vẫn phải duyệt.
+    preg_match(
+        '~^/api/projects/[1-9][0-9]*/translations/import$~D',
+        $endpoint
+    ) === 1 => ['POST'],
+
     preg_match(
         '~^/api/projects/[1-9][0-9]*/translations/[1-9][0-9]*$~D',
         $endpoint

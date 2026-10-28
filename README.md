@@ -65,9 +65,11 @@ Backend đi kèm vẫn được dùng bởi lệnh khởi động. SQL nằm tro
 
 ## Tự kiểm thử
 
-Lệnh và môi trường chạy test nằm trong [SETUP.md](docs/SETUP.md). Lượt kiểm tra ngày 28/10/2026 chạy trọn bộ trên CSDL demo: 17/17 hạng mục đạt, 450 kiểm tra và 23 nhóm API; báo cáo ở `artifacts/test-report.md`. Website sau kiểm tra được trả về CSDL chính 3306.
+Lệnh và môi trường chạy test nằm trong [SETUP.md](docs/SETUP.md). Lượt hoàn thiện ngày 29/10/2026 chạy trọn `scripts/test-all.ps1` trên CSDL demo: **21/21 hạng mục, 557 kiểm tra và 29 nhóm API**; báo cáo ở `artifacts/test-report.md`. Chrome chạy riêng **45/45 kiểm tra**. Đối chiếu 5 phép thử và 2 tình huống: [PHEP_THU_BAT_BUOC.md](docs/PHEP_THU_BAT_BUOC.md). Cách import và trình diễn: [DEMO_NHOM3.md](docs/DEMO_NHOM3.md).
 
-Kiểm tra bổ sung phân quyền chạy riêng trên CSDL tạm cho cả hai backend: 26 API checks mỗi bản, 18 kiểm tra UI Admin và 79 kiểm tra gateway. CSDL chính có đúng 17 bảng theo schema, nên không cần SQL bổ sung cho phân quyền hiện tại. Chi tiết ở [báo cáo đối chiếu đề tài 3](docs/DE_TAI_3_REVIEW.md); API tích hợp xem trong [hướng dẫn nhóm](docs/HUONG_DAN_NHOM.md).
+Import website có sẵn vào hệ thống (3 website mẫu đã chuẩn bị, công cụ tách chữ HTML và chuyển `languages.js`): [web-sample-import/README.md](web-sample-import/README.md).
+
+Schema hiện tại có **19 bảng**, gồm `translation_memory` và `release_api_keys`, khớp ảnh yêu cầu. `tests/demo-requirements.mjs` kiểm tra trực tiếp cấu trúc và dữ liệu trên CSDL demo 3307; không suy ra trạng thái CSDL chính từ lượt kiểm tra demo. API tích hợp xem trong [hướng dẫn nhóm](docs/HUONG_DAN_NHOM.md).
 
 
 ## Thành viên và phân công
@@ -92,3 +94,5 @@ Bảng để nhóm tự điền sau; chưa gán công việc hoặc đóng góp 
 Tài liệu nhóm: [hướng dẫn API, JSON và demo](docs/HUONG_DAN_NHOM.md), [review theo đề tài 3](docs/DE_TAI_3_REVIEW.md).
 
 Mã nhóm phát triển nằm trong PHP/JavaScript ở frontend và Controllers/Services/Support/Dtos/database ở backend. Thư viện chính: ASP.NET Core, JwtBearer, MySqlConnector, Tailwind CSS; ghi rõ giấy phép/nguồn của từng thư viện trong hồ sơ nộp bài. LICENSE của sản phẩm cần nhóm thống nhất lựa chọn trước khi phát hành công khai.
+
+Kiểm tra lại ngày 29/10/2026: [bằng chứng, lỗi sửa thêm và giới hạn](docs/KIEM_TRA_LAI_2026-10-29.md).

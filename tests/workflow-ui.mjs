@@ -62,7 +62,9 @@ check(element('translation-work').children.length === 1 && element('translation-
 const translatorListRequest = [...requests].reverse().find(request => request.route.endsWith('/translations'));
 check(translatorListRequest.options.query.assignee === 'me' && translatorListRequest.options.query.status === '', 'Translator list always loads only assigned work and ignores status filter');
 evaluate('workflow.project = {id: 2, role: "reviewer"}'); context.renderTranslations();
-check(element('translation-bulk').classList.contains('hidden'), 'Reviewer has no bulk assignment');
+// Reviewer vẫn thấy thanh thao tác để duyệt hàng loạt, nhưng không có nút phân công/thêm/xóa/nhập của Manager.
+check(element('translation-manager-bulk-actions').classList.contains('hidden') && element('translation-manager-bulk-actions-secondary').classList.contains('hidden')
+    && !element('translation-review-bulk-actions').classList.contains('hidden'), 'Reviewer has no bulk assignment');
 check(!element('translations-body').children[0].children[4].children[0].children.some(button => button.textContent === 'Xóa'), 'Reviewer has no deletion action');
 check(!context.wfCanEdit(rows[0]), 'Reviewer cannot edit even with stale canEdit flag');
 evaluate('workflow.project = {id: 1, role: "translator"}');
@@ -83,7 +85,10 @@ check(element('edit-translation-value').value === 'Server version {name}', 'Expl
 context.reviewWorkflowTranslation(rows[0], false);
 check(element('translation-review-note').required && element('translation-review-note').maxLength === 2000, 'Reject form requires bounded reason');
 await dialog.confirm(); check(requests.at(-1).route.endsWith('/10/reject') && requests.at(-1).body.expectedRowVersion === 3 && !closed, 'Review conflict keeps original reviewed version');
-context.assignWorkflowTranslation(rows[0]); element('single-assignee').value = ''; await dialog.confirm();
+// Để trống bị từ chối; Manager phải chọn rõ "Gỡ phân công".
+context.assignWorkflowTranslation(rows[0]); element('single-assignee').value = ''; const beforeEmpty = requests.length; await dialog.confirm();
+check(requests.length === beforeEmpty && !element('assignment-error').classList.contains('hidden'), 'Single assignment requires an explicit choice');
+element('single-assignee').value = 'unassign'; await dialog.confirm();
 check(requests.at(-1).route.endsWith('/10/assign') && requests.at(-1).body.userId === null, 'Single assignment can explicitly unassign');
 evaluate('workflow.rows = Array.from({length: 70}, (_, i) => ({stringId:i+1,key:"key"+i,status:"missing"})); workflow.page=1'); context.renderTranslations();
 check(element('translations-body').children.length === 50 && !element('translation-next').disabled, 'Large list renders only first 50 rows');
