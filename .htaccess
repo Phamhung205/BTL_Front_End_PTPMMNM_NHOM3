@@ -1,0 +1,8 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:\.|backend(?:/|$)|artifacts(?:/|$)|config(?:/|$)|components(?:/|$)|docs(?:/|$)|scripts(?:/|$)|tests(?:/|$)|router\.php|README\.md) - [F,L,NC]
+</IfModule>
+<FilesMatch "^(\..*|.*\.(?:key|pem|log|ps1|zip))$">
+    Require all denied
+</FilesMatch>

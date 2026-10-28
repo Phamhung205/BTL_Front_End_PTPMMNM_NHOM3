@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+.vscode/
+.env
+.env.local
+.env.production
+.local/
+*.key
+*.pem
+.local/
+*.user
+*.suo
+storage/releases/*
+!storage/releases/.gitkeep

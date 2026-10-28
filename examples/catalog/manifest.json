@@ -1,0 +1,45 @@
+{
+  "description": "Original generic UI translations, reusable for the BTL and sample websites. Human review recommended before production.",
+  "sourceLocale": "en",
+  "locales": [
+    "en",
+    "vi",
+    "zh"
+  ],
+  "datasets": [
+    {
+      "dataset": "common-web",
+      "stats": {
+        "en": {
+          "keys": 1010,
+          "words": 4494
+        },
+        "vi": {
+          "keys": 1010,
+          "words": 6136
+        },
+        "zh": {
+          "keys": 1010,
+          "words": 1113
+        }
+      }
+    },
+    {
+      "dataset": "student-portal",
+      "stats": {
+        "en": {
+          "keys": 170,
+          "words": 736
+        },
+        "vi": {
+          "keys": 170,
+          "words": 980
+        },
+        "zh": {
+          "keys": 170,
+          "words": 189
+        }
+      }
+    }
+  ]
+}

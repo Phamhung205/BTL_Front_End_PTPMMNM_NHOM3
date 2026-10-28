@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechStore – Trang Chủ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#6C63FF', dark: '#574FD6' },
+            accent:   { DEFAULT: '#00D4AA', dark: '#00B894' },
+            dark:     { DEFAULT: '#0F0F1A', card: '#1A1A2E', border: '#2A2A4A' },
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-dark text-white font-sans antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+          <i class="fa-solid fa-bolt text-white text-sm"></i>
+        </div>
+        <span class="text-xl font-bold tracking-tight">Tech<span class="text-primary">Store</span></span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <li><a href="index.html"    class="nav-link active">Trang Chủ</a></li>
+        <li><a href="#products"     class="nav-link">Sản Phẩm</a></li>
+        <li><a href="#categories"   class="nav-link">Danh Mục</a></li>
+        <li><a href="#about"        class="nav-link">Về Chúng Tôi</a></li>
+      </ul>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3">
+
+        <!-- Language Switcher -->
+        <div class="relative" id="langDropdownWrap">
+          <button id="langBtn"
+            class="flex items-center gap-1.5 text-xs font-semibold border border-dark-border rounded-lg px-3 py-2 hover:border-primary/60 hover:text-primary transition-all duration-200 bg-dark-card">
+            <i class="fa-solid fa-globe text-primary text-sm"></i>
+            <span id="langLabel">VI</span>
+            <i class="fa-solid fa-chevron-down text-xs opacity-60"></i>
+          </button>
+          <div id="langMenu"
+            class="absolute right-0 top-11 w-36 bg-dark-card border border-dark-border rounded-xl shadow-2xl overflow-hidden hidden lang-menu">
+            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇻🇳</span> Tiếng Việt
+            </button>
+            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇺🇸</span> English
+            </button>
+            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇯🇵</span> 日本語
+            </button>
+            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇰🇷</span> 한국어
+            </button>
+          </div>
+        </div>
+
+        <!-- Cart -->
+        <button class="relative p-2.5 rounded-xl border border-dark-border hover:border-primary/60 hover:bg-dark-card transition-all duration-200">
+          <i class="fa-solid fa-bag-shopping text-gray-300"></i>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full text-[10px] font-bold flex items-center justify-center">3</span>
+        </button>
+
+        <!-- Auth Buttons -->
+        <a href="login.html"
+          class="hidden md:inline-flex text-sm font-medium px-4 py-2 rounded-xl border border-dark-border hover:border-primary/60 hover:text-primary transition-all duration-200"
+          data-i18n="common.nav.login">
+          Đăng Nhập
+        </a>
+        <a href="register.html"
+          class="hidden md:inline-flex text-sm font-semibold px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all duration-200 shadow-lg shadow-primary/30">
+          Đăng Ký
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl border border-dark-border">
+          <i class="fa-solid fa-bars text-gray-300"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden hidden px-6 pb-4 bg-dark-card border-t border-dark-border">
+      <ul class="flex flex-col gap-3 pt-4 text-sm font-medium text-gray-300">
+        <li><a href="index.html"  class="block py-2 hover:text-primary transition">Trang Chủ</a></li>
+        <li><a href="#products"   class="block py-2 hover:text-primary transition">Sản Phẩm</a></li>
+        <li><a href="#categories" class="block py-2 hover:text-primary transition">Danh Mục</a></li>
+        <li><a href="#about"      class="block py-2 hover:text-primary transition">Về Chúng Tôi</a></li>
+        <li class="flex gap-3 pt-2">
+          <a href="login.html"    class="flex-1 text-center py-2 rounded-xl border border-dark-border hover:text-primary transition" data-i18n="common.nav.login">Đăng Nhập</a>
+          <a href="register.html" class="flex-1 text-center py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold">Đăng Ký</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <!-- Animated BG -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <!-- Text -->
+      <div>
+        <div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 text-primary text-xs font-semibold px-4 py-2 rounded-full mb-6">
+          <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+          Công Nghệ Hàng Đầu 2025
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+          Khám Phá<br>
+          <span class="gradient-text">Tương Lai</span><br>
+          Công Nghệ
+        </h1>
+        <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-md">
+          Trải nghiệm những sản phẩm công nghệ đỉnh cao – từ laptop gaming, smartphone 5G đến các thiết bị thông minh nhà bạn.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#products"
+            class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-white font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30">
+            Mua Sắm Ngay <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#about"
+            class="inline-flex items-center gap-2 border border-dark-border text-gray-300 font-medium px-6 py-3 rounded-xl hover:border-primary/60 hover:text-primary transition">
+            Tìm Hiểu Thêm <i class="fa-regular fa-circle-play"></i>
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex gap-8 mt-12">
+          <div>
+            <p class="text-3xl font-extrabold gradient-text">50K+</p>
+            <p class="text-xs text-gray-500 mt-1">Khách Hàng</p>
+          </div>
+          <div class="w-px bg-dark-border"></div>
+          <div>
+            <p class="text-3xl font-extrabold gradient-text">2K+</p>
+            <p class="text-xs text-gray-500 mt-1">Sản Phẩm</p>
+          </div>
+          <div class="w-px bg-dark-border"></div>
+          <div>
+            <p class="text-3xl font-extrabold gradient-text">4.9★</p>
+            <p class="text-xs text-gray-500 mt-1">Đánh Giá</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual -->
+      <div class="hidden md:flex justify-center items-center relative">
+        <div class="hero-device-ring"></div>
+        <div class="relative z-10 product-float">
+          <div class="w-64 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl border border-primary/20 flex items-center justify-center shadow-2xl backdrop-blur-sm">
+            <i class="fa-solid fa-laptop text-8xl text-primary/70"></i>
+          </div>
+        </div>
+        <!-- Floating badges -->
+        <div class="floating-badge badge-1 bg-dark-card border border-dark-border rounded-xl px-4 py-2 flex items-center gap-2 shadow-xl">
+          <i class="fa-solid fa-star text-yellow-400"></i>
+          <span class="text-sm font-semibold">4.9 / 5.0</span>
+        </div>
+        <div class="floating-badge badge-2 bg-dark-card border border-dark-border rounded-xl px-4 py-2 flex items-center gap-2 shadow-xl">
+          <i class="fa-solid fa-shield-halved text-accent"></i>
+          <span class="text-sm font-semibold">Bảo Hành 2 Năm</span>
+        </div>
+        <div class="floating-badge badge-3 bg-dark-card border border-dark-border rounded-xl px-4 py-2 flex items-center gap-2 shadow-xl">
+          <i class="fa-solid fa-truck text-primary"></i>
+          <span class="text-sm font-semibold">Ship Miễn Phí</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 text-xs animate-bounce">
+      <span>Cuộn xuống</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORIES ===== -->
+  <section id="categories" class="py-20 max-w-7xl mx-auto px-6">
+    <div class="section-header">
+      <span class="section-tag">Danh Mục</span>
+      <h2 class="section-title">Khám Phá Theo <span class="gradient-text">Dòng Sản Phẩm</span></h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-10">
+      <!-- Each category card -->
+      <div class="category-card group cursor-pointer" onclick="filterCategory('laptop')">
+        <div class="cat-icon bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20">
+          <i class="fa-solid fa-laptop text-2xl"></i>
+        </div>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Laptop</span>
+        <span class="text-xs text-gray-500">48 sản phẩm</span>
+      </div>
+      <div class="category-card group cursor-pointer" onclick="filterCategory('phone')">
+        <div class="cat-icon bg-green-500/10 text-green-400 group-hover:bg-green-500/20">
+          <i class="fa-solid fa-mobile-screen text-2xl"></i>
+        </div>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Điện Thoại</span>
+        <span class="text-xs text-gray-500">124 sản phẩm</span>
+      </div>
+      <div class="category-card group cursor-pointer" onclick="filterCategory('tablet')">
+        <div class="cat-icon bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20">
+          <i class="fa-solid fa-tablet-screen-button text-2xl"></i>
+        </div>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Máy Tính Bảng</span>
+        <span class="text-xs text-gray-500">36 sản phẩm</span>
+      </div>
+      <div class="category-card group cursor-pointer" onclick="filterCategory('watch')">
+        <div class="cat-icon bg-orange-500/10 text-orange-400 group-hover:bg-orange-500/20">
+          <i class="fa-solid fa-clock text-2xl"></i>
+        </div>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Đồng Hồ TM</span>
+        <span class="text-xs text-gray-500">62 sản phẩm</span>
+      </div>
+      <div class="category-card group cursor-pointer" onclick="filterCategory('audio')">
+        <div class="cat-icon bg-pink-500/10 text-pink-400 group-hover:bg-pink-500/20">
+          <i class="fa-solid fa-headphones text-2xl"></i>
+        </div>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Âm Thanh</span>
+        <span class="text-xs text-gray-500">85 sản phẩm</span>
+      </div>
+      <div class="category-card group cursor-pointer" onclick="filterCategory('accessory')">
+        <div class="cat-icon bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500/20">
+          <i class="fa-solid fa-computer-mouse text-2xl"></i>
+        </div>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Phụ Kiện</span>
+        <span class="text-xs text-gray-500">210 sản phẩm</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PRODUCTS ===== -->
+  <section id="products" class="py-20 bg-dark-card/40">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="section-header">
+        <span class="section-tag">Sản Phẩm Nổi Bật</span>
+        <h2 class="section-title">Bán Chạy <span class="gradient-text">Nhất Tuần</span></h2>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap gap-3 mt-8 mb-10">
+        <button onclick="setFilter(this,'all')"    class="filter-btn active">Tất Cả</button>
+        <button onclick="setFilter(this,'laptop')"  class="filter-btn">Laptop</button>
+        <button onclick="setFilter(this,'phone')"   class="filter-btn">Điện Thoại</button>
+        <button onclick="setFilter(this,'tablet')"  class="filter-btn">Máy Tính Bảng</button>
+        <button onclick="setFilter(this,'audio')"   class="filter-btn">Âm Thanh</button>
+        <button onclick="setFilter(this,'accessory')" class="filter-btn">Phụ Kiện</button>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+        <!-- Product Card Template -->
+        <div class="product-card" data-cat="laptop">
+          <div class="product-img-wrap">
+            <div class="product-badge badge-new">Mới</div>
+            <div class="product-img bg-gradient-to-br from-blue-500/20 to-purple-500/20">
+              <i class="fa-solid fa-laptop text-5xl text-blue-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-primary/80 font-medium">Apple</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">MacBook Pro 16" M3 Max 2025</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(128)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">72.990.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">89.990.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="phone">
+          <div class="product-img-wrap">
+            <div class="product-badge badge-hot">Hot</div>
+            <div class="product-img bg-gradient-to-br from-green-500/20 to-cyan-500/20">
+              <i class="fa-solid fa-mobile-screen text-5xl text-green-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-accent/80 font-medium">Samsung</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Samsung Galaxy S25 Ultra 5G</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(256)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">31.990.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">36.990.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="audio">
+          <div class="product-img-wrap">
+            <div class="product-badge badge-sale">-30%</div>
+            <div class="product-img bg-gradient-to-br from-pink-500/20 to-red-500/20">
+              <i class="fa-solid fa-headphones text-5xl text-pink-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-pink-400/80 font-medium">Sony</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Sony WH-1000XM6 Noise Cancelling</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★☆</div>
+              <span class="text-xs text-gray-500">(89)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">7.490.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">10.990.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="tablet">
+          <div class="product-img-wrap">
+            <div class="product-img bg-gradient-to-br from-purple-500/20 to-indigo-500/20">
+              <i class="fa-solid fa-tablet-screen-button text-5xl text-purple-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-purple-400/80 font-medium">Apple</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">iPad Pro 13" M4 OLED WiFi 256GB</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(64)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">28.990.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">32.990.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="laptop">
+          <div class="product-img-wrap">
+            <div class="product-badge badge-new">Mới</div>
+            <div class="product-img bg-gradient-to-br from-yellow-500/20 to-orange-500/20">
+              <i class="fa-solid fa-laptop-code text-5xl text-yellow-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-yellow-400/80 font-medium">ASUS</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">ASUS ROG Zephyrus G16 RTX 4090</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(42)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">64.990.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">72.990.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="accessory">
+          <div class="product-img-wrap">
+            <div class="product-badge badge-hot">Hot</div>
+            <div class="product-img bg-gradient-to-br from-cyan-500/20 to-teal-500/20">
+              <i class="fa-solid fa-computer-mouse text-5xl text-cyan-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-cyan-400/80 font-medium">Logitech</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Logitech MX Master 3S Wireless</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(312)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">2.290.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">2.890.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="phone">
+          <div class="product-img-wrap">
+            <div class="product-badge badge-sale">-15%</div>
+            <div class="product-img bg-gradient-to-br from-red-500/20 to-rose-500/20">
+              <i class="fa-brands fa-apple text-5xl text-gray-300"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-gray-400/80 font-medium">Apple</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">iPhone 17 Pro Max 512GB Natural Titanium</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(501)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">35.490.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">41.990.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="accessory">
+          <div class="product-img-wrap">
+            <div class="product-img bg-gradient-to-br from-indigo-500/20 to-blue-500/20">
+              <i class="fa-solid fa-keyboard text-5xl text-indigo-400"></i>
+            </div>
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+            </div>
+          </div>
+          <div class="p-4">
+            <span class="text-xs text-indigo-400/80 font-medium">Keychron</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Keychron Q1 Max Mechanical Keyboard</h3>
+            <div class="flex items-center gap-1 mb-2">
+              <div class="stars">★★★★★</div>
+              <span class="text-xs text-gray-500">(178)</span>
+            </div>
+            <div class="flex items-end justify-between">
+              <div>
+                <span class="text-lg font-bold text-white">4.590.000₫</span>
+                <span class="block text-xs text-gray-500 line-through">5.290.000₫</span>
+              </div>
+              <button class="add-cart-btn" onclick="addToCart(this)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Load More -->
+      <div class="text-center mt-10">
+        <button class="border border-dark-border text-gray-300 font-medium px-8 py-3 rounded-xl hover:border-primary/60 hover:text-primary transition-all duration-200">
+          Xem Thêm Sản Phẩm <i class="fa-solid fa-arrow-down ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROMO BANNER ===== -->
+  <section class="py-20 max-w-7xl mx-auto px-6">
+    <div class="promo-banner rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl"></div>
+      </div>
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <span class="text-accent text-sm font-bold uppercase tracking-widest">Flash Sale – Chỉ Hôm Nay</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-3 mb-4">Giảm Đến <span class="text-accent">50%</span><br>Tất Cả Laptop</h2>
+          <p class="text-gray-400 max-w-md">Săn ngay những ưu đãi cực khủng trong 24h. Số lượng có hạn, đừng bỏ lỡ!</p>
+        </div>
+        <div class="text-center">
+          <!-- Countdown -->
+          <div class="flex gap-4 mb-6">
+            <div class="countdown-box"><span id="countH">08</span><small>GIỜ</small></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box"><span id="countM">34</span><small>PHÚT</small></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box"><span id="countS">21</span><small>GIÂY</small></div>
+          </div>
+          <a href="#products"
+            class="inline-flex items-center gap-2 bg-accent text-dark font-bold px-8 py-3 rounded-xl hover:bg-accent-dark transition shadow-lg shadow-accent/30">
+            Mua Ngay <i class="fa-solid fa-fire"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRANDS ===== -->
+  <section class="py-16 bg-dark-card/40">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="text-center text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">Đối Tác Chính Hãng</p>
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+        <div class="brand-logo"><i class="fa-brands fa-apple text-4xl"></i></div>
+        <div class="brand-logo"><span class="text-2xl font-extrabold">ASUS</span></div>
+        <div class="brand-logo"><span class="text-2xl font-bold tracking-tight">SAMSUNG</span></div>
+        <div class="brand-logo"><span class="text-2xl font-bold">Sony</span></div>
+        <div class="brand-logo"><span class="text-xl font-bold">Logitech</span></div>
+        <div class="brand-logo"><span class="text-xl font-bold">DELL</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="about" class="py-20 max-w-7xl mx-auto px-6">
+    <div class="section-header">
+      <span class="section-tag">Tại Sao Chọn Chúng Tôi</span>
+      <h2 class="section-title">Cam Kết <span class="gradient-text">Chất Lượng</span> Hàng Đầu</h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+      <div class="feature-card">
+        <div class="feature-icon bg-blue-500/10 text-blue-400"><i class="fa-solid fa-truck-fast text-xl"></i></div>
+        <h3 class="font-semibold mt-4 mb-2">Giao Hàng Nhanh</h3>
+        <p class="text-sm text-gray-400">Miễn phí vận chuyển cho đơn từ 500K. Giao hàng trong 2-4 giờ tại TP.HCM & Hà Nội.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon bg-green-500/10 text-green-400"><i class="fa-solid fa-shield-halved text-xl"></i></div>
+        <h3 class="font-semibold mt-4 mb-2">Bảo Hành Chính Hãng</h3>
+        <p class="text-sm text-gray-400">100% sản phẩm chính hãng, bảo hành 12-24 tháng. Hỗ trợ đổi trả trong 30 ngày.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon bg-purple-500/10 text-purple-400"><i class="fa-solid fa-credit-card text-xl"></i></div>
+        <h3 class="font-semibold mt-4 mb-2">Thanh Toán An Toàn</h3>
+        <p class="text-sm text-gray-400">Hỗ trợ MOMO, VNPay, thẻ tín dụng, trả góp 0% lãi suất. Bảo mật SSL 256-bit.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon bg-orange-500/10 text-orange-400"><i class="fa-solid fa-headset text-xl"></i></div>
+        <h3 class="font-semibold mt-4 mb-2">Hỗ Trợ 24/7</h3>
+        <p class="text-sm text-gray-400">Đội ngũ chuyên gia tư vấn sẵn sàng giải đáp mọi thắc mắc suốt 24 giờ mỗi ngày.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="py-16 bg-gradient-to-r from-primary/10 via-dark-card to-accent/10 border-y border-dark-border">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <i class="fa-solid fa-envelope-open-text text-3xl text-primary mb-4"></i>
+      <h2 class="text-3xl font-bold mb-3">Đăng Ký Nhận Ưu Đãi</h2>
+      <p class="text-gray-400 mb-8">Nhận ngay mã giảm 100K cho đơn hàng đầu tiên và cập nhật sản phẩm mới nhất.</p>
+      <div class="flex gap-3">
+        <input type="email" placeholder="Nhập email của bạn..."
+          class="flex-1 bg-dark-card border border-dark-border rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/60 transition" />
+        <button class="bg-gradient-to-r from-primary to-accent text-white font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30">
+          Đăng Ký
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-dark-card border-t border-dark-border py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10">
+        <!-- Brand -->
+        <div>
+          <a href="index.html" class="flex items-center gap-2 mb-4">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+              <i class="fa-solid fa-bolt text-white text-sm"></i>
+            </div>
+            <span class="text-xl font-bold">Tech<span class="text-primary">Store</span></span>
+          </a>
+          <p class="text-sm text-gray-400 leading-relaxed mb-5">Chuỗi bán lẻ công nghệ uy tín hàng đầu Việt Nam.</p>
+          <div class="flex gap-3">
+            <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <!-- Links -->
+        <div>
+          <h4 class="font-semibold mb-4">Sản Phẩm</h4>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-primary transition">Laptop</a></li>
+            <li><a href="#" class="hover:text-primary transition">Điện Thoại</a></li>
+            <li><a href="#" class="hover:text-primary transition">Máy Tính Bảng</a></li>
+            <li><a href="#" class="hover:text-primary transition">Phụ Kiện</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Hỗ Trợ</h4>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-primary transition">Chính Sách Bảo Hành</a></li>
+            <li><a href="#" class="hover:text-primary transition">Đổi Trả Hàng</a></li>
+            <li><a href="#" class="hover:text-primary transition">Hướng Dẫn Mua</a></li>
+            <li><a href="#" class="hover:text-primary transition">Liên Hệ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Liên Hệ</h4>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-primary mt-0.5"></i>123 Đinh Tiên Hoàng, Q.1, TP.HCM</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-primary"></i>1800 6789</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-primary"></i>hello@techstore.vn</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-dark-border mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+        <p>© 2025 TechStore. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-gray-300 transition">Bảo Mật</a>
+          <a href="#" class="hover:text-gray-300 transition">Điều Khoản</a>
+          <a href="#" class="hover:text-gray-300 transition">Cookie</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden">
+    <i class="fa-solid fa-check-circle text-accent"></i>
+    <span id="toastMsg">Đã thêm vào giỏ hàng!</span>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <!--
+    IMPORT NGÔN NGỮ TRỰC TIẾP TRONG INDEX.HTML:
+    1) Đặt vi.json và en.json trong thư mục Json.
+    2) Bấm "Import thư mục ngôn ngữ" và chọn thư mục Json.
+    3) Bấm "Áp dụng bản dịch", rồi dùng menu ngôn ngữ trên navbar.
+    4) Muốn dịch một phần tử HTML, thêm data-i18n="duong.dan.khoa";
+       JSON phải có cùng đường dẫn, ví dụ {"common":{"nav":{"login":"Log In"}}}.
+    JSON đã import được lưu trong localStorage của trình duyệt hiện tại.
+  -->
+  <script>
+  // Import module được nhúng thẳng trong index.html để có thể xem và chỉnh tại đây.
+  // Chỉ áp dụng các khóa data-i18n (và data-i18n-placeholder/title) có trong JSON.(() => {
+  const storageKey = 'techstore-translations';
+  const translationAttributes = ['placeholder', 'title'];
+  let pendingImport = null;
+  let importStatus = null;
+
+  function isObject(value) {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+  }
+
+  function hasStringValue(value) {
+    return typeof value === 'string'
+      || (isObject(value) && Object.values(value).some(hasStringValue));
+  }
+
+  function getTranslation(translations, key) {
+    return key.split('.').reduce((value, part) => {
+      return isObject(value) ? value[part] : undefined;
+    }, translations);
+  }
+
+  function applyTranslations(translations) {
+    let appliedCount = 0;
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const value = getTranslation(translations, element.dataset.i18n);
+      if (typeof value === 'string') {
+        element.textContent = value;
+        appliedCount++;
+      }
+    });
+
+    translationAttributes.forEach(attribute => {
+      document.querySelectorAll(`[data-i18n-${attribute}]`).forEach(element => {
+        const key = element.dataset[`i18n${attribute[0].toUpperCase()}${attribute.slice(1)}`];
+        const value = getTranslation(translations, key);
+        if (typeof value === 'string') {
+          element.setAttribute(attribute, value);
+          appliedCount++;
+        }
+      });
+    });
+
+    const titleElement = document.querySelector('[data-i18n-document-title]');
+    if (titleElement) {
+      const value = getTranslation(translations, titleElement.dataset.i18nDocumentTitle);
+      if (typeof value === 'string') {
+        document.title = value;
+        appliedCount++;
+      }
+    }
+
+    return appliedCount;
+  }
+
+  function showStatus(status, message, isError = false) {
+    status.textContent = message;
+    status.classList.toggle('translation-import-error', isError);
+  }
+
+  function setCurrentLanguage(language, translations) {
+    const translation = translations[language];
+    if (!isObject(translation)) return null;
+
+    const appliedCount = applyTranslations(translation);
+    document.documentElement.lang = language;
+    const languageLabel = document.querySelector('#langLabel');
+    if (languageLabel) languageLabel.textContent = language.toUpperCase();
+    return appliedCount;
+  }
+
+  document.addEventListener('techstore:language-change', event => {
+    const language = event.detail?.language;
+    if (language !== 'vi' && language !== 'en') return;
+
+    try {
+      const savedImport = localStorage.getItem(storageKey);
+      if (!savedImport) throw new Error('Hãy import cả vi.json và en.json trước khi đổi ngôn ngữ.');
+
+      const imported = JSON.parse(savedImport);
+      const appliedCount = isObject(imported.translations)
+        ? setCurrentLanguage(language, imported.translations)
+        : null;
+      if (appliedCount === null) {
+        throw new Error(`Không tìm thấy bản dịch ${language}.json đã import.`);
+      }
+
+      imported.language = language;
+      localStorage.setItem(storageKey, JSON.stringify(imported));
+      if (importStatus) {
+        const message = appliedCount > 0
+          ? `Đã chuyển sang ${language.toUpperCase()}.`
+          : `Đã chuyển sang ${language.toUpperCase()}; trang này chưa có khóa dịch tương ứng.`;
+        showStatus(importStatus, message, appliedCount === 0);
+      }
+    } catch (error) {
+      if (importStatus) showStatus(importStatus, error.message, true);
+    }
+  });
+
+  function initTranslationImport() {
+    const panel = document.createElement('section');
+    panel.className = 'translation-import';
+    panel.setAttribute('aria-label', 'Import bản dịch');
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json,application/json';
+    fileInput.multiple = true;
+    fileInput.hidden = true;
+    fileInput.setAttribute('aria-label', 'Chọn thư mục có Json/vi.json và Json/en.json');
+    fileInput.setAttribute('webkitdirectory', '');
+    fileInput.setAttribute('directory', '');
+
+    const selectButton = document.createElement('button');
+    selectButton.type = 'button';
+    selectButton.className = 'translation-import-button';
+    selectButton.textContent = 'Import thư mục ngôn ngữ';
+    selectButton.addEventListener('click', () => fileInput.click());
+
+    const applyButton = document.createElement('button');
+    applyButton.type = 'button';
+    applyButton.className = 'translation-import-button translation-apply-button';
+    applyButton.textContent = 'Áp dụng bản dịch';
+    applyButton.hidden = true;
+
+    const status = document.createElement('p');
+    status.className = 'translation-import-status';
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+    status.textContent = 'Chọn thư mục có Json/vi.json và Json/en.json; sau đó đổi ngôn ngữ bằng menu.';
+    importStatus = status;
+
+    fileInput.addEventListener('change', async () => {
+      const files = [...(fileInput.files || [])];
+      if (files.length === 0) return;
+
+      try {
+        const translations = {};
+        for (const file of files) {
+          const language = file.name.match(/^(vi|en)\.json$/i)?.[1]?.toLowerCase();
+          if (!language) continue;
+          if (translations[language]) throw new Error(`File ${language}.json bị chọn nhiều lần.`);
+
+          const content = JSON.parse(await file.text());
+          if (!isObject(content) || !hasStringValue(content)) {
+            throw new Error(`${file.name} không có cấu trúc bản dịch hợp lệ.`);
+          }
+          translations[language] = content;
+        }
+
+        if (!translations.vi || !translations.en) {
+          throw new Error('Thư mục cần có đủ Json/vi.json và Json/en.json.');
+        }
+
+        pendingImport = { translations, language: document.documentElement.lang === 'en' ? 'en' : 'vi' };
+        applyButton.hidden = false;
+        showStatus(status, 'Đã chọn vi.json và en.json. Nhấn “Áp dụng bản dịch” để lưu và chuyển đổi ngôn ngữ.');
+      } catch (error) {
+        pendingImport = null;
+        applyButton.hidden = true;
+        showStatus(status, `Không thể đọc bản dịch: ${error.message}`, true);
+      } finally {
+        fileInput.value = '';
+      }
+    });
+
+    applyButton.addEventListener('click', () => {
+      if (!pendingImport) return;
+
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(pendingImport));
+        const language = pendingImport.language;
+        const applied = setCurrentLanguage(language, pendingImport.translations);
+        const message = applied > 0
+          ? 'Đã lưu vi.json và en.json. Có thể đổi ngôn ngữ bất cứ lúc nào mà không cần import lại.'
+          : 'Đã lưu vi.json và en.json; trang này chưa có khóa dịch tương ứng. Có thể đổi ngôn ngữ bằng menu.';
+        showStatus(status, message);
+      } catch (error) {
+        showStatus(status, `Không thể lưu bản dịch: ${error.message}`, true);
+      }
+    });
+
+    panel.append(selectButton, applyButton, fileInput, status);
+    document.body.prepend(panel);
+
+    try {
+      const savedImport = localStorage.getItem(storageKey);
+      if (!savedImport) return;
+
+      const imported = JSON.parse(savedImport);
+      if (!isObject(imported) || !isObject(imported.translations)) {
+        throw new Error('Dữ liệu bản dịch đã lưu không hợp lệ.');
+      }
+
+      if (isObject(imported.translations.vi) && isObject(imported.translations.en)) {
+        const language = imported.language === 'en' ? 'en' : 'vi';
+        setCurrentLanguage(language, imported.translations);
+      } else {
+        showStatus(status, 'Bản dịch cũ chỉ có một ngôn ngữ. Hãy import lại thư mục có đủ vi.json và en.json.', true);
+      }
+    } catch (error) {
+      showStatus(status, `Không thể tải bản dịch đã lưu: ${error.message}`, true);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initTranslationImport);
+})();
+  </script>
+</body>
+</html>

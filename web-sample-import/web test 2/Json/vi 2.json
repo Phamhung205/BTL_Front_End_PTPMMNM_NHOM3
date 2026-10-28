@@ -1,0 +1,28 @@
+{
+  "common": {
+    "actions": {
+      "manage": "Quản lý",
+      "view_all": "Xem tất cả"
+    },
+    "categories": {
+      "accessories": "Phụ Kiện",
+      "audio": "Âm Thanh",
+      "laptop": "Laptop",
+      "phone": "Điện Thoại"
+    },
+    "languages": {
+      "english": "English",
+      "japanese": "日本語",
+      "korean": "한국어",
+      "vietnamese": "Tiếng Việt"
+    },
+    "nav": {
+      "products": "Sản Phẩm"
+    }
+  },
+  "dashboard": {
+    "quick_actions": {
+      "notifications": "Thông Báo"
+    }
+  }
+}

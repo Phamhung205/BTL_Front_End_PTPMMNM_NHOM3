@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechStore – Đăng Ký</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:  { DEFAULT: '#6C63FF', dark: '#574FD6' },
+            accent:   { DEFAULT: '#00D4AA', dark: '#00B894' },
+            dark:     { DEFAULT: '#0F0F1A', card: '#1A1A2E', border: '#2A2A4A' },
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-dark text-white font-sans antialiased min-h-screen flex">
+
+  <!-- Left Visual Panel -->
+  <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-dark-card">
+    <div class="absolute inset-0">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2" style="animation-delay:1.5s"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="relative z-10 flex flex-col justify-center items-center w-full p-16 text-center">
+      <a href="index.html" class="flex items-center gap-2 mb-12">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
+          <i class="fa-solid fa-bolt text-white text-xl"></i>
+        </div>
+        <span class="text-2xl font-extrabold tracking-tight">Tech<span class="text-primary">Store</span></span>
+      </a>
+
+      <!-- Illustration -->
+      <div class="relative mb-10">
+        <div class="w-56 h-56 rounded-full bg-gradient-to-br from-accent/20 to-primary/20 border border-accent/20 flex items-center justify-center mx-auto shadow-2xl">
+          <i class="fa-solid fa-user-plus text-7xl text-accent/60"></i>
+        </div>
+        <div class="absolute -top-4 -right-4 bg-dark-card border border-dark-border rounded-2xl p-3 shadow-xl">
+          <i class="fa-solid fa-gift text-yellow-400 text-xl"></i>
+        </div>
+        <div class="absolute -bottom-4 -left-4 bg-dark-card border border-dark-border rounded-2xl p-3 shadow-xl">
+          <i class="fa-solid fa-star text-accent text-xl"></i>
+        </div>
+      </div>
+
+      <h2 class="text-3xl font-bold mb-4">Gia Nhập Cộng Đồng!</h2>
+      <p class="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">
+        Tạo tài khoản miễn phí và nhận ngay mã giảm 100.000₫ cho đơn đầu tiên.
+      </p>
+
+      <!-- Perks -->
+      <div class="space-y-3 text-left w-full max-w-xs">
+        <div class="flex items-center gap-3 text-sm text-gray-300">
+          <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-check text-primary text-xs"></i>
+          </div>
+          Giảm 100K đơn hàng đầu tiên
+        </div>
+        <div class="flex items-center gap-3 text-sm text-gray-300">
+          <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-check text-primary text-xs"></i>
+          </div>
+          Tích điểm TechPoint mỗi lần mua
+        </div>
+        <div class="flex items-center gap-3 text-sm text-gray-300">
+          <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-check text-primary text-xs"></i>
+          </div>
+          Flash sale độc quyền thành viên VIP
+        </div>
+        <div class="flex items-center gap-3 text-sm text-gray-300">
+          <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-check text-primary text-xs"></i>
+          </div>
+          Hỗ trợ ưu tiên 24/7
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Form Panel -->
+  <div class="flex-1 flex flex-col justify-center items-center p-8 relative overflow-y-auto">
+
+    <!-- Top Bar -->
+    <div class="absolute top-6 left-6 right-6 flex items-center justify-between">
+      <a href="index.html" class="lg:hidden flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+          <i class="fa-solid fa-bolt text-white text-sm"></i>
+        </div>
+        <span class="font-bold">Tech<span class="text-primary">Store</span></span>
+      </a>
+      <a href="index.html" class="hidden lg:flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition ml-auto">
+        <i class="fa-solid fa-arrow-left text-xs"></i> <span data-i18n="common.nav.back_to_home">Về trang chủ</span>
+      </a>
+
+      <!-- Language Switcher -->
+      <div class="relative" id="langDropdownWrap">
+        <button id="langBtn"
+          class="flex items-center gap-1.5 text-xs font-semibold border border-dark-border rounded-lg px-3 py-2 hover:border-primary/60 hover:text-primary transition-all duration-200 bg-dark-card ml-3">
+          <i class="fa-solid fa-globe text-primary text-sm"></i>
+          <span id="langLabel">VI</span>
+          <i class="fa-solid fa-chevron-down text-xs opacity-60"></i>
+        </button>
+        <div id="langMenu"
+          class="absolute right-0 top-11 w-36 bg-dark-card border border-dark-border rounded-xl shadow-2xl overflow-hidden hidden lang-menu">
+          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇻🇳</span> Tiếng Việt
+          </button>
+          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇺🇸</span> English
+          </button>
+          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇯🇵</span> 日本語
+          </button>
+          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇰🇷</span> 한국어
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="w-full max-w-md pt-16 lg:pt-0">
+      <div class="mb-8">
+        <h1 class="text-3xl font-extrabold mb-2">Tạo Tài Khoản</h1>
+        <p class="text-gray-400 text-sm">Đã có tài khoản? <a href="login.html" class="text-primary hover:underline font-medium">Đăng nhập</a></p>
+      </div>
+
+      <!-- Social -->
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <button class="social-login-btn">
+          <i class="fa-brands fa-google text-red-400"></i>
+          <span>Google</span>
+        </button>
+        <button class="social-login-btn">
+          <i class="fa-brands fa-facebook text-blue-400"></i>
+          <span>Facebook</span>
+        </button>
+      </div>
+
+      <div class="divider-or mb-6"><span>hoặc đăng ký bằng email</span></div>
+
+      <form id="registerForm" class="space-y-4" onsubmit="handleRegister(event)">
+
+        <!-- Name Row -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="input-group">
+            <label class="input-label">Họ</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" placeholder="Nguyễn" class="form-input" required />
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Tên</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" placeholder="Văn A" class="form-input" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="input-group">
+          <label class="input-label">Email</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="regEmail" placeholder="your@email.com" class="form-input" required />
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="input-group">
+          <label class="input-label">Số Điện Thoại</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-phone input-icon"></i>
+            <input type="tel" placeholder="0901 234 567" class="form-input" />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="input-group">
+          <label class="input-label">Mật Khẩu</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="regPass" placeholder="Tối thiểu 8 ký tự" class="form-input pr-12" required oninput="checkStrength(this.value)" />
+            <button type="button" class="pwd-toggle" onclick="togglePwd('regPass',this)">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <!-- Password Strength -->
+          <div class="mt-2 space-y-1.5">
+            <div class="flex gap-1.5">
+              <div class="h-1 flex-1 rounded-full bg-dark-border" id="s1"></div>
+              <div class="h-1 flex-1 rounded-full bg-dark-border" id="s2"></div>
+              <div class="h-1 flex-1 rounded-full bg-dark-border" id="s3"></div>
+              <div class="h-1 flex-1 rounded-full bg-dark-border" id="s4"></div>
+            </div>
+            <p id="strengthText" class="text-xs text-gray-500">Nhập mật khẩu để kiểm tra độ mạnh</p>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-group">
+          <label class="input-label">Xác Nhận Mật Khẩu</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="regPassConf" placeholder="Nhập lại mật khẩu" class="form-input pr-12" required />
+            <button type="button" class="pwd-toggle" onclick="togglePwd('regPassConf',this)">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="flex items-start gap-2">
+          <input type="checkbox" id="terms" class="w-4 h-4 mt-0.5 rounded border-dark-border accent-primary cursor-pointer" required />
+          <label for="terms" class="text-xs text-gray-400 cursor-pointer leading-relaxed">
+            Tôi đồng ý với <a href="#" class="text-primary hover:underline">Điều khoản dịch vụ</a> và
+            <a href="#" class="text-primary hover:underline">Chính sách bảo mật</a> của TechStore.
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-primary to-accent text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30 flex items-center justify-center gap-2">
+          <span>Tạo Tài Khoản</span>
+          <i class="fa-solid fa-user-plus"></i>
+        </button>
+      </form>
+
+      <!-- Success Message (hidden by default) -->
+      <div id="registerSuccess" class="hidden mt-4 bg-accent/10 border border-accent/30 text-accent text-sm rounded-xl px-4 py-3 text-center">
+        <i class="fa-solid fa-circle-check mr-2"></i>
+        Tạo tài khoản thành công! <a href="login.html" class="underline font-semibold">Đăng nhập ngay</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/bandich.js"></script>
+</body>
+</html>

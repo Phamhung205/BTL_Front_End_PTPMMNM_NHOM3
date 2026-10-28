@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../backend/TranslationManager.Backend/Support/SourceDocument.cs" Link="SourceDocument.cs" />
+    <Compile Include="../../backend/TranslationManager.Backend/Support/JsonTree.cs" Link="JsonTree.cs" />
+    <Compile Include="../../backend/TranslationManager.Backend/Support/ApiException.cs" Link="ApiException.cs" />
+    <Compile Include="../../backend/TranslationManager.Backend/Dtos/SourceDtos.cs" Link="SourceDtos.cs" />
+  </ItemGroup>
+</Project>

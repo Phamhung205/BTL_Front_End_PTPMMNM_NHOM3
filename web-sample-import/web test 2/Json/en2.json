@@ -1,0 +1,28 @@
+{
+  "common": {
+    "actions": {
+      "manage": "Manage",
+      "view_all": "See all"
+    },
+    "categories": {
+      "accessories": "Accessory",
+      "audio": "Sound",
+      "laptop": "Laptop",
+      "phone": "Phone"
+    },
+    "languages": {
+      "english": "English",
+      "japanese": "日本語",
+      "korean": "한국어",
+      "vietnamese": "Vietnamese"
+    },
+    "nav": {
+      "products": "Product"
+    }
+  },
+  "dashboard": {
+    "quick_actions": {
+      "notifications": "Notification"
+    }
+  }
+}

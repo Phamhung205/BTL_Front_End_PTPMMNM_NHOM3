@@ -1,0 +1,32 @@
+{
+  "version": "catalog-2.0.0",
+  "projectId": 9,
+  "releaseId": 3,
+  "keyCount": 1010,
+  "files": [
+    {
+      "localeCode": "en",
+      "isSource": true,
+      "fileName": "en.json",
+      "sha256": "d3ea29c4747c7c67ddaaf9212ab894dab0ae15150707dbc0b5baf4db63a8f0e8",
+      "keyCount": 1010,
+      "sizeBytes": 51032
+    },
+    {
+      "localeCode": "vi",
+      "isSource": false,
+      "fileName": "vi.json",
+      "sha256": "2653e37afa98af59a724e9a41b84136cfb04da99737b8c2a78d655c7c3b389b8",
+      "keyCount": 1010,
+      "sizeBytes": 58745
+    },
+    {
+      "localeCode": "zh",
+      "isSource": false,
+      "fileName": "zh.json",
+      "sha256": "2ea12cbcf2ebc5bb6aec6e3675d2aaf2660b431db180547889e52920591eea8c",
+      "keyCount": 1010,
+      "sizeBytes": 44513
+    }
+  ]
+}

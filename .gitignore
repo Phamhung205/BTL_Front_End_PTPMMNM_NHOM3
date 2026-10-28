@@ -1,0 +1,35 @@
+# Environment files
+.env
+.env.local
+.env.production
+.env.*
+!.env.example
+.local/
+artifacts/
+
+# Secrets
+secrets.json
+*.key
+*.pem
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies
+/vendor/
+node_modules/
+**/bin/
+**/obj/
+backend/**/storage/releases/*/
+
+# Logs
+*.log
