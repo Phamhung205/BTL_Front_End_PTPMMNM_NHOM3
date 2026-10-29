@@ -5,8 +5,8 @@
       "view_all": "See all"
     },
     "categories": {
-      "accessories": "Accessory",
-      "audio": "Sound",
+      "accessories": "Accessories",
+      "audio": "Audio",
       "laptop": "Laptop",
       "phone": "Phone"
     },
@@ -23,7 +23,7 @@
     "nav": {
       "back_to_home": "Back to Home",
       "login": "Log In",
-      "products": "Product"
+      "products": "Products"
     },
     "store": "Store",
     "tech": "Tech"
@@ -76,7 +76,7 @@
     "phan_tich": "Analytics",
     "quan_ly": "MANAGEMENT",
     "quick_actions": {
-      "notifications": "Notification"
+      "notifications": "Notifications"
     },
     "samsung_galaxy_s25_ultra": "Samsung Galaxy S25 Ultra",
     "samsung_s25_ultra": "Samsung S25 Ultra",

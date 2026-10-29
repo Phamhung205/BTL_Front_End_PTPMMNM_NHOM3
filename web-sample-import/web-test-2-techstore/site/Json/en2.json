@@ -5,8 +5,8 @@
       "view_all": "See all"
     },
     "categories": {
-      "accessories": "Accessory",
-      "audio": "Sound",
+      "accessories": "Accessories",
+      "audio": "Audio",
       "laptop": "Laptop",
       "phone": "Phone"
     },
@@ -17,12 +17,12 @@
       "vietnamese": "Vietnamese"
     },
     "nav": {
-      "products": "Product"
+      "products": "Products"
     }
   },
   "dashboard": {
     "quick_actions": {
-      "notifications": "Notification"
+      "notifications": "Notifications"
     }
   },
   "home": {
