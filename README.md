@@ -2,6 +2,8 @@
 
 Frontend PHP 8 và JavaScript, gọi Backend ASP.NET Core qua gateway cùng origin. Tài khoản, dự án và bản dịch được lưu trong MariaDB; không còn bộ mô phỏng lưu nghiệp vụ trong trình duyệt.
 
+Các lệnh mở hệ thống và 3 website mẫu trên máy GIANG được lưu trong [HUONG_DAN_CHAY_WEB.txt](HUONG_DAN_CHAY_WEB.txt); mở bằng Notepad để sao chép khi cần. Cài trên máy khác: [docs/SETUP.md](docs/SETUP.md).
+
 ## Chạy website với CSDL chính
 
 Bật Apache và MySQL XAMPP, mở PowerShell tại thư mục Frontend rồi chạy:

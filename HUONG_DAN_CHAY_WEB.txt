@@ -1,0 +1,85 @@
+HƯỚNG DẪN MỞ HỆ THỐNG VÀ 3 WEBSITE MẪU
+======================================
+
+File này lưu các lệnh để xem lại mà không cần mở cuộc trò chuyện.
+Các đường dẫn bên dưới dành cho máy GIANG đã được cài đặt và chạy thử.
+
+1. MỞ HỆ THỐNG QUẢN LÝ TRƯỚC
+
+Nhấn Windows + R, gõ powershell rồi nhấn Enter.
+Sao chép hai dòng sau vào cửa sổ PowerShell, nhấn Enter:
+
+cd C:\Users\GIANG\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-demo.ps1
+
+Đợi hiện "Demo ready". Script tự chạy frontend, backend và CSDL demo 3307.
+Mở Chrome: http://127.0.0.1:8095
+
+Tài khoản dùng riêng cho demo local:
+Manager:    manager.demo@tm.local
+Translator: translator.demo@tm.local
+Reviewer:   reviewer.demo@tm.local
+Mật khẩu chung: Demo@2026Admin!
+
+2. MỞ FASHION (VIỆT / ANH / NHẬT)
+
+Mở cửa sổ PowerShell MỚI, chạy:
+
+cd C:\Users\GIANG\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+& C:\xampp\php\php.exe -S 127.0.0.1:8111 -t artifacts/full-text-fashion-beauty-2/web-test-1-fashion
+
+Mở Chrome: http://127.0.0.1:8111
+Chọn ngôn ngữ ở góc trên trang.
+
+3. MỞ TECHSTORE (VIỆT / ANH)
+
+Mở cửa sổ PowerShell MỚI, chạy:
+
+cd C:\Users\GIANG\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+& C:\xampp\php\php.exe -S 127.0.0.1:8112 -t artifacts/full-text-techstore-4/site-v2
+
+Mở Chrome: http://127.0.0.1:8112
+Trang đăng nhập mẫu: http://127.0.0.1:8112/login.html
+Đổi ngôn ngữ bằng bộ chọn/menu trên trang.
+
+4. MỞ BEAUTYSHOP (VIỆT / ANH)
+
+Mở cửa sổ PowerShell MỚI, chạy:
+
+cd C:\Users\GIANG\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+& C:\xampp\php\php.exe -S 127.0.0.1:8113 -t artifacts/full-text-fashion-beauty-2/web-test-3-beautyshop
+
+Mở Chrome: http://127.0.0.1:8113
+Bấm nút VI / EN để đổi ngôn ngữ.
+
+5. GIỮ VÀ DỪNG WEBSITE
+
+Giữ các cửa sổ PowerShell của website đang mở; có thể thu nhỏ.
+Muốn dừng website nào, nhấn Ctrl+C trong cửa sổ tương ứng.
+Nếu báo cổng đã được sử dụng, mở thử địa chỉ của website: có thể web đang chạy.
+
+Để dừng hệ thống quản lý, chạy trong PowerShell:
+
+cd C:\Users\GIANG\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-integrated.ps1
+
+6. CHẠY BỘ KIỂM THỬ HỆ THỐNG
+
+cd C:\Users\GIANG\TMWork\BTL_Front_End_PTPMMNM_NHOM3
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-all.ps1
+
+Báo cáo sau khi chạy: artifacts/test-report.md
+Hướng dẫn kiểm thử Chrome: tests/browser/README.md
+
+7. NẾU CHẠY TRÊN MÁY KHÁC HOẶC KHÔNG CÒN THƯ MỤC ARTIFACTS
+
+Các thư mục artifacts ở mục 2-4 là bản demo đã cấu hình trên máy GIANG,
+không được đưa lên GitHub. Các lệnh đó cần đúng các thư mục này và CSDL
+demo còn chứa các bản phát hành tương ứng.
+
+Trên máy khác, xem docs/SETUP.md để cài môi trường và tạo junction ASCII.
+Sau đó dùng mã website trong web-sample-import, nhập nguồn/bản dịch,
+duyệt, phát hành và tải client + config vào website theo:
+web-sample-import/README.md
+
+Hướng dẫn đối chiếu đề bài và trình diễn: docs/DEMO_NHOM3.md
