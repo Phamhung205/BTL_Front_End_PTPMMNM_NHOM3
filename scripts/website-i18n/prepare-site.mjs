@@ -8,7 +8,7 @@
 // - Ghi i18n/<locale>.json (JSON lồng nhau, ngôn ngữ nguồn) để nhập ở trang Phiên bản nguồn.
 // - --dictionary: JSON nguồn sẵn có (khóa → chữ). Chữ trùng nội dung dùng lại khóa đó, mọi khóa trong từ điển
 //   được giữ trong tệp nguồn để bản dịch cũ (en.json, ja.json...) nhập vào khớp khóa.
-// Không xử lý chữ nằm trong JavaScript (alert, toast...) hoặc thuộc tính alt/aria-label.
+// JavaScript cần gọi TranslationManager.t() hoặc tạo phần tử data-i18n rồi apply().
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -25,9 +25,9 @@ const dictionaryFiles = args.flatMap((value, index) => value === '--dictionary' 
 if (!existsSync(siteDirectory)) throw new Error('Không tìm thấy website: ' + siteDirectory);
 if (existsSync(outputDirectory) && readdirSync(outputDirectory).length) throw new Error('Thư mục đầu ra phải trống: ' + outputDirectory);
 
-const SKIP_CONTENT = new Set(['script', 'style', 'noscript', 'svg', 'code', 'pre', 'template', 'textarea', 'option', 'select']);
+const SKIP_CONTENT = new Set(['script', 'style', 'noscript', 'svg', 'code', 'pre', 'template']);
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
-const ATTRIBUTES = ['placeholder', 'title'];
+const ATTRIBUTES = ['placeholder', 'title', 'alt', 'aria-label'];
 const TAG = /<!--[\s\S]*?-->|<!doctype[^>]*>|<(\/?)([a-zA-Z][\w:-]*)((?:\s+[^\s"'>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*)\s*(\/?)>/gi;
 const ATTRIBUTE = /([^\s"'>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
 

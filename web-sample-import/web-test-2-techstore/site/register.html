@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TechStore – Đăng Ký</title>
+  <title data-i18n-document-title="register.techstore_dang_ky">TechStore – Đăng Ký</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -36,7 +36,7 @@
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
           <i class="fa-solid fa-bolt text-white text-xl"></i>
         </div>
-        <span class="text-2xl font-extrabold tracking-tight">Tech<span class="text-primary">Store</span></span>
+        <span class="text-2xl font-extrabold tracking-tight"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
       </a>
 
       <!-- Illustration -->
@@ -52,8 +52,8 @@
         </div>
       </div>
 
-      <h2 class="text-3xl font-bold mb-4">Gia Nhập Cộng Đồng!</h2>
-      <p class="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">
+      <h2 class="text-3xl font-bold mb-4" data-i18n="register.gia_nhap_cong_dong">Gia Nhập Cộng Đồng!</h2>
+      <p class="text-gray-400 text-sm leading-relaxed max-w-xs mb-8" data-i18n="register.tao_tai_khoan_mien_phi_va_nhan_ngay_ma_giam_100">
         Tạo tài khoản miễn phí và nhận ngay mã giảm 100.000₫ cho đơn đầu tiên.
       </p>
 
@@ -63,25 +63,25 @@
           <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
             <i class="fa-solid fa-check text-primary text-xs"></i>
           </div>
-          Giảm 100K đơn hàng đầu tiên
+          <span data-i18n="register.giam_100k_don_hang_dau_tien">Giảm 100K đơn hàng đầu tiên</span>
         </div>
         <div class="flex items-center gap-3 text-sm text-gray-300">
           <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
             <i class="fa-solid fa-check text-primary text-xs"></i>
           </div>
-          Tích điểm TechPoint mỗi lần mua
+          <span data-i18n="register.tich_diem_techpoint_moi_lan_mua">Tích điểm TechPoint mỗi lần mua</span>
         </div>
         <div class="flex items-center gap-3 text-sm text-gray-300">
           <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
             <i class="fa-solid fa-check text-primary text-xs"></i>
           </div>
-          Flash sale độc quyền thành viên VIP
+          <span data-i18n="register.flash_sale_doc_quyen_thanh_vien_vip">Flash sale độc quyền thành viên VIP</span>
         </div>
         <div class="flex items-center gap-3 text-sm text-gray-300">
           <div class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
             <i class="fa-solid fa-check text-primary text-xs"></i>
           </div>
-          Hỗ trợ ưu tiên 24/7
+          <span data-i18n="register.ho_tro_uu_tien_24_7">Hỗ trợ ưu tiên 24/7</span>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
         <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
           <i class="fa-solid fa-bolt text-white text-sm"></i>
         </div>
-        <span class="font-bold">Tech<span class="text-primary">Store</span></span>
+        <span class="font-bold"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
       </a>
       <a href="index.html" class="hidden lg:flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition ml-auto">
         <i class="fa-solid fa-arrow-left text-xs"></i> <span data-i18n="common.nav.back_to_home">Về trang chủ</span>
@@ -107,22 +107,22 @@
         <button id="langBtn"
           class="flex items-center gap-1.5 text-xs font-semibold border border-dark-border rounded-lg px-3 py-2 hover:border-primary/60 hover:text-primary transition-all duration-200 bg-dark-card ml-3">
           <i class="fa-solid fa-globe text-primary text-sm"></i>
-          <span id="langLabel">VI</span>
+          <span id="langLabel" translate="no">VI</span>
           <i class="fa-solid fa-chevron-down text-xs opacity-60"></i>
         </button>
         <div id="langMenu"
           class="absolute right-0 top-11 w-36 bg-dark-card border border-dark-border rounded-xl shadow-2xl overflow-hidden hidden lang-menu">
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇻🇳</span> Tiếng Việt
+          <button data-language="vi" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇻🇳</span> <span data-i18n="common.languages.vietnamese">Tiếng Việt</span>
           </button>
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇺🇸</span> English
+          <button data-language="en" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇺🇸</span> <span data-i18n="common.languages.english">English</span>
           </button>
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇯🇵</span> 日本語
+          <button data-language="ja" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇯🇵</span> <span data-i18n="common.languages.japanese">日本語</span>
           </button>
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇰🇷</span> 한국어
+          <button data-language="ko" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇰🇷</span> <span data-i18n="common.languages.korean">한국어</span>
           </button>
         </div>
       </div>
@@ -131,47 +131,47 @@
     <!-- Form -->
     <div class="w-full max-w-md pt-16 lg:pt-0">
       <div class="mb-8">
-        <h1 class="text-3xl font-extrabold mb-2">Tạo Tài Khoản</h1>
-        <p class="text-gray-400 text-sm">Đã có tài khoản? <a href="login.html" class="text-primary hover:underline font-medium">Đăng nhập</a></p>
+        <h1 class="text-3xl font-extrabold mb-2" data-i18n="register.tao_tai_khoan">Tạo Tài Khoản</h1>
+        <p class="text-gray-400 text-sm"><span data-i18n="register.da_co_tai_khoan">Đã có tài khoản?</span> <a href="login.html" class="text-primary hover:underline font-medium" data-i18n="register.dang_nhap">Đăng nhập</a></p>
       </div>
 
       <!-- Social -->
       <div class="grid grid-cols-2 gap-3 mb-6">
         <button class="social-login-btn">
           <i class="fa-brands fa-google text-red-400"></i>
-          <span>Google</span>
+          <span data-i18n="common.google">Google</span>
         </button>
         <button class="social-login-btn">
           <i class="fa-brands fa-facebook text-blue-400"></i>
-          <span>Facebook</span>
+          <span data-i18n="common.facebook">Facebook</span>
         </button>
       </div>
 
-      <div class="divider-or mb-6"><span>hoặc đăng ký bằng email</span></div>
+      <div class="divider-or mb-6"><span data-i18n="register.hoac_dang_ky_bang_email">hoặc đăng ký bằng email</span></div>
 
       <form id="registerForm" class="space-y-4" onsubmit="handleRegister(event)">
 
         <!-- Name Row -->
         <div class="grid grid-cols-2 gap-4">
           <div class="input-group">
-            <label class="input-label">Họ</label>
+            <label class="input-label" data-i18n="register.ho">Họ</label>
             <div class="input-wrap">
               <i class="fa-solid fa-user input-icon"></i>
-              <input type="text" placeholder="Nguyễn" class="form-input" required />
+              <input type="text" placeholder="Nguyễn" class="form-input" required  data-i18n-placeholder="register.nguyen"/>
             </div>
           </div>
           <div class="input-group">
-            <label class="input-label">Tên</label>
+            <label class="input-label" data-i18n="register.ten">Tên</label>
             <div class="input-wrap">
               <i class="fa-solid fa-user input-icon"></i>
-              <input type="text" placeholder="Văn A" class="form-input" required />
+              <input type="text" placeholder="Văn A" class="form-input" required  data-i18n-placeholder="register.van_a"/>
             </div>
           </div>
         </div>
 
         <!-- Email -->
         <div class="input-group">
-          <label class="input-label">Email</label>
+          <label class="input-label" data-i18n="login.form.email_label">Email</label>
           <div class="input-wrap">
             <i class="fa-solid fa-envelope input-icon"></i>
             <input type="email" id="regEmail" placeholder="your@email.com" class="form-input" required />
@@ -180,7 +180,7 @@
 
         <!-- Phone -->
         <div class="input-group">
-          <label class="input-label">Số Điện Thoại</label>
+          <label class="input-label" data-i18n="register.so_dien_thoai">Số Điện Thoại</label>
           <div class="input-wrap">
             <i class="fa-solid fa-phone input-icon"></i>
             <input type="tel" placeholder="0901 234 567" class="form-input" />
@@ -189,11 +189,11 @@
 
         <!-- Password -->
         <div class="input-group">
-          <label class="input-label">Mật Khẩu</label>
+          <label class="input-label" data-i18n="login.form.password_label">Mật Khẩu</label>
           <div class="input-wrap">
             <i class="fa-solid fa-lock input-icon"></i>
-            <input type="password" id="regPass" placeholder="Tối thiểu 8 ký tự" class="form-input pr-12" required oninput="checkStrength(this.value)" />
-            <button type="button" class="pwd-toggle" onclick="togglePwd('regPass',this)">
+            <input type="password" id="regPass" placeholder="Tối thiểu 8 ký tự" class="form-input pr-12" required oninput="checkStrength(this.value)"  data-i18n-placeholder="register.toi_thieu_8_ky_tu"/>
+            <button type="button" class="pwd-toggle" aria-label="Hiện mật khẩu" data-i18n-aria-label="password.show" onclick="togglePwd('regPass',this)">
               <i class="fa-regular fa-eye"></i>
             </button>
           </div>
@@ -205,17 +205,17 @@
               <div class="h-1 flex-1 rounded-full bg-dark-border" id="s3"></div>
               <div class="h-1 flex-1 rounded-full bg-dark-border" id="s4"></div>
             </div>
-            <p id="strengthText" class="text-xs text-gray-500">Nhập mật khẩu để kiểm tra độ mạnh</p>
+            <p id="strengthText" class="text-xs text-gray-500" data-i18n="register.nhap_mat_khau_de_kiem_tra_do_manh">Nhập mật khẩu để kiểm tra độ mạnh</p>
           </div>
         </div>
 
         <!-- Confirm Password -->
         <div class="input-group">
-          <label class="input-label">Xác Nhận Mật Khẩu</label>
+          <label class="input-label" data-i18n="register.xac_nhan_mat_khau">Xác Nhận Mật Khẩu</label>
           <div class="input-wrap">
             <i class="fa-solid fa-lock input-icon"></i>
-            <input type="password" id="regPassConf" placeholder="Nhập lại mật khẩu" class="form-input pr-12" required />
-            <button type="button" class="pwd-toggle" onclick="togglePwd('regPassConf',this)">
+            <input type="password" id="regPassConf" placeholder="Nhập lại mật khẩu" class="form-input pr-12" required  data-i18n-placeholder="register.nhap_lai_mat_khau"/>
+            <button type="button" class="pwd-toggle" aria-label="Hiện mật khẩu" data-i18n-aria-label="password.show" onclick="togglePwd('regPassConf',this)">
               <i class="fa-regular fa-eye"></i>
             </button>
           </div>
@@ -225,15 +225,15 @@
         <div class="flex items-start gap-2">
           <input type="checkbox" id="terms" class="w-4 h-4 mt-0.5 rounded border-dark-border accent-primary cursor-pointer" required />
           <label for="terms" class="text-xs text-gray-400 cursor-pointer leading-relaxed">
-            Tôi đồng ý với <a href="#" class="text-primary hover:underline">Điều khoản dịch vụ</a> và
-            <a href="#" class="text-primary hover:underline">Chính sách bảo mật</a> của TechStore.
+            <span data-i18n="register.toi_dong_y_voi">Tôi đồng ý với</span> <a href="#" class="text-primary hover:underline" data-i18n="register.dieu_khoan_dich_vu">Điều khoản dịch vụ</a> <span data-i18n="register.va">và</span>
+            <a href="#" class="text-primary hover:underline" data-i18n="register.chinh_sach_bao_mat">Chính sách bảo mật</a> <span data-i18n="register.cua_techstore">của TechStore.</span>
           </label>
         </div>
 
         <!-- Submit -->
         <button type="submit"
           class="w-full bg-gradient-to-r from-primary to-accent text-white font-bold py-3.5 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30 flex items-center justify-center gap-2">
-          <span>Tạo Tài Khoản</span>
+          <span data-i18n="register.tao_tai_khoan">Tạo Tài Khoản</span>
           <i class="fa-solid fa-user-plus"></i>
         </button>
       </form>
@@ -241,11 +241,12 @@
       <!-- Success Message (hidden by default) -->
       <div id="registerSuccess" class="hidden mt-4 bg-accent/10 border border-accent/30 text-accent text-sm rounded-xl px-4 py-3 text-center">
         <i class="fa-solid fa-circle-check mr-2"></i>
-        Tạo tài khoản thành công! <a href="login.html" class="underline font-semibold">Đăng nhập ngay</a>
+        <span data-i18n="register.tao_tai_khoan_thanh_cong">Tạo tài khoản thành công!</span> <a href="login.html" class="underline font-semibold" data-i18n="register.dang_nhap_ngay">Đăng nhập ngay</a>
       </div>
     </div>
   </div>
 
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"><i class="fa-solid fa-circle-info"></i><span id="toastMsg"></span></div>
   <script src="assets/js/main.js"></script>
   <!-- Translation Manager: cấu hình tải từ trang Phát hành, client đọc gói đã phát hành -->
 <script src="translation-manager.config.js"></script>

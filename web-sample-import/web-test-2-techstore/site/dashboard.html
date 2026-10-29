@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TechStore – Dashboard</title>
+  <title data-i18n-document-title="dashboard.techstore_dashboard">TechStore – Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -32,7 +32,7 @@
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
           <i class="fa-solid fa-bolt text-white text-sm"></i>
         </div>
-        <span class="text-xl font-bold sidebar-text">Tech<span class="text-primary">Store</span></span>
+        <span class="text-xl font-bold sidebar-text"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
       </a>
       <button id="sidebarToggle" class="text-gray-400 hover:text-white transition ml-auto lg:hidden">
         <i class="fa-solid fa-xmark"></i>
@@ -41,11 +41,11 @@
 
     <!-- User Profile -->
     <div class="sidebar-profile">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-sm flex-shrink-0">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-sm flex-shrink-0" data-i18n="dashboard.ad">
         AD
       </div>
       <div class="sidebar-text overflow-hidden">
-        <p class="text-sm font-semibold truncate">Admin User</p>
+        <p class="text-sm font-semibold truncate" data-i18n="dashboard.admin_user">Admin User</p>
         <p class="text-xs text-gray-400 truncate">admin@techstore.vn</p>
       </div>
       <div class="ml-auto sidebar-text">
@@ -55,54 +55,54 @@
 
     <!-- Nav -->
     <nav class="sidebar-nav">
-      <p class="sidebar-section-title sidebar-text">TỔNG QUAN</p>
+      <p class="sidebar-section-title sidebar-text" data-i18n="dashboard.tong_quan">TỔNG QUAN</p>
       <a href="#" class="sidebar-link active" data-section="overview">
         <i class="fa-solid fa-chart-pie"></i>
-        <span class="sidebar-text">Tổng Quan</span>
+        <span class="sidebar-text" data-i18n="dashboard.tong_quan_2">Tổng Quan</span>
       </a>
       <a href="#" class="sidebar-link" data-section="analytics">
         <i class="fa-solid fa-chart-line"></i>
-        <span class="sidebar-text">Phân Tích</span>
+        <span class="sidebar-text" data-i18n="dashboard.phan_tich">Phân Tích</span>
       </a>
 
-      <p class="sidebar-section-title sidebar-text mt-4">QUẢN LÝ</p>
+      <p class="sidebar-section-title sidebar-text mt-4" data-i18n="dashboard.quan_ly">QUẢN LÝ</p>
       <a href="#" class="sidebar-link" data-section="products">
         <i class="fa-solid fa-box"></i>
-        <span class="sidebar-text">Sản Phẩm</span>
+        <span class="sidebar-text" data-i18n="common.nav.products">Sản Phẩm</span>
         <span class="sidebar-badge sidebar-text">248</span>
       </a>
       <a href="#" class="sidebar-link" data-section="orders">
         <i class="fa-solid fa-bag-shopping"></i>
-        <span class="sidebar-text">Đơn Hàng</span>
+        <span class="sidebar-text" data-i18n="dashboard.don_hang">Đơn Hàng</span>
         <span class="sidebar-badge sidebar-text new">12</span>
       </a>
       <a href="#" class="sidebar-link" data-section="customers">
         <i class="fa-solid fa-users"></i>
-        <span class="sidebar-text">Khách Hàng</span>
+        <span class="sidebar-text" data-i18n="common.khach_hang">Khách Hàng</span>
       </a>
       <a href="#" class="sidebar-link" data-section="inventory">
         <i class="fa-solid fa-warehouse"></i>
-        <span class="sidebar-text">Kho Hàng</span>
+        <span class="sidebar-text" data-i18n="dashboard.kho_hang">Kho Hàng</span>
       </a>
 
-      <p class="sidebar-section-title sidebar-text mt-4">CỬA HÀNG</p>
+      <p class="sidebar-section-title sidebar-text mt-4" data-i18n="dashboard.cua_hang">CỬA HÀNG</p>
       <a href="#" class="sidebar-link" data-section="promotions">
         <i class="fa-solid fa-tag"></i>
-        <span class="sidebar-text">Khuyến Mãi</span>
+        <span class="sidebar-text" data-i18n="dashboard.khuyen_mai">Khuyến Mãi</span>
       </a>
       <a href="#" class="sidebar-link" data-section="reviews">
         <i class="fa-solid fa-star"></i>
-        <span class="sidebar-text">Đánh Giá</span>
+        <span class="sidebar-text" data-i18n="common.danh_gia">Đánh Giá</span>
       </a>
 
-      <p class="sidebar-section-title sidebar-text mt-4">HỆ THỐNG</p>
+      <p class="sidebar-section-title sidebar-text mt-4" data-i18n="dashboard.he_thong">HỆ THỐNG</p>
       <a href="#" class="sidebar-link" data-section="settings">
         <i class="fa-solid fa-gear"></i>
-        <span class="sidebar-text">Cài Đặt</span>
+        <span class="sidebar-text" data-i18n="dashboard.cai_dat">Cài Đặt</span>
       </a>
       <a href="login.html" class="sidebar-link text-red-400 hover:text-red-300">
         <i class="fa-solid fa-right-from-bracket"></i>
-        <span class="sidebar-text">Đăng Xuất</span>
+        <span class="sidebar-text" data-i18n="dashboard.dang_xuat">Đăng Xuất</span>
       </a>
     </nav>
   </aside>
@@ -117,15 +117,15 @@
           <i class="fa-solid fa-bars text-gray-300"></i>
         </button>
         <div>
-          <h1 class="text-xl font-bold" id="pageTitle">Tổng Quan</h1>
-          <p class="text-xs text-gray-400">Thứ Hai, 26 Tháng 10, 2025</p>
+          <h1 class="text-xl font-bold" id="pageTitle" data-i18n="dashboard.tong_quan_2">Tổng Quan</h1>
+          <p class="text-xs text-gray-400" data-i18n="dashboard.thu_hai_26_thang_10_2025">Thứ Hai, 26 Tháng 10, 2025</p>
         </div>
       </div>
       <div class="flex items-center gap-3">
         <!-- Search -->
         <div class="hidden md:flex items-center gap-2 bg-dark-card border border-dark-border rounded-xl px-4 py-2.5 w-56">
           <i class="fa-solid fa-search text-gray-500 text-sm"></i>
-          <input type="text" placeholder="Tìm kiếm..." class="bg-transparent text-sm text-white placeholder-gray-500 outline-none w-full" />
+          <input type="text" placeholder="Tìm kiếm..." class="bg-transparent text-sm text-white placeholder-gray-500 outline-none w-full"  data-i18n-placeholder="dashboard.tim_kiem"/>
         </div>
 
         <!-- Language -->
@@ -133,22 +133,22 @@
           <button id="langBtn"
             class="flex items-center gap-1.5 text-xs font-semibold border border-dark-border rounded-lg px-3 py-2 hover:border-primary/60 hover:text-primary transition-all duration-200 bg-dark-card">
             <i class="fa-solid fa-globe text-primary text-sm"></i>
-            <span id="langLabel">VI</span>
+            <span id="langLabel" translate="no">VI</span>
             <i class="fa-solid fa-chevron-down text-xs opacity-60"></i>
           </button>
           <div id="langMenu"
             class="absolute right-0 top-11 w-36 bg-dark-card border border-dark-border rounded-xl shadow-2xl overflow-hidden hidden lang-menu">
-            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-              <span class="text-base">🇻🇳</span> Tiếng Việt
+            <button data-language="vi" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇻🇳</span> <span data-i18n="common.languages.vietnamese">Tiếng Việt</span>
             </button>
-            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-              <span class="text-base">🇺🇸</span> English
+            <button data-language="en" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇺🇸</span> <span data-i18n="common.languages.english">English</span>
             </button>
-            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-              <span class="text-base">🇯🇵</span> 日本語
+            <button data-language="ja" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇯🇵</span> <span data-i18n="common.languages.japanese">日本語</span>
             </button>
-            <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-              <span class="text-base">🇰🇷</span> 한국어
+            <button data-language="ko" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+              <span class="text-base">🇰🇷</span> <span data-i18n="common.languages.korean">한국어</span>
             </button>
           </div>
         </div>
@@ -160,7 +160,7 @@
         </button>
 
         <!-- Avatar -->
-        <button class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-sm font-bold">
+        <button class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-sm font-bold" data-i18n="dashboard.ad">
           AD
         </button>
       </div>
@@ -175,10 +175,10 @@
         <div class="kpi-card group">
           <div class="flex items-start justify-between mb-4">
             <div>
-              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Doanh Thu Tháng</p>
-              <h3 class="text-2xl font-extrabold mt-1">4.82 Tỷ</h3>
+              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide" data-i18n="dashboard.doanh_thu_thang">Doanh Thu Tháng</p>
+              <h3 class="text-2xl font-extrabold mt-1" data-i18n="dashboard.4_82_ty">4.82 Tỷ</h3>
               <p class="text-xs text-accent mt-1 flex items-center gap-1">
-                <i class="fa-solid fa-arrow-trend-up"></i> +18.4% so với tháng trước
+                <i class="fa-solid fa-arrow-trend-up"></i> <span data-i18n="dashboard.18_4_so_voi_thang_truoc">+18.4% so với tháng trước</span>
               </p>
             </div>
             <div class="kpi-icon bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 transition">
@@ -188,16 +188,16 @@
           <div class="mini-bar">
             <div class="mini-bar-fill bg-gradient-to-r from-blue-500 to-primary" style="width:78%"></div>
           </div>
-          <p class="text-xs text-gray-500 mt-1.5">Mục tiêu: 6.2 Tỷ (78%)</p>
+          <p class="text-xs text-gray-500 mt-1.5" data-i18n="dashboard.muc_tieu_6_2_ty_78">Mục tiêu: 6.2 Tỷ (78%)</p>
         </div>
 
         <div class="kpi-card group">
           <div class="flex items-start justify-between mb-4">
             <div>
-              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Đơn Hàng Mới</p>
+              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide" data-i18n="dashboard.don_hang_moi">Đơn Hàng Mới</p>
               <h3 class="text-2xl font-extrabold mt-1">1,284</h3>
               <p class="text-xs text-accent mt-1 flex items-center gap-1">
-                <i class="fa-solid fa-arrow-trend-up"></i> +12 đơn hôm nay
+                <i class="fa-solid fa-arrow-trend-up"></i> <span data-i18n="dashboard.12_don_hom_nay">+12 đơn hôm nay</span>
               </p>
             </div>
             <div class="kpi-icon bg-green-500/10 text-green-400 group-hover:bg-green-500/20 transition">
@@ -207,16 +207,16 @@
           <div class="mini-bar">
             <div class="mini-bar-fill bg-gradient-to-r from-green-500 to-accent" style="width:64%"></div>
           </div>
-          <p class="text-xs text-gray-500 mt-1.5">64% hoàn thành</p>
+          <p class="text-xs text-gray-500 mt-1.5" data-i18n="dashboard.64_hoan_thanh">64% hoàn thành</p>
         </div>
 
         <div class="kpi-card group">
           <div class="flex items-start justify-between mb-4">
             <div>
-              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Khách Hàng</p>
+              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide" data-i18n="common.khach_hang">Khách Hàng</p>
               <h3 class="text-2xl font-extrabold mt-1">52,841</h3>
               <p class="text-xs text-yellow-400 mt-1 flex items-center gap-1">
-                <i class="fa-solid fa-arrow-trend-up"></i> +847 thành viên mới
+                <i class="fa-solid fa-arrow-trend-up"></i> <span data-i18n="dashboard.847_thanh_vien_moi">+847 thành viên mới</span>
               </p>
             </div>
             <div class="kpi-icon bg-yellow-500/10 text-yellow-400 group-hover:bg-yellow-500/20 transition">
@@ -226,16 +226,16 @@
           <div class="mini-bar">
             <div class="mini-bar-fill bg-gradient-to-r from-yellow-500 to-orange-400" style="width:88%"></div>
           </div>
-          <p class="text-xs text-gray-500 mt-1.5">88% retention rate</p>
+          <p class="text-xs text-gray-500 mt-1.5" data-i18n="dashboard.88_retention_rate">88% retention rate</p>
         </div>
 
         <div class="kpi-card group">
           <div class="flex items-start justify-between mb-4">
             <div>
-              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Tồn Kho</p>
+              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide" data-i18n="dashboard.ton_kho">Tồn Kho</p>
               <h3 class="text-2xl font-extrabold mt-1">3,642</h3>
               <p class="text-xs text-red-400 mt-1 flex items-center gap-1">
-                <i class="fa-solid fa-arrow-trend-down"></i> 18 sản phẩm sắp hết
+                <i class="fa-solid fa-arrow-trend-down"></i> <span data-i18n="dashboard.18_san_pham_sap_het">18 sản phẩm sắp hết</span>
               </p>
             </div>
             <div class="kpi-icon bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 transition">
@@ -245,7 +245,7 @@
           <div class="mini-bar">
             <div class="mini-bar-fill bg-gradient-to-r from-purple-500 to-primary" style="width:45%"></div>
           </div>
-          <p class="text-xs text-gray-500 mt-1.5">45% còn hàng</p>
+          <p class="text-xs text-gray-500 mt-1.5" data-i18n="dashboard.45_con_hang">45% còn hàng</p>
         </div>
 
       </div>
@@ -257,57 +257,57 @@
         <div class="dash-card lg:col-span-2">
           <div class="flex items-center justify-between mb-6">
             <div>
-              <h3 class="font-semibold">Doanh Thu Theo Tuần</h3>
-              <p class="text-xs text-gray-400 mt-0.5">7 ngày gần nhất</p>
+              <h3 class="font-semibold" data-i18n="dashboard.doanh_thu_theo_tuan">Doanh Thu Theo Tuần</h3>
+              <p class="text-xs text-gray-400 mt-0.5" data-i18n="dashboard.7_ngay_gan_nhat">7 ngày gần nhất</p>
             </div>
             <div class="flex gap-2">
-              <button class="chart-tab active">Tuần</button>
-              <button class="chart-tab">Tháng</button>
-              <button class="chart-tab">Năm</button>
+              <button class="chart-tab active" data-i18n="dashboard.tuan">Tuần</button>
+              <button class="chart-tab" data-i18n="dashboard.thang">Tháng</button>
+              <button class="chart-tab" data-i18n="dashboard.nam">Năm</button>
             </div>
           </div>
           <!-- Bar Chart (CSS) -->
           <div class="flex items-end gap-3 h-40">
             <div class="chart-bar-wrap">
               <div class="chart-bar" style="height:45%" data-val="1.2Tỷ"></div>
-              <span class="chart-bar-label">T2</span>
+              <span class="chart-bar-label" data-i18n="dashboard.day_2">T2</span>
             </div>
             <div class="chart-bar-wrap">
               <div class="chart-bar" style="height:68%" data-val="1.8Tỷ"></div>
-              <span class="chart-bar-label">T3</span>
+              <span class="chart-bar-label" data-i18n="dashboard.day_3">T3</span>
             </div>
             <div class="chart-bar-wrap">
               <div class="chart-bar" style="height:55%" data-val="1.4Tỷ"></div>
-              <span class="chart-bar-label">T4</span>
+              <span class="chart-bar-label" data-i18n="dashboard.day_4">T4</span>
             </div>
             <div class="chart-bar-wrap">
               <div class="chart-bar" style="height:82%" data-val="2.1Tỷ"></div>
-              <span class="chart-bar-label">T5</span>
+              <span class="chart-bar-label" data-i18n="dashboard.day_5">T5</span>
             </div>
             <div class="chart-bar-wrap">
               <div class="chart-bar bg-gradient-to-t from-accent to-primary" style="height:100%" data-val="2.6Tỷ"></div>
-              <span class="chart-bar-label text-primary font-semibold">T6</span>
+              <span class="chart-bar-label text-primary font-semibold" data-i18n="dashboard.day_6">T6</span>
             </div>
             <div class="chart-bar-wrap">
               <div class="chart-bar" style="height:90%" data-val="2.3Tỷ"></div>
-              <span class="chart-bar-label">T7</span>
+              <span class="chart-bar-label" data-i18n="dashboard.day_7">T7</span>
             </div>
             <div class="chart-bar-wrap">
               <div class="chart-bar" style="height:72%" data-val="1.9Tỷ"></div>
-              <span class="chart-bar-label">CN</span>
+              <span class="chart-bar-label" data-i18n="dashboard.cn">CN</span>
             </div>
           </div>
         </div>
 
         <!-- Category Breakdown (Donut-like) -->
         <div class="dash-card">
-          <h3 class="font-semibold mb-1">Phân Bổ Doanh Số</h3>
-          <p class="text-xs text-gray-400 mb-6">Theo danh mục sản phẩm</p>
+          <h3 class="font-semibold mb-1" data-i18n="dashboard.phan_bo_doanh_so">Phân Bổ Doanh Số</h3>
+          <p class="text-xs text-gray-400 mb-6" data-i18n="dashboard.theo_danh_muc_san_pham">Theo danh mục sản phẩm</p>
           <div class="space-y-4">
             <div class="cat-stat-row">
               <div class="flex items-center gap-2 flex-1">
                 <div class="w-2.5 h-2.5 rounded-full bg-blue-400 flex-shrink-0"></div>
-                <span class="text-sm">Laptop</span>
+                <span class="text-sm" data-i18n="common.categories.laptop">Laptop</span>
               </div>
               <div class="flex items-center gap-3 flex-1">
                 <div class="flex-1 h-2 bg-dark-border rounded-full overflow-hidden">
@@ -319,7 +319,7 @@
             <div class="cat-stat-row">
               <div class="flex items-center gap-2 flex-1">
                 <div class="w-2.5 h-2.5 rounded-full bg-green-400 flex-shrink-0"></div>
-                <span class="text-sm">Điện Thoại</span>
+                <span class="text-sm" data-i18n="common.categories.phone">Điện Thoại</span>
               </div>
               <div class="flex items-center gap-3 flex-1">
                 <div class="flex-1 h-2 bg-dark-border rounded-full overflow-hidden">
@@ -331,7 +331,7 @@
             <div class="cat-stat-row">
               <div class="flex items-center gap-2 flex-1">
                 <div class="w-2.5 h-2.5 rounded-full bg-pink-400 flex-shrink-0"></div>
-                <span class="text-sm">Âm Thanh</span>
+                <span class="text-sm" data-i18n="common.categories.audio">Âm Thanh</span>
               </div>
               <div class="flex items-center gap-3 flex-1">
                 <div class="flex-1 h-2 bg-dark-border rounded-full overflow-hidden">
@@ -343,7 +343,7 @@
             <div class="cat-stat-row">
               <div class="flex items-center gap-2 flex-1">
                 <div class="w-2.5 h-2.5 rounded-full bg-purple-400 flex-shrink-0"></div>
-                <span class="text-sm">Tablet</span>
+                <span class="text-sm" data-i18n="dashboard.tablet">Tablet</span>
               </div>
               <div class="flex items-center gap-3 flex-1">
                 <div class="flex-1 h-2 bg-dark-border rounded-full overflow-hidden">
@@ -355,7 +355,7 @@
             <div class="cat-stat-row">
               <div class="flex items-center gap-2 flex-1">
                 <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 flex-shrink-0"></div>
-                <span class="text-sm">Phụ Kiện</span>
+                <span class="text-sm" data-i18n="common.categories.accessories">Phụ Kiện</span>
               </div>
               <div class="flex items-center gap-3 flex-1">
                 <div class="flex-1 h-2 bg-dark-border rounded-full overflow-hidden">
@@ -374,8 +374,8 @@
         <!-- Recent Orders -->
         <div class="dash-card">
           <div class="flex items-center justify-between mb-5">
-            <h3 class="font-semibold">Đơn Hàng Gần Đây</h3>
-            <a href="#" class="text-xs text-primary hover:underline">Xem tất cả</a>
+            <h3 class="font-semibold" data-i18n="dashboard.don_hang_gan_day">Đơn Hàng Gần Đây</h3>
+            <a href="#" class="text-xs text-primary hover:underline" data-i18n="common.actions.view_all">Xem tất cả</a>
           </div>
           <div class="space-y-3">
 
@@ -384,12 +384,12 @@
                 <i class="fa-solid fa-laptop text-blue-400 text-xs"></i>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium truncate">#TS-2025-5841</p>
-                <p class="text-xs text-gray-400">MacBook Pro 16" M3</p>
+                <p class="text-sm font-medium truncate" data-i18n="dashboard.ts_2025_5841">#TS-2025-5841</p>
+                <p class="text-xs text-gray-400" data-i18n="dashboard.macbook_pro_16_m3">MacBook Pro 16" M3</p>
               </div>
               <div class="text-right">
                 <p class="text-sm font-semibold">72.990.000₫</p>
-                <span class="order-status status-done">Hoàn thành</span>
+                <span class="order-status status-done" data-i18n="dashboard.hoan_thanh">Hoàn thành</span>
               </div>
             </div>
 
@@ -398,12 +398,12 @@
                 <i class="fa-solid fa-mobile-screen text-green-400 text-xs"></i>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium truncate">#TS-2025-5840</p>
-                <p class="text-xs text-gray-400">Samsung Galaxy S25 Ultra</p>
+                <p class="text-sm font-medium truncate" data-i18n="dashboard.ts_2025_5840">#TS-2025-5840</p>
+                <p class="text-xs text-gray-400" data-i18n="dashboard.samsung_galaxy_s25_ultra">Samsung Galaxy S25 Ultra</p>
               </div>
               <div class="text-right">
                 <p class="text-sm font-semibold">31.990.000₫</p>
-                <span class="order-status status-ship">Đang giao</span>
+                <span class="order-status status-ship" data-i18n="dashboard.dang_giao">Đang giao</span>
               </div>
             </div>
 
@@ -412,12 +412,12 @@
                 <i class="fa-solid fa-headphones text-pink-400 text-xs"></i>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium truncate">#TS-2025-5839</p>
-                <p class="text-xs text-gray-400">Sony WH-1000XM6</p>
+                <p class="text-sm font-medium truncate" data-i18n="dashboard.ts_2025_5839">#TS-2025-5839</p>
+                <p class="text-xs text-gray-400" data-i18n="dashboard.sony_wh_1000xm6">Sony WH-1000XM6</p>
               </div>
               <div class="text-right">
                 <p class="text-sm font-semibold">7.490.000₫</p>
-                <span class="order-status status-pending">Chờ xử lý</span>
+                <span class="order-status status-pending" data-i18n="dashboard.cho_xu_ly">Chờ xử lý</span>
               </div>
             </div>
 
@@ -426,12 +426,12 @@
                 <i class="fa-solid fa-tablet-screen-button text-purple-400 text-xs"></i>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium truncate">#TS-2025-5838</p>
-                <p class="text-xs text-gray-400">iPad Pro 13" M4</p>
+                <p class="text-sm font-medium truncate" data-i18n="dashboard.ts_2025_5838">#TS-2025-5838</p>
+                <p class="text-xs text-gray-400" data-i18n="dashboard.ipad_pro_13_m4">iPad Pro 13" M4</p>
               </div>
               <div class="text-right">
                 <p class="text-sm font-semibold">28.990.000₫</p>
-                <span class="order-status status-done">Hoàn thành</span>
+                <span class="order-status status-done" data-i18n="dashboard.hoan_thanh">Hoàn thành</span>
               </div>
             </div>
 
@@ -440,12 +440,12 @@
                 <i class="fa-solid fa-laptop-code text-yellow-400 text-xs"></i>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium truncate">#TS-2025-5837</p>
-                <p class="text-xs text-gray-400">ASUS ROG Zephyrus G16</p>
+                <p class="text-sm font-medium truncate" data-i18n="dashboard.ts_2025_5837">#TS-2025-5837</p>
+                <p class="text-xs text-gray-400" data-i18n="dashboard.asus_rog_zephyrus_g16">ASUS ROG Zephyrus G16</p>
               </div>
               <div class="text-right">
                 <p class="text-sm font-semibold">64.990.000₫</p>
-                <span class="order-status status-cancel">Đã hủy</span>
+                <span class="order-status status-cancel" data-i18n="dashboard.da_huy">Đã hủy</span>
               </div>
             </div>
 
@@ -458,8 +458,8 @@
           <!-- Top Products -->
           <div class="dash-card">
             <div class="flex items-center justify-between mb-5">
-              <h3 class="font-semibold">Sản Phẩm Bán Chạy</h3>
-              <a href="#" class="text-xs text-primary hover:underline">Quản lý</a>
+              <h3 class="font-semibold" data-i18n="dashboard.san_pham_ban_chay">Sản Phẩm Bán Chạy</h3>
+              <a href="#" class="text-xs text-primary hover:underline" data-i18n="common.actions.manage">Quản lý</a>
             </div>
             <div class="space-y-3">
               <div class="flex items-center gap-3">
@@ -468,8 +468,8 @@
                   <i class="fa-brands fa-apple text-gray-300 text-xs"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-sm font-medium truncate">iPhone 17 Pro Max</p>
-                  <p class="text-xs text-gray-500">501 đơn</p>
+                  <p class="text-sm font-medium truncate" data-i18n="dashboard.iphone_17_pro_max">iPhone 17 Pro Max</p>
+                  <p class="text-xs text-gray-500" data-i18n="dashboard.501_don">501 đơn</p>
                 </div>
                 <span class="text-sm font-bold text-accent">+24%</span>
               </div>
@@ -479,8 +479,8 @@
                   <i class="fa-solid fa-mobile-screen text-green-400 text-xs"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-sm font-medium truncate">Samsung S25 Ultra</p>
-                  <p class="text-xs text-gray-500">256 đơn</p>
+                  <p class="text-sm font-medium truncate" data-i18n="dashboard.samsung_s25_ultra">Samsung S25 Ultra</p>
+                  <p class="text-xs text-gray-500" data-i18n="dashboard.256_don">256 đơn</p>
                 </div>
                 <span class="text-sm font-bold text-accent">+18%</span>
               </div>
@@ -490,8 +490,8 @@
                   <i class="fa-solid fa-computer-mouse text-cyan-400 text-xs"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-sm font-medium truncate">Logitech MX Master 3S</p>
-                  <p class="text-xs text-gray-500">312 đơn</p>
+                  <p class="text-sm font-medium truncate" data-i18n="dashboard.logitech_mx_master_3s">Logitech MX Master 3S</p>
+                  <p class="text-xs text-gray-500" data-i18n="dashboard.312_don">312 đơn</p>
                 </div>
                 <span class="text-sm font-bold text-yellow-400">+9%</span>
               </div>
@@ -500,23 +500,23 @@
 
           <!-- Quick Actions -->
           <div class="dash-card">
-            <h3 class="font-semibold mb-4">Thao Tác Nhanh</h3>
+            <h3 class="font-semibold mb-4" data-i18n="dashboard.thao_tac_nhanh">Thao Tác Nhanh</h3>
             <div class="grid grid-cols-2 gap-3">
               <button class="quick-action-btn">
                 <i class="fa-solid fa-plus text-primary"></i>
-                <span>Thêm SP</span>
+                <span data-i18n="dashboard.them_sp">Thêm SP</span>
               </button>
               <button class="quick-action-btn">
                 <i class="fa-solid fa-tags text-accent"></i>
-                <span>Tạo Mã Giảm</span>
+                <span data-i18n="dashboard.tao_ma_giam">Tạo Mã Giảm</span>
               </button>
               <button class="quick-action-btn">
                 <i class="fa-solid fa-file-export text-yellow-400"></i>
-                <span>Xuất Báo Cáo</span>
+                <span data-i18n="dashboard.xuat_bao_cao">Xuất Báo Cáo</span>
               </button>
               <button class="quick-action-btn">
                 <i class="fa-solid fa-bullhorn text-pink-400"></i>
-                <span>Thông Báo</span>
+                <span data-i18n="dashboard.quick_actions.notifications">Thông Báo</span>
               </button>
             </div>
           </div>
@@ -530,6 +530,7 @@
   <!-- Mobile Sidebar Overlay -->
   <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"><i class="fa-solid fa-circle-info"></i><span id="toastMsg"></span></div>
   <script src="assets/js/main.js"></script>
   <!-- Translation Manager: cấu hình tải từ trang Phát hành, client đọc gói đã phát hành -->
 <script src="translation-manager.config.js"></script>

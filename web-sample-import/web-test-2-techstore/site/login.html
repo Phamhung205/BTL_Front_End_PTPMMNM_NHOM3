@@ -36,7 +36,7 @@
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
           <i class="fa-solid fa-bolt text-white text-xl"></i>
         </div>
-        <span class="text-2xl font-extrabold tracking-tight">Tech<span class="text-primary">Store</span></span>
+        <span class="text-2xl font-extrabold tracking-tight"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
       </a>
 
       <!-- Illustration -->
@@ -90,7 +90,7 @@
         <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
           <i class="fa-solid fa-bolt text-white text-sm"></i>
         </div>
-        <span class="font-bold">Tech<span class="text-primary">Store</span></span>
+        <span class="font-bold"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
       </a>
       <a href="index.html" class="hidden lg:flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition ml-auto">
         <i class="fa-solid fa-arrow-left text-xs"></i> <span data-i18n="common.nav.back_to_home">Về trang chủ</span>
@@ -101,22 +101,22 @@
         <button id="langBtn"
           class="flex items-center gap-1.5 text-xs font-semibold border border-dark-border rounded-lg px-3 py-2 hover:border-primary/60 hover:text-primary transition-all duration-200 bg-dark-card ml-3">
           <i class="fa-solid fa-globe text-primary text-sm"></i>
-          <span id="langLabel">VI</span>
+          <span id="langLabel" translate="no">VI</span>
           <i class="fa-solid fa-chevron-down text-xs opacity-60"></i>
         </button>
         <div id="langMenu"
           class="absolute right-0 top-11 w-36 bg-dark-card border border-dark-border rounded-xl shadow-2xl overflow-hidden hidden lang-menu">
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇻🇳</span> Tiếng Việt
+          <button data-language="vi" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇻🇳</span> <span data-i18n="common.languages.vietnamese">Tiếng Việt</span>
           </button>
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇺🇸</span> English
+          <button data-language="en" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇺🇸</span> <span data-i18n="common.languages.english">English</span>
           </button>
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇯🇵</span> 日本語
+          <button data-language="ja" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇯🇵</span> <span data-i18n="common.languages.japanese">日本語</span>
           </button>
-          <button class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
-            <span class="text-base">🇰🇷</span> 한국어
+          <button data-language="ko" class="lang-option w-full flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-primary/10 hover:text-primary transition-colors">
+            <span class="text-base">🇰🇷</span> <span data-i18n="common.languages.korean">한국어</span>
           </button>
         </div>
       </div>
@@ -133,11 +133,11 @@
       <div class="grid grid-cols-2 gap-3 mb-6">
         <button class="social-login-btn">
           <i class="fa-brands fa-google text-red-400"></i>
-          <span>Google</span>
+          <span data-i18n="common.google">Google</span>
         </button>
         <button class="social-login-btn">
           <i class="fa-brands fa-facebook text-blue-400"></i>
-          <span>Facebook</span>
+          <span data-i18n="common.facebook">Facebook</span>
         </button>
       </div>
 
@@ -165,7 +165,7 @@
             <i class="fa-solid fa-lock input-icon"></i>
             <input type="password" id="loginPass" placeholder="••••••••" data-i18n-placeholder="login.form.password_placeholder"
               class="form-input pr-12" required />
-            <button type="button" class="pwd-toggle" onclick="togglePwd('loginPass',this)">
+            <button type="button" class="pwd-toggle" aria-label="Hiện mật khẩu" data-i18n-aria-label="password.show" onclick="togglePwd('loginPass',this)">
               <i class="fa-regular fa-eye"></i>
             </button>
           </div>
@@ -193,12 +193,13 @@
 
       <!-- Demo Hint -->
       <p class="text-center text-xs text-gray-600 mt-8">
-        <span data-i18n="login.form.demo_label">Demo:</span> admin@techstore.vn / 123456 →
+        <span data-i18n="login.form.demo_label">Demo:</span> <span data-i18n="login.admin_techstore_vn_123456">admin@techstore.vn / 123456 →</span>
         <a href="dashboard.html" class="text-primary hover:underline" data-i18n="login.form.dashboard_link">Dashboard</a>
       </p>
     </div>
   </div>
 
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"><i class="fa-solid fa-circle-info"></i><span id="toastMsg"></span></div>
   <script src="assets/js/main.js"></script>
   <!-- Translation Manager: cấu hình tải từ trang Phát hành, client đọc gói đã phát hành -->
 <script src="translation-manager.config.js"></script>

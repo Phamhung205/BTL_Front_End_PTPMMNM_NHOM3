@@ -54,32 +54,52 @@ filterBtns.forEach(btn => {
 
 
 // ── Toast Notification ────────────────────────────────────────
-function showToast(message) {
+let toastTimeout;
+let toastProductKey = null;
+function showToast(key, variables = {}, productKey = null) {
   const toast   = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMsg');
-  toastMsg.textContent = message;
+  toastProductKey = productKey;
+  toastMsg.dataset.i18n = key;
+  toastMsg.dataset.i18nVars = JSON.stringify(variables);
+  toastMsg.textContent = TranslationManager.t(key, variables);
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 
 // ── Add to Cart (UI hook – cart.js handles data) ──────────────
-function addToCart(btnEl, productName) {
+function addToCart(btnEl) {
+  const productKey = btnEl.closest('.product-card').querySelector('h3[data-i18n]').dataset.i18n;
+  if (btnEl.dataset.adding === 'true') return;
+  btnEl.dataset.adding = 'true';
   // Visual feedback on the quick-add bar
   const original = btnEl.innerHTML;
-  btnEl.innerHTML = '<i class="fa-solid fa-circle-check mr-1.5"></i> Đã thêm!';
+  btnEl.innerHTML = '<i class="fa-solid fa-circle-check mr-1.5"></i><span data-i18n="messages.added"></span>';
+  TranslationManager.apply();
   btnEl.style.background = '#10b981';
   setTimeout(() => {
     btnEl.innerHTML = original;
     btnEl.style.background = '';
+    delete btnEl.dataset.adding;
+    TranslationManager.apply();
   }, 1400);
 
   // Update cart counter
   const counter = document.getElementById('cartCount');
   counter.textContent = parseInt(counter.textContent || '0') + 1;
 
-  showToast(`"${productName}" đã thêm vào giỏ hàng!`);
+  showToast('messages.cart_added', { product: TranslationManager.t(productKey) }, productKey);
 }
+
+document.addEventListener('translationmanager:language-changed', () => {
+  if (!toastProductKey) return;
+  const toastMsg = document.getElementById('toastMsg');
+  const variables = { product: TranslationManager.t(toastProductKey) };
+  toastMsg.dataset.i18nVars = JSON.stringify(variables);
+  toastMsg.textContent = TranslationManager.t('messages.cart_added', variables);
+});
 
 
 // ── Smooth appear on scroll ───────────────────────────────────

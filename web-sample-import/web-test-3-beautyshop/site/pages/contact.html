@@ -43,7 +43,7 @@
           <button id="langToggleBtn" onclick="toggleLang()"
             class="lang-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:bg-blush-50 text-xs font-semibold tracking-wider transition-all hover:scale-105">
             <i class="fa-solid fa-globe text-xs"></i>
-            <span id="langLabel" data-i18n-skip>VI</span>
+            <span id="langLabel" translate="no" data-i18n-skip>VI</span>
           </button>
           <button class="text-neutral-500 hover:text-neutral-800 p-2 rounded-full hover:bg-neutral-100 transition-all" onclick="openCart()">
             <i class="fa-solid fa-bag-shopping text-sm"></i>
@@ -155,17 +155,17 @@
           <div>
             <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.chu_de">Chủ đề</label>
             <select class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm text-neutral-600 bg-white transition-colors cursor-pointer">
-              <option>Tư vấn sản phẩm</option>
-              <option>Đơn hàng &amp; giao hàng</option>
-              <option>Đổi trả &amp; hoàn tiền</option>
-              <option>Hợp tác kinh doanh</option>
-              <option>Khác</option>
+              <option value="option-1" data-i18n="contact.tu_van_san_pham">Tư vấn sản phẩm</option>
+              <option value="option-2" data-i18n="contact.don_hang_giao_hang">Đơn hàng &amp; giao hàng</option>
+              <option value="option-3" data-i18n="contact.doi_tra_hoan_tien">Đổi trả &amp; hoàn tiền</option>
+              <option value="option-4" data-i18n="contact.hop_tac_kinh_doanh">Hợp tác kinh doanh</option>
+              <option value="option-5" data-i18n="contact.khac">Khác</option>
             </select>
           </div>
           <div>
             <label class="block text-sm font-medium text-neutral-700 mb-2" data-i18n="contact.noi_dung">Nội dung *</label>
             <textarea rows="5" placeholder="Nhập nội dung tin nhắn của bạn..." required
-              class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm transition-colors placeholder-neutral-300 resize-none"></textarea>
+              class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:border-blush-400 text-sm transition-colors placeholder-neutral-300 resize-none" data-i18n-placeholder="contact.nhap_noi_dung_tin_nhan_cua_ban"></textarea>
           </div>
           <button type="submit"
             class="w-full bg-gradient-to-r from-blush-500 to-rose-500 text-white font-semibold py-4 rounded-xl hover:shadow-lg hover:scale-[1.01] transition-all text-sm">
@@ -214,7 +214,7 @@
   <script>
     function handleSubmit(e) {
       e.preventDefault();
-      showToast('Tin nhắn đã được gửi thành công! Chúng tôi sẽ phản hồi sớm.');
+      showToast('messages.contact_sent');
       e.target.reset();
     }
   </script>

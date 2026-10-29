@@ -16,6 +16,9 @@
   });
   document.addEventListener('DOMContentLoaded', () => {
     if (!window.TranslationManager) { console.error('[TranslationManager] Thiếu translation-manager.js.'); return; }
+    document.querySelectorAll('.lang-option[data-language]').forEach(option => {
+      if (!TranslationManager.locales.includes(option.dataset.language)) option.remove();
+    });
     let saved = null;
     try { saved = localStorage.getItem(storageKey); } catch (_) {}
     const options = TranslationManager.locales.includes(saved) ? { defaultLocale: saved } : {};

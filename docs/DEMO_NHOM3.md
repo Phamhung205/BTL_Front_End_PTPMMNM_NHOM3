@@ -30,12 +30,12 @@ Phần này chứng minh yêu cầu **2 dự án × 3 ngôn ngữ × ít nhất 
 
 | Website | Thư mục bộ import | Nguồn | Đích |
 | --- | --- | --- | --- |
-| Web test 1 — Fashion | `web-sample-import/web-test-1-fashion/` | `i18n/vi.json`, 79 khóa | `i18n/en.json`, `i18n/ja.json`, mỗi tệp 79 khóa hoàn chỉnh |
-| Web test 2 — TechStore | `web-sample-import/web-test-2-techstore/` | `i18n/vi.json`, 37 khóa | `i18n/en.json`, 37 khóa |
-| Web test 3 — Beautyshop | `web-sample-import/web-test-3-beautyshop/` | `i18n/vi.json`, 179 khóa | `i18n/en.json`, 179 khóa |
+| Web test 1 — Fashion | `web-sample-import/web-test-1-fashion/` | `i18n/vi.json`, 86 khóa | `i18n/en.json`, `i18n/ja.json`, mỗi tệp 86 khóa hoàn chỉnh |
+| Web test 2 — TechStore | `web-sample-import/web-test-2-techstore/` | `i18n/vi.json`, 236 khóa | `i18n/en.json`, 236 khóa |
+| Web test 3 — Beautyshop | `web-sample-import/web-test-3-beautyshop/` | `i18n/vi.json`, 197 khóa | `i18n/en.json`, 197 khóa |
 
 1. **Manager → Dự án → Tạo dự án**. Nguồn `vi`; đích `en` (Fashion thêm `ja`). Thêm email Translator và Reviewer.
-2. **Phiên bản nguồn** → chọn nguồn → tên `v1` → nhập. Xem trước khóa mới/sửa/xóa rồi xác nhận. TechStore có thể chọn đồng thời `site/Json/vi.json` và `site/Json/vi 2.json`; kết quả gộp cũng là 37 khóa.
+2. **Phiên bản nguồn** → chọn nguồn → tên `v1` → nhập. Xem trước khóa mới/sửa/xóa rồi xác nhận. TechStore có thể chọn đồng thời `site/Json/vi.json` và `site/Json/vi 2.json`; kết quả gộp cũng là 236 khóa.
 3. **Bản dịch** → chọn ngôn ngữ đích → **Nhập bản dịch từ tệp JSON**. Chọn tệp tương ứng, giữ trạng thái *Gửi duyệt*. Với TechStore có thể chọn đồng thời `site/Json/en.json` và `site/Json/en2.json`. Fashion làm lần lượt en và ja.
 4. Đọc báo cáo: bản mới/cập nhật chưa tự duyệt; rỗng/quá dài/ngoài nguồn được liệt kê; bản sai biến được ghi thì lưu nháp. Tích *Thay bản dịch đang có* chỉ khi muốn thay nội dung khác. Nhập lại cùng nội dung giữ nguyên trạng thái hiện có.
 5. **Reviewer → Đánh giá** → chọn dự án/ngôn ngữ → duyệt bản đang chờ. Có thể từ chối và ghi lý do để Translator sửa.
@@ -57,7 +57,7 @@ Mở `http://127.0.0.1:8102/login.html`, đổi VI/EN. Fashion và Beautyshop d�
 **Tình huống 2 với TechStore:**
 
 1. Sau release 1.0.0, nhập `i18n/v2/vi.json` với tên `v2`.
-2. Xem trước và **Xem thay đổi**: 1 mới, 2 sửa, 1 xóa. Hai bản dịch đổi nguồn phải kiểm tra lại, 34 khóa không đổi vẫn đã duyệt.
+2. Xem trước và **Xem thay đổi**: 1 mới, 2 sửa, 1 xóa. Hai bản dịch đổi nguồn phải kiểm tra lại, 233 khóa không đổi vẫn đã duyệt.
 3. Thử gửi `Welcome back!` cho `login.welcome.title`: phải báo thiếu `{name}`. Sửa thành `Welcome back, {name}!`; khóa `login.form.error` giữ `{count}`. Dịch khóa mới `login.form.show_password` thành `Show password`.
 4. Reviewer duyệt lại → Manager phát hành 2.0.0. Website cấu hình release mới hiện `Welcome back, Lan!`; website giữ cấu hình release cũ vẫn hiện `Welcome Back!`.
 
@@ -76,11 +76,12 @@ Quy ước chung: object JSON lồng nhau, lá là chuỗi; khóa dấu chấm �
 - Nền `main` trước đợt hoàn thiện: FE `5a29f031a8bb5673d7992754462c9488f6a7fd8c`, BE `1c9f0b81fb7b0a002ae075360851abe5f27a2ebc`. Mã hoàn thiện và các test được bổ sung trên nền hai commit này; xem lịch sử Git để lấy commit mới nhất.
 - `scripts/test-all.ps1`: **21/21 hạng mục, 557 kiểm tra, 29 nhóm API**.
 - Bộ bắt buộc: **7/7 nhóm, 45 kiểm tra**.
-- Chrome TechStore: **19/19**; Chrome Fashion/Beautyshop: **26/26**. Tổng **45/45** kiểm tra trình duyệt, chạy riêng bộ tổng.
+- Chrome TechStore: **53/53**; Chrome Fashion/Beautyshop: **101/101**. Tổng **154/154** kiểm tra trình duyệt, chạy riêng bộ tổng.
+- Đã hoàn thiện chữ tĩnh/động của cả 9 tệp HTML: alert/toast, trạng thái đăng nhập, mật khẩu, tùy chọn sắp xếp/liên hệ, thứ trong tuần, tên sản phẩm trong thông báo và nhãn truy cập. Rà DOM không còn chữ giao diện chưa gắn khóa; tên riêng/giá/mã đơn giữ nguyên. Xem phạm vi cụ thể trong [kiểm thử Chrome](../tests/browser/README.md).
 - Hai backend đã build; code nghiệp vụ và các test vừa sửa được đồng bộ ở hai repo.
 - Lỗi hoàn thiện thêm: báo cáo import phân biệt dữ liệu giữ lại với bản sai biến thực sự lưu nháp; tệp có chuỗi quá dài vẫn nhập được các khóa hợp lệ; chặn nhập nếu không tải được nguồn để xem trước khác biệt.
 - Sửa bước dừng/khởi động lại trên Windows: chờ đúng tiến trình demo thoát hoàn toàn trước khi mở lại MariaDB/API, tránh khóa `ibdata1` hoặc DLL. Lệnh dừng vẫn kiểm tra tiến trình thuộc bộ demo trước khi thao tác.
-- Log: `artifacts/test-report.md`, `artifacts/test-all.log`, `artifacts/complete-techstore.log`, `artifacts/complete-fashion-beauty.log`. Ảnh: thư mục `shots/` trong `artifacts/complete-techstore/` và `artifacts/complete-fashion-beauty/`.
+- Log: `artifacts/test-report.md`, `artifacts/test-all.log`, `artifacts/full-text-techstore-4.log`, `artifacts/full-text-fashion-beauty-2.log`. Ảnh: thư mục `shots/` trong `artifacts/full-text-techstore-4/` và `artifacts/full-text-fashion-beauty-2/`.
 
 Chạy lại toàn bộ: `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-all.ps1`. Chạy Chrome: [tests/browser/README.md](../tests/browser/README.md). Dừng dịch vụ demo khi dùng xong: `scripts/stop-integrated.ps1` từ cùng junction ASCII.
 

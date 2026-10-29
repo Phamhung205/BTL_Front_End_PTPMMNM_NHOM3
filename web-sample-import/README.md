@@ -4,11 +4,21 @@ Ba website mẫu (`web test 1`, `web test 2`, `web test 3`) đã được chuy�
 
 | Bộ | Website | Tình trạng gốc | Đã chuẩn bị |
 | --- | --- | --- | --- |
-| `web-test-1-fashion` | Shop thời trang, 1 trang (đăng nhập, dashboard, sản phẩm) | Từ điển `languages.js` (en/vi/ja) thiếu khóa và nhiều câu tiếng Nhật chưa hoàn chỉnh | Gắn khóa HTML, hoàn thiện **79 khóa ở mỗi tệp vi/en/ja**, không còn giá trị rỗng hoặc chuỗi QA `[en]`/`[ja]`; `i18n-adapter.js` giữ API cũ của `languages.js` |
-| `web-test-2-techstore` | TechStore 4 trang | Đã có `data-i18n`; mỗi ngôn ngữ chia 2 tệp (`vi.json` + `vi 2.json`) | `i18n/vi.json`, `en.json` 37 khóa (đã gộp); `i18n/v2/` cho tình huống 2; mọi trang dùng gói phát hành (bỏ import cục bộ localStorage) |
-| `web-test-3-beautyshop` | Lumière Beauty 4 trang | Chữ tiếng Việt viết cứng, nút VI/EN chỉ đổi nhãn | Tách chữ thành 179 khóa (`common.*`, `index.*`, `about.*`...), gắn `data-i18n` 292 vị trí; `en.json` là bản dịch đề xuất; nút VI/EN đọc gói |
+| `web-test-1-fashion` | Shop thời trang, 1 trang (đăng nhập, dashboard, sản phẩm) | Từ điển `languages.js` (en/vi/ja) thiếu khóa và nhiều câu tiếng Nhật chưa hoàn chỉnh | Gắn khóa HTML, hoàn thiện **86 khóa ở mỗi tệp vi/en/ja**, không còn giá trị rỗng hoặc chuỗi QA `[en]`/`[ja]`; `i18n-adapter.js` giữ API cũ của `languages.js` |
+| `web-test-2-techstore` | TechStore 4 trang | Đã có `data-i18n`; mỗi ngôn ngữ chia 2 tệp (`vi.json` + `vi 2.json`) | `i18n/vi.json`, `en.json` 236 khóa (đã gộp); `i18n/v2/` cho tình huống 2; mọi trang dùng gói phát hành (bỏ import cục bộ localStorage) |
+| `web-test-3-beautyshop` | Lumière Beauty 4 trang | Chữ tiếng Việt viết cứng, nút VI/EN chỉ đổi nhãn | Tách chữ thành 197 khóa (`common.*`, `index.*`, `about.*`...), gắn khóa cho cả 4 trang, danh sách lựa chọn và thông báo động; `en.json` là bản dịch đề xuất; nút VI/EN đọc gói |
 
 Cấu trúc mỗi bộ: `i18n/` (JSON để nhập), `site/` (website đã gắn khóa + `translation-manager.js` + `translation-manager.config.js` mẫu).
+
+## Phần chữ đã hoàn thiện
+
+- Fashion: toàn bộ màn hình đăng nhập/đăng ký/dashboard/sản phẩm, 7 thông báo và tên danh mục trong thông báo lọc; vi/en/ja.
+- TechStore: cả 4 trang, menu, bảng thống kê, thứ trong tuần, tooltip, đăng ký, độ mạnh mật khẩu, lỗi và trạng thái đăng nhập; vi/en. Bộ chọn chỉ hiện ngôn ngữ có trong release.
+- Beautyshop: cả 4 trang, lựa chọn sắp xếp/chủ đề liên hệ, placeholder tin nhắn, thông báo liên hệ/giỏ hàng và tên sản phẩm trong thông báo; vi/en.
+- Chữ động đang hiện cũng đổi khi đổi ngôn ngữ. Giá, mã đơn, tên riêng, thương hiệu và tên ngôn ngữ bản địa giữ nguyên.
+- Bản nguồn và bản dịch đủ cùng tập khóa và biến. Chạy Chrome theo [tests/browser/README.md](../tests/browser/README.md) để rà cả chữ chưa gắn khóa, thuộc tính và thao tác, không chỉ các vị trí đã có khóa.
+
+**Đã import bộ cũ:** nhập toàn bộ `i18n/vi.json` mới thành phiên bản nguồn mới; nhập lại các tệp đích với tùy chọn *Thay bản dịch đang có*, gửi Reviewer duyệt, rồi phát hành phiên bản mới. Tải lại **cả client và config** vào website. Bản phát hành cũ giữ nguyên.
 
 ## Các bước import qua giao diện web (Manager)
 
@@ -50,6 +60,24 @@ node scripts/website-i18n/js-dictionary-to-json.mjs languages.js translations <t
 node scripts/website-i18n/prepare-site.mjs <website> <đầu-ra> --locale vi --dictionary <đầu-ra-json>/vi.json
 ```
 
-`prepare-site.mjs` gắn `data-i18n` cho chữ hiển thị, `data-i18n-placeholder` / `data-i18n-title` cho thuộc tính, `data-i18n-document-title` cho `<title>`; chữ trùng trên nhiều trang dùng chung khóa `common.*`. Bỏ qua script/style/svg/code/option, phần tử có `data-i18n-skip` hoặc `translate="no"`, số/giá/mã đơn/email/URL và chữ dưới 2 ký tự chữ cái. Công cụ **không** xử lý chữ trong JavaScript (alert, toast) hay `alt`/`aria-label`; chữ bị chia mảnh bởi thẻ định dạng (ví dụ `Vẻ Đẹp <i>Thuần Khiết</i>`) thành nhiều khóa, người dịch cần dịch theo ngữ cảnh. Sau khi tách, gắn `translation-manager.config.js` và `translation-manager.js` trước script đổi ngôn ngữ của website rồi gọi `TranslationManager.init()` (xem `site/js/lang.js`, `site/assets/js/tm-adapter.js`, `site/i18n-adapter.js`).
+`prepare-site.mjs` gắn `data-i18n` cho chữ hiển thị, `data-i18n-placeholder` / `data-i18n-title` / `data-i18n-alt` / `data-i18n-aria-label` cho thuộc tính và cả nội dung `<option>`, `data-i18n-document-title` cho `<title>`; chữ trùng trên nhiều trang dùng chung khóa `common.*`. Bỏ qua script/style/svg/code, phần tử có `data-i18n-skip` hoặc `translate="no"`, số/giá/mã đơn/email/URL và chữ dưới 2 ký tự chữ cái. Chữ trong JavaScript cần được nối thủ công bằng `TranslationManager.t()` và `TranslationManager.apply()` (đã thực hiện trong cả 3 bộ mẫu); chữ bị chia mảnh bởi thẻ định dạng (ví dụ `Vẻ Đẹp <i>Thuần Khiết</i>`) thành nhiều khóa, người dịch cần dịch theo ngữ cảnh. Sau khi tách, gắn `translation-manager.config.js` và `translation-manager.js` trước script đổi ngôn ngữ của website rồi gọi `TranslationManager.init()` (xem `site/js/lang.js`, `site/assets/js/tm-adapter.js`, `site/i18n-adapter.js`).
 
 Bộ import này được tạo từ các tệp zip gốc bằng hai công cụ trên; bản dịch `web-test-3-beautyshop/i18n/en.json` là bản đề xuất cho demo, vẫn phải qua Reviewer duyệt trong hệ thống.
+
+## Chữ sinh ra bằng JavaScript
+
+Client tích hợp do backend sinh đã hỗ trợ `t(key, variables)` và `apply()`:
+
+```js
+// Toast/alert: dịch câu và biến bằng gói hiện tại.
+const message = TranslationManager.t('messages.password_short', { count: 8 });
+document.getElementById('toastMsg').textContent = message;
+
+// Nếu chữ cần đổi theo ngôn ngữ ngay khi đang hiển thị, giữ khóa trên phần tử.
+const element = document.getElementById('toastMsg');
+element.dataset.i18n = 'messages.password_short';
+element.dataset.i18nVars = JSON.stringify({ count: 8 });
+TranslationManager.apply();
+```
+
+Dùng `textContent` cho nội dung dịch; không ghép nội dung người dùng vào `innerHTML`. Khi biến cũng là bản dịch (tên sản phẩm/độ mạnh mật khẩu), tính lại biến trong sự kiện `translationmanager:language-changed` như các script mẫu.

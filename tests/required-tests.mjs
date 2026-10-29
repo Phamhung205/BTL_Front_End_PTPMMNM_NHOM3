@@ -67,9 +67,9 @@ function fakeDocument(html) {
         if (!Object.keys(attributes).some(name => name.startsWith('data-i18n'))) continue;
         const dataset = {};
         for (const [name, value] of Object.entries(attributes)) if (name.startsWith('data-')) dataset[name.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = value;
-        elements.push({ tag: tag[1].toLowerCase(), dataset, textContent: '', attributes, setAttribute(name, value) { this.attributes[name] = value; } });
+        elements.push({ tag: tag[1].toLowerCase(), dataset, textContent: '', attributes, getAttribute(name) { return this.attributes[name] ?? null; }, setAttribute(name, value) { this.attributes[name] = value; } });
     }
-    const selectorMatches = (element, selector) => ({ '[data-i18n]': 'i18n', '[data-i18n-placeholder]': 'i18nPlaceholder', '[data-i18n-title]': 'i18nTitle', '[data-i18n-document-title]': 'i18nDocumentTitle' }[selector] in element.dataset);
+    const selectorMatches = (element, selector) => selector.startsWith('[data-i18n') && selector.slice(1, -1) in element.attributes;
     const document = { title: '', documentElement: { lang: 'vi' }, elements,
         querySelectorAll: selector => elements.filter(element => selectorMatches(element, selector)),
         querySelector: selector => elements.find(element => selectorMatches(element, selector)) ?? null,

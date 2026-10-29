@@ -6,13 +6,22 @@
   let sequence = 0;
 
   function getValue(object, path) {
-    return path.split('.').reduce((value, part) => value && typeof value === 'object' ? value[part] : undefined, object);
+    return path.split('.').reduce((value, part) => value && typeof value === 'object' && Object.prototype.hasOwnProperty.call(value, part) ? value[part] : undefined, object);
+  }
+
+  function interpolate(text, variables = {}) {
+    return text.replace(/\{([A-Za-z0-9_.-]+)\}/g, (token, key) => Object.prototype.hasOwnProperty.call(variables, key) ? String(variables[key]) : token);
+  }
+
+  function translate(key, variables = {}, fallback = key) {
+    const value = getValue(dictionary, key);
+    return interpolate(typeof value === 'string' ? value : fallback, variables);
   }
 
   function format(element, text) {
     let variables = {};
     try { variables = JSON.parse(element.dataset.i18nVars || '{}'); } catch (_) {}
-    return text.replace(/\{([A-Za-z0-9_.-]+)\}/g, (token, key) => Object.prototype.hasOwnProperty.call(variables, key) ? String(variables[key]) : token);
+    return interpolate(text, variables);
   }
 
   function apply(localeDictionary) {
@@ -21,9 +30,9 @@
       const value = getValue(localeDictionary, element.dataset.i18n);
       if (typeof value === 'string') { element.textContent = format(element, value); changed++; }
     });
-    ['placeholder', 'title'].forEach(attribute => {
+    ['placeholder', 'title', 'alt', 'aria-label'].forEach(attribute => {
       document.querySelectorAll(`[data-i18n-${attribute}]`).forEach(element => {
-        const value = getValue(localeDictionary, element.dataset[`i18n${attribute[0].toUpperCase()}${attribute.slice(1)}`]);
+        const value = getValue(localeDictionary, element.getAttribute(`data-i18n-${attribute}`));
         if (typeof value === 'string') { element.setAttribute(attribute, format(element, value)); changed++; }
       });
     });
@@ -54,6 +63,8 @@
   window.TranslationManager = {
     locales: supportedLocales.slice(),
     setLanguage,
+    t: translate,
+    apply: () => apply(dictionary),
     async init(options = {}) {
       config = { ...defaults, ...options };
       const selector = config.selector || '[data-translation-language]';
@@ -64,6 +75,7 @@
         select.replaceChildren(...supportedLocales.map(locale => {
           const option = document.createElement('option');
           option.value = locale;
+          option.translate = false;
           option.textContent = config.labels?.[locale] || existingLabels[locale] || locale.toUpperCase();
           return option;
         }));

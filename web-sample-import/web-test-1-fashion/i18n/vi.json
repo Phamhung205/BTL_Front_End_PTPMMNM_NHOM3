@@ -54,6 +54,15 @@
   "loginTitle": "Đăng nhập vào tài khoản",
   "logout": "Đăng xuất",
   "menu": "Menu",
+  "messages": {
+    "cart_added": "Đã thêm sản phẩm vào giỏ hàng! (Bản demo)",
+    "filter": "Lọc theo: {category} (Bản demo)",
+    "logged_out": "Bạn đã đăng xuất.",
+    "login_success": "Đăng nhập thành công! Chào mừng bạn đến với bảng điều khiển.",
+    "password_mismatch": "Mật khẩu xác nhận không khớp.",
+    "register_success": "Đăng ký thành công! Chào mừng bạn đến với bảng điều khiển.",
+    "required": "Vui lòng điền đầy đủ các trường."
+  },
   "name": "Tên",
   "noAccount": "Chưa có tài khoản?",
   "orders": "Đơn hàng",

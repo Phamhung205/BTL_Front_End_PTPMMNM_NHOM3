@@ -6,6 +6,8 @@ import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { inflateRawSync } from 'node:zlib';
 import path from 'node:path';
 import { prepareBrowserRun } from './environment.mjs';
+import { verifySiteCoverage } from './site-coverage.mjs';
+import { verifyFashionMessages, verifyBeautyMessages } from './site-interactions.mjs';
 
 const [pwPath, repo, work] = process.argv.slice(2);
 prepareBrowserRun(repo, work);
@@ -96,19 +98,7 @@ const waitText = (page, selector, text) => page.waitForFunction(([s, t]) => docu
 async function verifyRendered(page, kitName, locale) {
     await page.waitForFunction(expected => document.documentElement.lang === expected, locale);
     const dictionary = Object.fromEntries(flatten(readJson(path.join(repo, 'web-sample-import', kitName, 'i18n', locale + '.json'))));
-    const result = await page.evaluate(values => {
-        const problems = []; let total = 0;
-        for (const [attribute, target] of [['data-i18n', null], ['data-i18n-placeholder', 'placeholder'], ['data-i18n-title', 'title'], ['data-i18n-document-title', 'documentTitle']]) {
-            document.querySelectorAll('[' + attribute + ']').forEach(element => {
-                total++;
-                const key = element.getAttribute(attribute), value = values[key];
-                const actual = target === 'documentTitle' ? document.title : target ? element.getAttribute(target) : element.textContent;
-                if (typeof value !== 'string' || actual?.trim() !== value.trim()) problems.push({ key, actual, expected: value });
-            });
-        }
-        return { total, problems };
-    }, dictionary);
-    check(result.total > 0 && result.problems.length === 0, kitName + '/' + locale + ': mọi vị trí có khóa trên ' + new URL(page.url()).pathname + ' khớp gói ' + JSON.stringify(result.problems));
+    await verifySiteCoverage(page, dictionary, locale, check);
 }
 try {
     log('Web test 1 (fashion): nguồn vi, đích en + ja; lớp tương thích thay languages.js');
@@ -130,15 +120,15 @@ try {
     await page.reload();
     await waitText(page, '[data-i18n="loginTitle"]', 'アカウントにログイン');
     check(true, 'ngôn ngữ đã chọn được nhớ sau khi tải lại trang');
-    page.on('dialog', d => d.accept());
     await page.evaluate(() => showPage('dashboardPage'));
     check(await page.inputValue('#dashboardLanguageSelector') === 'ja', 'bộ chọn ở dashboard đồng bộ ngôn ngữ');
     await page.selectOption('#dashboardLanguageSelector', 'en');
     await waitText(page, '[data-i18n="dashboardTitle"]', 'Dashboard');
     check(await page.inputValue('#languageSelector') === 'en', 'đổi ở dashboard đồng bộ lại bộ chọn chung');
     for (const locale of ['vi', 'en', 'ja']) {
-        await page.selectOption('#dashboardLanguageSelector', locale);
+        await page.evaluate(code => TranslationManager.setLanguage(code), locale);
         await verifyRendered(page, 'web-test-1-fashion', locale);
+        await verifyFashionMessages(page, Object.fromEntries(flatten(readJson(path.join(repo, 'web-sample-import/web-test-1-fashion/i18n', locale + '.json')))), locale, check);
     }
 
     log('Web test 3 (beautyshop): chữ tách từ HTML, nút VI ⇄ EN');
@@ -166,6 +156,22 @@ try {
         for (const locale of ['en', 'vi']) {
             await shop.evaluate(code => TranslationManager.setLanguage(code), locale);
             await verifyRendered(shop, 'web-test-3-beautyshop', locale);
+            await verifyBeautyMessages(shop, Object.fromEntries(flatten(readJson(path.join(repo, 'web-sample-import/web-test-3-beautyshop/i18n', locale + '.json')))), locale, check);
+            await shop.waitForFunction(() => !document.querySelector('[data-adding="true"]'));
+        }
+        if (file === 'pages/products.html') {
+            const select = shop.locator('select').first();
+            await select.selectOption('option-3');
+            const button = shop.locator('[onclick="addToCart(this)"]').first();
+            const key = await button.evaluate(el => el.closest('.product-card').querySelector('h3[data-i18n]').dataset.i18n);
+            await button.evaluate(el => el.click());
+            await shop.evaluate(() => TranslationManager.setLanguage('en'));
+            const values = Object.fromEntries(flatten(readJson(path.join(repo, 'web-sample-import/web-test-3-beautyshop/i18n/en.json'))));
+            check(await select.inputValue() === 'option-3', 'Beauty: changing language preserves selected sort value');
+            check((await button.textContent()).trim() === values['messages.added'], 'Beauty: temporary cart button changes language immediately');
+            check(await shop.textContent('#toastMsg') === values['messages.cart_added'].replace('{product}', values[key]), 'Beauty: visible toast changes both sentence and product name');
+            await shop.waitForFunction(() => !document.querySelector('[data-adding="true"]'));
+            check((await button.textContent()).trim() === values['common.them_vao_gio'], 'Beauty: restored cart button keeps the new language');
         }
     }
 } catch (error) { problems.push('EXCEPTION: ' + error.message); console.error(error); }

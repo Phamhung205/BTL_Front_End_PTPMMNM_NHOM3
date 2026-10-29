@@ -4,8 +4,8 @@ let currentLanguage = 'vi';
 const languageLabels = { vi: 'Tiếng Việt', en: 'English', ja: '日本語' };
 const languageSelectors = '#languageSelector, #dashboardLanguageSelector';
 
-function t(key) { return key; }
-function updatePageLanguage() { /* client đã áp dụng bản dịch cho mọi phần tử data-i18n */ }
+function t(key, variables = {}) { return TranslationManager.t(key, variables); }
+function updatePageLanguage() { TranslationManager.apply(); }
 
 function syncLanguageSelectors(lang) {
     document.querySelectorAll(languageSelectors).forEach(select => {
@@ -13,12 +13,17 @@ function syncLanguageSelectors(lang) {
     });
 }
 
+document.addEventListener('translationmanager:language-changed', event => {
+    currentLanguage = event.detail.locale;
+    syncLanguageSelectors(currentLanguage);
+});
+
 function setLanguage(lang) {
     if (!window.TranslationManager) return Promise.resolve(0);
     return TranslationManager.setLanguage(lang).then(changed => {
-        currentLanguage = lang;
-        syncLanguageSelectors(lang);
-        try { localStorage.setItem('language', lang); } catch (_) {}
+        currentLanguage = document.documentElement.lang;
+        syncLanguageSelectors(currentLanguage);
+        try { localStorage.setItem('language', currentLanguage); } catch (_) {}
         return changed;
     }).catch(error => { console.error('[TranslationManager]', error); syncLanguageSelectors(currentLanguage); });
 }
@@ -26,7 +31,11 @@ function setLanguage(lang) {
 function initLanguage() {
     if (!window.TranslationManager) { console.error('[TranslationManager] Thiếu translation-manager.js.'); return; }
     document.querySelectorAll(languageSelectors).forEach(select => {
-        select.replaceChildren(...TranslationManager.locales.map(code => new Option(languageLabels[code] || code.toUpperCase(), code)));
+        select.replaceChildren(...TranslationManager.locales.map(code => {
+            const option = new Option(languageLabels[code] || code.toUpperCase(), code);
+            option.translate = false;
+            return option;
+        }));
     });
     let saved = null;
     try { saved = localStorage.getItem('language'); } catch (_) {}

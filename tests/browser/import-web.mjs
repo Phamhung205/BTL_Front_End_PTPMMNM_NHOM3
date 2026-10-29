@@ -6,12 +6,16 @@ import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { inflateRawSync } from 'node:zlib';
 import path from 'node:path';
 import { prepareBrowserRun } from './environment.mjs';
+import { verifySiteCoverage } from './site-coverage.mjs';
+import { verifyTechstoreMessages } from './site-interactions.mjs';
 
 const [pwPath, repo, work] = process.argv.slice(2);
 prepareBrowserRun(repo, work);
 const { chromium } = await import(pathToFileURL(pwPath).href);
 const FE = 'http://127.0.0.1:8095', PASSWORD = 'Demo@2026Admin!';
 const kit = path.join(repo, 'web-sample-import/web-test-2-techstore');
+const countKeys = value => Object.values(value).reduce((n, item) => n + (typeof item === 'string' ? 1 : countKeys(item)), 0);
+const total = countKeys(JSON.parse(readFileSync(path.join(kit, 'i18n/vi.json'), 'utf8')));
 const shots = path.join(work, 'shots'); mkdirSync(shots, { recursive: true });
 let checks = 0;
 const problems = [], log = (...a) => console.log(...a);
@@ -79,29 +83,29 @@ try {
     await mgr.waitForSelector('#source-import-form:not(.hidden)');
     await mgr.setInputFiles('#source-file', [path.join(kit, 'site/Json/vi.json'), path.join(kit, 'site/Json/vi 2.json')]);
     await waitText(mgr, '#source-file-summary', 'Đã gộp 2 tệp');
-    check((await mgr.textContent('#source-file-summary')).includes('37 khóa'), 'gộp 2 tệp thành 37 khóa');
+    check((await mgr.textContent('#source-file-summary')).includes(`${total} khóa`), `gộp 2 tệp thành ${total} khóa`);
     await mgr.fill('#source-version-name', 'techstore-v1');
     await mgr.click('#source-import-form button[type=submit]');
     await mgr.waitForSelector('#modal-container:not(.hidden)');
-    check((await mgr.textContent('#modal-body')).includes('+37 khóa mới'), 'xem trước: +37 khóa mới');
+    check((await mgr.textContent('#modal-body')).includes(`+${total} khóa mới`), `xem trước: +${total} khóa mới`);
     await shot(mgr, '01-source-import-preview');
     await mgr.click('#modal-confirm-btn');
-    await waitText(mgr, '#source-import-result', 'Đã nhập 37 khóa');
-    check(true, 'nhập nguồn qua web: 37 khóa');
+    await waitText(mgr, '#source-import-result', `Đã nhập ${total} khóa`);
+    check(true, `nhập nguồn qua web: ${total} khóa`);
 
     log('3) Nhập bản dịch có sẵn: chọn Json/en.json + Json/en2.json');
     await mgr.goto(`${FE}/pages/translations/index.php?project_id=${projectId}`);
     await mgr.waitForSelector('#translations-body tr');
     await mgr.click('#bulk-import-translations');
     await mgr.setInputFiles('#translation-import-file', [path.join(kit, 'site/Json/en.json'), path.join(kit, 'site/Json/en2.json')]);
-    await waitText(mgr, '#modal-body', '37 khóa sau khi gộp');
+    await waitText(mgr, '#modal-body', `${total} khóa sau khi gộp`);
     await shot(mgr, '02-translation-import-dialog');
     await mgr.click('#modal-confirm-btn');
     await mgr.waitForSelector('#translation-import-report:not(.hidden)');
     const report = await mgr.textContent('#translation-import-report');
-    check(report.includes('37 thêm mới') && report.includes('0 sai biến'), 'báo cáo nhập: 37 thêm mới');
-    await mgr.waitForFunction(() => document.getElementById('translation-progress')?.textContent.includes('37 chờ duyệt'));
-    check(true, 'tiến độ: 37 chờ duyệt, chưa tự duyệt');
+    check(report.includes(`${total} thêm mới`) && report.includes('0 sai biến'), `báo cáo nhập: ${total} thêm mới`);
+    await mgr.waitForFunction(n => document.getElementById('translation-progress')?.textContent.includes(`${n} chờ duyệt`), total);
+    check(true, `tiến độ: ${total} chờ duyệt, chưa tự duyệt`);
     await shot(mgr, '03-translation-import-report');
 
     log('4) Reviewer duyệt tất cả đang chờ');
@@ -109,8 +113,8 @@ try {
     await rev.goto(`${FE}/pages/reviews/index.php?project_id=${projectId}`);
     await rev.waitForSelector('#translations-body tr');
     await rev.click('#bulk-approve-all'); await rev.click('#confirm-action-btn');
-    await rev.waitForFunction(() => document.getElementById('translation-progress')?.textContent.includes('37/37 đã duyệt'));
-    check(true, 'reviewer duyệt 37/37');
+    await rev.waitForFunction(n => document.getElementById('translation-progress')?.textContent.includes(`${n}/${n} đã duyệt`), total);
+    check(true, `reviewer duyệt ${total}/${total}`);
 
     log('5) Manager phát hành 1.0.0, lấy cấu hình + client tích hợp');
     async function publishAndCollect(version, siteDir) {
@@ -141,10 +145,10 @@ try {
     await shop.goto('http://127.0.0.1:8102/login.html');
     await waitText(shop, '[data-i18n="login.form.heading"]', 'Log In');
     check(await shop.getAttribute('#loginEmail', 'placeholder') === 'your@email.com', 'trang đăng nhập hiển thị tiếng Anh từ gói (mặc định en)');
-    await shop.click('#langBtn'); await shop.locator('.lang-option', { hasText: 'Tiếng Việt' }).click();
+    await shop.click('#langBtn'); await shop.locator('.lang-option[data-language=vi]').click();
     await waitText(shop, '[data-i18n="login.form.heading"]', 'Đăng Nhập');
     check((await shop.textContent('#langLabel')).trim() === 'VI', 'menu ngôn ngữ của website chuyển sang Tiếng Việt');
-    await shop.click('#langBtn'); await shop.locator('.lang-option', { hasText: 'English' }).click();
+    await shop.click('#langBtn'); await shop.locator('.lang-option[data-language=en]').click();
     await waitText(shop, '[data-i18n="login.welcome.title"]', 'Welcome Back!');
     await shot(shop, '05-site-login-en-v1');
     await shop.goto('http://127.0.0.1:8102/index.html');
@@ -153,6 +157,31 @@ try {
     await shop.selectOption('#langSelect', 'en');
     await waitText(shop, '[data-i18n="home.title"]', 'Discover the Future of Technology');
     check(true, 'trang chủ đổi vi ⇄ en bằng bộ chọn data-translation-language');
+
+    const flatten = (node, prefix = '') => Object.entries(node).flatMap(([k, v]) => typeof v === 'string' ? [[prefix + k, v]] : flatten(v, prefix + k + '.'));
+    for (const file of ['index.html', 'register.html', 'dashboard.html', 'login.html']) {
+        await shop.goto('http://127.0.0.1:8102/' + file);
+        for (const locale of ['vi', 'en']) {
+            await shop.evaluate(code => TranslationManager.setLanguage(code), locale);
+            const values = Object.fromEntries(flatten(JSON.parse(readFileSync(path.join(kit, 'i18n', locale + '.json'), 'utf8'))));
+            await verifySiteCoverage(shop, values, locale, check);
+            await verifyTechstoreMessages(shop, values, locale, check);
+        }
+    }
+    for (const locale of ['en', 'vi']) {
+        await shop.goto('http://127.0.0.1:8102/login.html');
+        await shop.evaluate(code => TranslationManager.setLanguage(code), locale);
+        const values = JSON.parse(readFileSync(path.join(kit, 'i18n', locale + '.json'), 'utf8'));
+        await shop.fill('#loginEmail', 'demo@example.com');
+        await shop.fill('#loginPass', 'Demo@123');
+        await shop.click('#loginSubmit');
+        check((await shop.textContent('#loginSubmit')).trim() === values.login.status.pending, `TechStore/${locale}: login pending status`);
+        await waitText(shop, '#loginSubmit', values.login.status.success);
+        check(true, `TechStore/${locale}: login success status`);
+        await shop.waitForURL('**/dashboard.html');
+        await shop.waitForFunction(code => document.documentElement.lang === code, locale);
+        check((await shop.textContent('#pageTitle')).trim() === values.dashboard.tong_quan_2, `TechStore/${locale}: destination remembers language`);
+    }
 
     log('7) Tình huống 2: nhập nguồn v2 → xem khác biệt');
     await mgr.goto(`${FE}/pages/source-versions/index.php?project_id=${projectId}`);
@@ -200,8 +229,8 @@ try {
     await rev.goto(`${FE}/pages/reviews/index.php?project_id=${projectId}`);
     await rev.waitForSelector('#translations-body tr');
     await rev.click('#bulk-approve-all'); await rev.click('#confirm-action-btn');
-    await rev.waitForFunction(() => document.getElementById('translation-progress')?.textContent.includes('37/37 đã duyệt'));
-    check(true, 'reviewer duyệt lại 3 bản bị ảnh hưởng → 37/37');
+    await rev.waitForFunction(n => document.getElementById('translation-progress')?.textContent.includes(`${n}/${n} đã duyệt`), total);
+    check(true, `reviewer duyệt lại 3 bản bị ảnh hưởng → ${total}/${total}`);
 
     log('9) Phát hành 2.0.0; website mới đọc 2.0.0, website cũ vẫn đọc 1.0.0');
     const siteV2 = path.join(work, 'site-v2');
@@ -213,6 +242,7 @@ try {
     check((await shop2.textContent('[data-i18n="login.form.error"]')).trim() === 'Incorrect email or password. You have 3 attempts left.', 'gói 2.0.0 có câu mới và thay biến {name}/{count}');
     await shot(shop2, '09-site-login-en-v2');
     await shop.goto('http://127.0.0.1:8102/login.html');
+    await shop.evaluate(() => TranslationManager.setLanguage('en'));
     await waitText(shop, '[data-i18n="login.welcome.title"]', 'Welcome Back!');
     check((await shop.textContent('[data-i18n="login.form.demo_label"]')).trim() === 'Demo', 'website trỏ gói 1.0.0 vẫn hiển thị nội dung cũ (gói đã chốt không đổi)');
     await mgr.goto(`${FE}/pages/releases/index.php?project_id=${projectId}`);

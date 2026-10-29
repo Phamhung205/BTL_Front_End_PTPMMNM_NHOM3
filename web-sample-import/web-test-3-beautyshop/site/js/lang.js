@@ -14,14 +14,14 @@ function toggleLang() {
   const btn = document.getElementById('langToggleBtn');
   btn?.classList.add('scale-90');
   setTimeout(() => btn?.classList.remove('scale-90'), 150);
-  if (!window.TranslationManager) { showToast('Thiếu translation-manager.js'); return; }
+  if (!window.TranslationManager) return;
   const next = currentLang === 'VI' ? 'en' : 'vi';
   TranslationManager.setLanguage(next)
     .then(() => {
-      try { localStorage.setItem('lumiere-language', next); } catch (_) {}
-      showToast(next === 'en' ? 'Switched to English' : 'Đã chuyển sang Tiếng Việt');
+      try { localStorage.setItem('lumiere-language', document.documentElement.lang); } catch (_) {}
+      showToast('messages.language_changed');
     })
-    .catch(error => { console.error('[TranslationManager]', error); showToast('Không tải được bản dịch: ' + error.message); });
+    .catch(error => { console.error('[TranslationManager]', error); showToast('messages.language_failed'); });
 }
 
 document.addEventListener('translationmanager:language-changed', event => setLangLabel(event.detail.locale));

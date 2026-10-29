@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TechStore – Trang Chủ</title>
+  <title data-i18n-document-title="index.techstore_trang_chu">TechStore – Trang Chủ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -33,15 +33,15 @@
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
           <i class="fa-solid fa-bolt text-white text-sm"></i>
         </div>
-        <span class="text-xl font-bold tracking-tight">Tech<span class="text-primary">Store</span></span>
+        <span class="text-xl font-bold tracking-tight"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
       </a>
 
       <!-- Desktop Nav -->
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-        <li><a href="index.html"    class="nav-link active">Trang Chủ</a></li>
-        <li><a href="#products"     class="nav-link">Sản Phẩm</a></li>
-        <li><a href="#categories"   class="nav-link">Danh Mục</a></li>
-        <li><a href="#about"        class="nav-link">Về Chúng Tôi</a></li>
+        <li><a href="index.html"    class="nav-link active" data-i18n="index.trang_chu">Trang Chủ</a></li>
+        <li><a href="#products"     class="nav-link" data-i18n="common.nav.products">Sản Phẩm</a></li>
+        <li><a href="#categories"   class="nav-link" data-i18n="index.danh_muc">Danh Mục</a></li>
+        <li><a href="#about"        class="nav-link" data-i18n="index.ve_chung_toi">Về Chúng Tôi</a></li>
       </ul>
 
       <!-- Right Actions -->
@@ -49,13 +49,13 @@
 
         <!-- Bộ chọn này được Translation Manager tìm qua thuộc tính data-translation-language. -->
         <div class="relative" id="langDropdownWrap">
-          <label class="sr-only" for="langSelect">Chọn ngôn ngữ</label>
+          <label class="sr-only" for="langSelect" data-i18n="index.chon_ngon_ngu">Chọn ngôn ngữ</label>
           <i class="fa-solid fa-globe text-primary text-sm absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
           <select id="langSelect" data-translation-language
             class="text-xs font-semibold border border-dark-border rounded-lg pl-9 pr-8 py-2 hover:border-primary/60 hover:text-primary transition-all duration-200 bg-dark-card text-white appearance-none cursor-pointer"
-            aria-label="Chọn ngôn ngữ">
-            <option value="vi">Tiếng Việt</option>
-            <option value="en">English</option>
+            aria-label="Chọn ngôn ngữ" data-i18n-aria-label="index.chon_ngon_ngu">
+            <option value="vi" translate="no">Tiếng Việt</option>
+            <option value="en" translate="no">English</option>
           </select>
           <i class="fa-solid fa-chevron-down text-xs opacity-60 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
         </div>
@@ -73,7 +73,7 @@
           Đăng Nhập
         </a>
         <a href="register.html"
-          class="hidden md:inline-flex text-sm font-semibold px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all duration-200 shadow-lg shadow-primary/30">
+          class="hidden md:inline-flex text-sm font-semibold px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all duration-200 shadow-lg shadow-primary/30" data-i18n="index.dang_ky">
           Đăng Ký
         </a>
 
@@ -87,13 +87,13 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="md:hidden hidden px-6 pb-4 bg-dark-card border-t border-dark-border">
       <ul class="flex flex-col gap-3 pt-4 text-sm font-medium text-gray-300">
-        <li><a href="index.html"  class="block py-2 hover:text-primary transition">Trang Chủ</a></li>
-        <li><a href="#products"   class="block py-2 hover:text-primary transition">Sản Phẩm</a></li>
-        <li><a href="#categories" class="block py-2 hover:text-primary transition">Danh Mục</a></li>
-        <li><a href="#about"      class="block py-2 hover:text-primary transition">Về Chúng Tôi</a></li>
+        <li><a href="index.html"  class="block py-2 hover:text-primary transition" data-i18n="index.trang_chu">Trang Chủ</a></li>
+        <li><a href="#products"   class="block py-2 hover:text-primary transition" data-i18n="common.nav.products">Sản Phẩm</a></li>
+        <li><a href="#categories" class="block py-2 hover:text-primary transition" data-i18n="index.danh_muc">Danh Mục</a></li>
+        <li><a href="#about"      class="block py-2 hover:text-primary transition" data-i18n="index.ve_chung_toi">Về Chúng Tôi</a></li>
         <li class="flex gap-3 pt-2">
           <a href="login.html"    class="flex-1 text-center py-2 rounded-xl border border-dark-border hover:text-primary transition" data-i18n="common.nav.login">Đăng Nhập</a>
-          <a href="register.html" class="flex-1 text-center py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold">Đăng Ký</a>
+          <a href="register.html" class="flex-1 text-center py-2 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold" data-i18n="index.dang_ky">Đăng Ký</a>
         </li>
       </ul>
     </div>
@@ -113,23 +113,23 @@
       <div>
         <div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 text-primary text-xs font-semibold px-4 py-2 rounded-full mb-6">
           <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-          Công Nghệ Hàng Đầu 2025
+          <span data-i18n="index.cong_nghe_hang_dau_2025">Công Nghệ Hàng Đầu 2025</span>
         </div>
         <!-- Giá trị home.title phải tồn tại trong bản dịch của release đang cấu hình. -->
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6" data-i18n="home.title">
           Khám Phá Tương Lai Công Nghệ
         </h1>
-        <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-md">
+        <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-md" data-i18n="index.trai_nghiem_nhung_san_pham_cong_nghe_dinh_cao_tu">
           Trải nghiệm những sản phẩm công nghệ đỉnh cao – từ laptop gaming, smartphone 5G đến các thiết bị thông minh nhà bạn.
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="#products"
             class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-white font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30">
-            Mua Sắm Ngay <i class="fa-solid fa-arrow-right"></i>
+            <span data-i18n="index.mua_sam_ngay">Mua Sắm Ngay</span> <i class="fa-solid fa-arrow-right"></i>
           </a>
           <a href="#about"
             class="inline-flex items-center gap-2 border border-dark-border text-gray-300 font-medium px-6 py-3 rounded-xl hover:border-primary/60 hover:text-primary transition">
-            Tìm Hiểu Thêm <i class="fa-regular fa-circle-play"></i>
+            <span data-i18n="index.tim_hieu_them">Tìm Hiểu Thêm</span> <i class="fa-regular fa-circle-play"></i>
           </a>
         </div>
 
@@ -137,17 +137,17 @@
         <div class="flex gap-8 mt-12">
           <div>
             <p class="text-3xl font-extrabold gradient-text">50K+</p>
-            <p class="text-xs text-gray-500 mt-1">Khách Hàng</p>
+            <p class="text-xs text-gray-500 mt-1" data-i18n="common.khach_hang">Khách Hàng</p>
           </div>
           <div class="w-px bg-dark-border"></div>
           <div>
             <p class="text-3xl font-extrabold gradient-text">2K+</p>
-            <p class="text-xs text-gray-500 mt-1">Sản Phẩm</p>
+            <p class="text-xs text-gray-500 mt-1" data-i18n="common.nav.products">Sản Phẩm</p>
           </div>
           <div class="w-px bg-dark-border"></div>
           <div>
             <p class="text-3xl font-extrabold gradient-text">4.9★</p>
-            <p class="text-xs text-gray-500 mt-1">Đánh Giá</p>
+            <p class="text-xs text-gray-500 mt-1" data-i18n="common.danh_gia">Đánh Giá</p>
           </div>
         </div>
       </div>
@@ -167,18 +167,18 @@
         </div>
         <div class="floating-badge badge-2 bg-dark-card border border-dark-border rounded-xl px-4 py-2 flex items-center gap-2 shadow-xl">
           <i class="fa-solid fa-shield-halved text-accent"></i>
-          <span class="text-sm font-semibold">Bảo Hành 2 Năm</span>
+          <span class="text-sm font-semibold" data-i18n="index.bao_hanh_2_nam">Bảo Hành 2 Năm</span>
         </div>
         <div class="floating-badge badge-3 bg-dark-card border border-dark-border rounded-xl px-4 py-2 flex items-center gap-2 shadow-xl">
           <i class="fa-solid fa-truck text-primary"></i>
-          <span class="text-sm font-semibold">Ship Miễn Phí</span>
+          <span class="text-sm font-semibold" data-i18n="index.ship_mien_phi">Ship Miễn Phí</span>
         </div>
       </div>
     </div>
 
     <!-- Scroll indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 text-xs animate-bounce">
-      <span>Cuộn xuống</span>
+      <span data-i18n="index.cuon_xuong">Cuộn xuống</span>
       <i class="fa-solid fa-chevron-down"></i>
     </div>
   </section>
@@ -186,8 +186,8 @@
   <!-- ===== CATEGORIES ===== -->
   <section id="categories" class="py-20 max-w-7xl mx-auto px-6">
     <div class="section-header">
-      <span class="section-tag">Danh Mục</span>
-      <h2 class="section-title">Khám Phá Theo <span class="gradient-text">Dòng Sản Phẩm</span></h2>
+      <span class="section-tag" data-i18n="index.danh_muc">Danh Mục</span>
+      <h2 class="section-title"><span data-i18n="index.kham_pha_theo">Khám Phá Theo</span> <span class="gradient-text" data-i18n="index.dong_san_pham">Dòng Sản Phẩm</span></h2>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-10">
@@ -196,43 +196,43 @@
         <div class="cat-icon bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20">
           <i class="fa-solid fa-laptop text-2xl"></i>
         </div>
-        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Laptop</span>
-        <span class="text-xs text-gray-500">48 sản phẩm</span>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition" data-i18n="common.categories.laptop">Laptop</span>
+        <span class="text-xs text-gray-500" data-i18n="index.48_san_pham">48 sản phẩm</span>
       </div>
       <div class="category-card group cursor-pointer" onclick="filterCategory('phone')">
         <div class="cat-icon bg-green-500/10 text-green-400 group-hover:bg-green-500/20">
           <i class="fa-solid fa-mobile-screen text-2xl"></i>
         </div>
-        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Điện Thoại</span>
-        <span class="text-xs text-gray-500">124 sản phẩm</span>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition" data-i18n="common.categories.phone">Điện Thoại</span>
+        <span class="text-xs text-gray-500" data-i18n="index.124_san_pham">124 sản phẩm</span>
       </div>
       <div class="category-card group cursor-pointer" onclick="filterCategory('tablet')">
         <div class="cat-icon bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20">
           <i class="fa-solid fa-tablet-screen-button text-2xl"></i>
         </div>
-        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Máy Tính Bảng</span>
-        <span class="text-xs text-gray-500">36 sản phẩm</span>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition" data-i18n="index.may_tinh_bang">Máy Tính Bảng</span>
+        <span class="text-xs text-gray-500" data-i18n="index.36_san_pham">36 sản phẩm</span>
       </div>
       <div class="category-card group cursor-pointer" onclick="filterCategory('watch')">
         <div class="cat-icon bg-orange-500/10 text-orange-400 group-hover:bg-orange-500/20">
           <i class="fa-solid fa-clock text-2xl"></i>
         </div>
-        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Đồng Hồ TM</span>
-        <span class="text-xs text-gray-500">62 sản phẩm</span>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition" data-i18n="index.dong_ho_tm">Đồng Hồ TM</span>
+        <span class="text-xs text-gray-500" data-i18n="index.62_san_pham">62 sản phẩm</span>
       </div>
       <div class="category-card group cursor-pointer" onclick="filterCategory('audio')">
         <div class="cat-icon bg-pink-500/10 text-pink-400 group-hover:bg-pink-500/20">
           <i class="fa-solid fa-headphones text-2xl"></i>
         </div>
-        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Âm Thanh</span>
-        <span class="text-xs text-gray-500">85 sản phẩm</span>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition" data-i18n="common.categories.audio">Âm Thanh</span>
+        <span class="text-xs text-gray-500" data-i18n="index.85_san_pham">85 sản phẩm</span>
       </div>
       <div class="category-card group cursor-pointer" onclick="filterCategory('accessory')">
         <div class="cat-icon bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500/20">
           <i class="fa-solid fa-computer-mouse text-2xl"></i>
         </div>
-        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition">Phụ Kiện</span>
-        <span class="text-xs text-gray-500">210 sản phẩm</span>
+        <span class="text-sm font-medium mt-3 text-gray-300 group-hover:text-white transition" data-i18n="common.categories.accessories">Phụ Kiện</span>
+        <span class="text-xs text-gray-500" data-i18n="index.210_san_pham">210 sản phẩm</span>
       </div>
     </div>
   </section>
@@ -241,18 +241,18 @@
   <section id="products" class="py-20 bg-dark-card/40">
     <div class="max-w-7xl mx-auto px-6">
       <div class="section-header">
-        <span class="section-tag">Sản Phẩm Nổi Bật</span>
-        <h2 class="section-title">Bán Chạy <span class="gradient-text">Nhất Tuần</span></h2>
+        <span class="section-tag" data-i18n="index.san_pham_noi_bat">Sản Phẩm Nổi Bật</span>
+        <h2 class="section-title"><span data-i18n="index.ban_chay">Bán Chạy</span> <span class="gradient-text" data-i18n="index.nhat_tuan">Nhất Tuần</span></h2>
       </div>
 
       <!-- Filter Tabs -->
       <div class="flex flex-wrap gap-3 mt-8 mb-10">
-        <button onclick="setFilter(this,'all')"    class="filter-btn active">Tất Cả</button>
-        <button onclick="setFilter(this,'laptop')"  class="filter-btn">Laptop</button>
-        <button onclick="setFilter(this,'phone')"   class="filter-btn">Điện Thoại</button>
-        <button onclick="setFilter(this,'tablet')"  class="filter-btn">Máy Tính Bảng</button>
-        <button onclick="setFilter(this,'audio')"   class="filter-btn">Âm Thanh</button>
-        <button onclick="setFilter(this,'accessory')" class="filter-btn">Phụ Kiện</button>
+        <button onclick="setFilter(this,'all')" data-category="all"    class="filter-btn active" data-i18n="index.tat_ca">Tất Cả</button>
+        <button onclick="setFilter(this,'laptop')" data-category="laptop"  class="filter-btn" data-i18n="common.categories.laptop">Laptop</button>
+        <button onclick="setFilter(this,'phone')" data-category="phone"   class="filter-btn" data-i18n="common.categories.phone">Điện Thoại</button>
+        <button onclick="setFilter(this,'tablet')" data-category="tablet"  class="filter-btn" data-i18n="index.may_tinh_bang">Máy Tính Bảng</button>
+        <button onclick="setFilter(this,'audio')" data-category="audio"   class="filter-btn" data-i18n="common.categories.audio">Âm Thanh</button>
+        <button onclick="setFilter(this,'accessory')" data-category="accessory" class="filter-btn" data-i18n="common.categories.accessories">Phụ Kiện</button>
       </div>
 
       <!-- Product Grid -->
@@ -261,19 +261,19 @@
         <!-- Product Card Template -->
         <div class="product-card" data-cat="laptop">
           <div class="product-img-wrap">
-            <div class="product-badge badge-new">Mới</div>
+            <div class="product-badge badge-new" data-i18n="index.moi">Mới</div>
             <div class="product-img bg-gradient-to-br from-blue-500/20 to-purple-500/20">
               <i class="fa-solid fa-laptop text-5xl text-blue-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-primary/80 font-medium">Apple</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">MacBook Pro 16" M3 Max 2025</h3>
+            <span class="text-xs text-primary/80 font-medium" data-i18n="index.apple">Apple</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.macbook_pro_16_m3_max_2025">MacBook Pro 16" M3 Max 2025</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(128)</span>
@@ -292,19 +292,19 @@
 
         <div class="product-card" data-cat="phone">
           <div class="product-img-wrap">
-            <div class="product-badge badge-hot">Hot</div>
+            <div class="product-badge badge-hot" data-i18n="index.hot">Hot</div>
             <div class="product-img bg-gradient-to-br from-green-500/20 to-cyan-500/20">
               <i class="fa-solid fa-mobile-screen text-5xl text-green-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-accent/80 font-medium">Samsung</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Samsung Galaxy S25 Ultra 5G</h3>
+            <span class="text-xs text-accent/80 font-medium" data-i18n="index.samsung">Samsung</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.samsung_galaxy_s25_ultra_5g">Samsung Galaxy S25 Ultra 5G</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(256)</span>
@@ -328,14 +328,14 @@
               <i class="fa-solid fa-headphones text-5xl text-pink-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-pink-400/80 font-medium">Sony</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Sony WH-1000XM6 Noise Cancelling</h3>
+            <span class="text-xs text-pink-400/80 font-medium" data-i18n="index.sony">Sony</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.sony_wh_1000xm6_noise_cancelling">Sony WH-1000XM6 Noise Cancelling</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★☆</div>
               <span class="text-xs text-gray-500">(89)</span>
@@ -358,14 +358,14 @@
               <i class="fa-solid fa-tablet-screen-button text-5xl text-purple-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-purple-400/80 font-medium">Apple</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">iPad Pro 13" M4 OLED WiFi 256GB</h3>
+            <span class="text-xs text-purple-400/80 font-medium" data-i18n="index.apple">Apple</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.ipad_pro_13_m4_oled_wifi_256gb">iPad Pro 13" M4 OLED WiFi 256GB</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(64)</span>
@@ -384,19 +384,19 @@
 
         <div class="product-card" data-cat="laptop">
           <div class="product-img-wrap">
-            <div class="product-badge badge-new">Mới</div>
+            <div class="product-badge badge-new" data-i18n="index.moi">Mới</div>
             <div class="product-img bg-gradient-to-br from-yellow-500/20 to-orange-500/20">
               <i class="fa-solid fa-laptop-code text-5xl text-yellow-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-yellow-400/80 font-medium">ASUS</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">ASUS ROG Zephyrus G16 RTX 4090</h3>
+            <span class="text-xs text-yellow-400/80 font-medium" data-i18n="index.asus">ASUS</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.asus_rog_zephyrus_g16_rtx_4090">ASUS ROG Zephyrus G16 RTX 4090</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(42)</span>
@@ -415,19 +415,19 @@
 
         <div class="product-card" data-cat="accessory">
           <div class="product-img-wrap">
-            <div class="product-badge badge-hot">Hot</div>
+            <div class="product-badge badge-hot" data-i18n="index.hot">Hot</div>
             <div class="product-img bg-gradient-to-br from-cyan-500/20 to-teal-500/20">
               <i class="fa-solid fa-computer-mouse text-5xl text-cyan-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-cyan-400/80 font-medium">Logitech</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Logitech MX Master 3S Wireless</h3>
+            <span class="text-xs text-cyan-400/80 font-medium" data-i18n="index.logitech">Logitech</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.logitech_mx_master_3s_wireless">Logitech MX Master 3S Wireless</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(312)</span>
@@ -451,14 +451,14 @@
               <i class="fa-brands fa-apple text-5xl text-gray-300"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-gray-400/80 font-medium">Apple</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">iPhone 17 Pro Max 512GB Natural Titanium</h3>
+            <span class="text-xs text-gray-400/80 font-medium" data-i18n="index.apple">Apple</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.iphone_17_pro_max_512gb_natural_titanium">iPhone 17 Pro Max 512GB Natural Titanium</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(501)</span>
@@ -481,14 +481,14 @@
               <i class="fa-solid fa-keyboard text-5xl text-indigo-400"></i>
             </div>
             <div class="product-actions">
-              <button class="action-btn" title="Yêu thích"><i class="fa-regular fa-heart"></i></button>
-              <button class="action-btn" title="Xem nhanh"><i class="fa-regular fa-eye"></i></button>
-              <button class="action-btn" title="So sánh"><i class="fa-solid fa-code-compare"></i></button>
+              <button class="action-btn" title="Yêu thích" data-i18n-title="index.yeu_thich"><i class="fa-regular fa-heart"></i></button>
+              <button class="action-btn" title="Xem nhanh" data-i18n-title="index.xem_nhanh"><i class="fa-regular fa-eye"></i></button>
+              <button class="action-btn" title="So sánh" data-i18n-title="index.so_sanh"><i class="fa-solid fa-code-compare"></i></button>
             </div>
           </div>
           <div class="p-4">
-            <span class="text-xs text-indigo-400/80 font-medium">Keychron</span>
-            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2">Keychron Q1 Max Mechanical Keyboard</h3>
+            <span class="text-xs text-indigo-400/80 font-medium" data-i18n="index.keychron">Keychron</span>
+            <h3 class="font-semibold text-sm mt-1 mb-1 line-clamp-2" data-i18n="index.keychron_q1_max_mechanical_keyboard">Keychron Q1 Max Mechanical Keyboard</h3>
             <div class="flex items-center gap-1 mb-2">
               <div class="stars">★★★★★</div>
               <span class="text-xs text-gray-500">(178)</span>
@@ -510,7 +510,7 @@
       <!-- Load More -->
       <div class="text-center mt-10">
         <button class="border border-dark-border text-gray-300 font-medium px-8 py-3 rounded-xl hover:border-primary/60 hover:text-primary transition-all duration-200">
-          Xem Thêm Sản Phẩm <i class="fa-solid fa-arrow-down ml-2"></i>
+          <span data-i18n="index.xem_them_san_pham">Xem Thêm Sản Phẩm</span> <i class="fa-solid fa-arrow-down ml-2"></i>
         </button>
       </div>
     </div>
@@ -525,22 +525,22 @@
       </div>
       <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
-          <span class="text-accent text-sm font-bold uppercase tracking-widest">Flash Sale – Chỉ Hôm Nay</span>
-          <h2 class="text-3xl md:text-5xl font-extrabold mt-3 mb-4">Giảm Đến <span class="text-accent">50%</span><br>Tất Cả Laptop</h2>
-          <p class="text-gray-400 max-w-md">Săn ngay những ưu đãi cực khủng trong 24h. Số lượng có hạn, đừng bỏ lỡ!</p>
+          <span class="text-accent text-sm font-bold uppercase tracking-widest" data-i18n="index.flash_sale_chi_hom_nay">Flash Sale – Chỉ Hôm Nay</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold mt-3 mb-4"><span data-i18n="index.giam_den">Giảm Đến</span> <span class="text-accent">50%</span><br><span data-i18n="index.tat_ca_laptop">Tất Cả Laptop</span></h2>
+          <p class="text-gray-400 max-w-md" data-i18n="index.san_ngay_nhung_uu_dai_cuc_khung_trong_24h_so">Săn ngay những ưu đãi cực khủng trong 24h. Số lượng có hạn, đừng bỏ lỡ!</p>
         </div>
         <div class="text-center">
           <!-- Countdown -->
           <div class="flex gap-4 mb-6">
-            <div class="countdown-box"><span id="countH">08</span><small>GIỜ</small></div>
+            <div class="countdown-box"><span id="countH">08</span><small data-i18n="index.gio">GIỜ</small></div>
             <div class="countdown-sep">:</div>
-            <div class="countdown-box"><span id="countM">34</span><small>PHÚT</small></div>
+            <div class="countdown-box"><span id="countM">34</span><small data-i18n="index.phut">PHÚT</small></div>
             <div class="countdown-sep">:</div>
-            <div class="countdown-box"><span id="countS">21</span><small>GIÂY</small></div>
+            <div class="countdown-box"><span id="countS">21</span><small data-i18n="index.giay">GIÂY</small></div>
           </div>
           <a href="#products"
             class="inline-flex items-center gap-2 bg-accent text-dark font-bold px-8 py-3 rounded-xl hover:bg-accent-dark transition shadow-lg shadow-accent/30">
-            Mua Ngay <i class="fa-solid fa-fire"></i>
+            <span data-i18n="index.mua_ngay">Mua Ngay</span> <i class="fa-solid fa-fire"></i>
           </a>
         </div>
       </div>
@@ -550,14 +550,14 @@
   <!-- ===== BRANDS ===== -->
   <section class="py-16 bg-dark-card/40">
     <div class="max-w-7xl mx-auto px-6">
-      <p class="text-center text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">Đối Tác Chính Hãng</p>
+      <p class="text-center text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest" data-i18n="index.doi_tac_chinh_hang">Đối Tác Chính Hãng</p>
       <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
         <div class="brand-logo"><i class="fa-brands fa-apple text-4xl"></i></div>
-        <div class="brand-logo"><span class="text-2xl font-extrabold">ASUS</span></div>
-        <div class="brand-logo"><span class="text-2xl font-bold tracking-tight">SAMSUNG</span></div>
-        <div class="brand-logo"><span class="text-2xl font-bold">Sony</span></div>
-        <div class="brand-logo"><span class="text-xl font-bold">Logitech</span></div>
-        <div class="brand-logo"><span class="text-xl font-bold">DELL</span></div>
+        <div class="brand-logo"><span class="text-2xl font-extrabold" data-i18n="index.asus">ASUS</span></div>
+        <div class="brand-logo"><span class="text-2xl font-bold tracking-tight" data-i18n="index.samsung_2">SAMSUNG</span></div>
+        <div class="brand-logo"><span class="text-2xl font-bold" data-i18n="index.sony">Sony</span></div>
+        <div class="brand-logo"><span class="text-xl font-bold" data-i18n="index.logitech">Logitech</span></div>
+        <div class="brand-logo"><span class="text-xl font-bold" data-i18n="index.dell">DELL</span></div>
       </div>
     </div>
   </section>
@@ -565,29 +565,29 @@
   <!-- ===== FEATURES ===== -->
   <section id="about" class="py-20 max-w-7xl mx-auto px-6">
     <div class="section-header">
-      <span class="section-tag">Tại Sao Chọn Chúng Tôi</span>
-      <h2 class="section-title">Cam Kết <span class="gradient-text">Chất Lượng</span> Hàng Đầu</h2>
+      <span class="section-tag" data-i18n="index.tai_sao_chon_chung_toi">Tại Sao Chọn Chúng Tôi</span>
+      <h2 class="section-title"><span data-i18n="index.cam_ket">Cam Kết</span> <span class="gradient-text" data-i18n="index.chat_luong">Chất Lượng</span> <span data-i18n="index.hang_dau">Hàng Đầu</span></h2>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
       <div class="feature-card">
         <div class="feature-icon bg-blue-500/10 text-blue-400"><i class="fa-solid fa-truck-fast text-xl"></i></div>
-        <h3 class="font-semibold mt-4 mb-2">Giao Hàng Nhanh</h3>
-        <p class="text-sm text-gray-400">Miễn phí vận chuyển cho đơn từ 500K. Giao hàng trong 2-4 giờ tại TP.HCM & Hà Nội.</p>
+        <h3 class="font-semibold mt-4 mb-2" data-i18n="index.giao_hang_nhanh">Giao Hàng Nhanh</h3>
+        <p class="text-sm text-gray-400" data-i18n="index.mien_phi_van_chuyen_cho_don_tu_500k_giao_hang">Miễn phí vận chuyển cho đơn từ 500K. Giao hàng trong 2-4 giờ tại TP.HCM & Hà Nội.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon bg-green-500/10 text-green-400"><i class="fa-solid fa-shield-halved text-xl"></i></div>
-        <h3 class="font-semibold mt-4 mb-2">Bảo Hành Chính Hãng</h3>
-        <p class="text-sm text-gray-400">100% sản phẩm chính hãng, bảo hành 12-24 tháng. Hỗ trợ đổi trả trong 30 ngày.</p>
+        <h3 class="font-semibold mt-4 mb-2" data-i18n="index.bao_hanh_chinh_hang">Bảo Hành Chính Hãng</h3>
+        <p class="text-sm text-gray-400" data-i18n="index.100_san_pham_chinh_hang_bao_hanh_12_24_thang_ho">100% sản phẩm chính hãng, bảo hành 12-24 tháng. Hỗ trợ đổi trả trong 30 ngày.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon bg-purple-500/10 text-purple-400"><i class="fa-solid fa-credit-card text-xl"></i></div>
-        <h3 class="font-semibold mt-4 mb-2">Thanh Toán An Toàn</h3>
-        <p class="text-sm text-gray-400">Hỗ trợ MOMO, VNPay, thẻ tín dụng, trả góp 0% lãi suất. Bảo mật SSL 256-bit.</p>
+        <h3 class="font-semibold mt-4 mb-2" data-i18n="index.thanh_toan_an_toan">Thanh Toán An Toàn</h3>
+        <p class="text-sm text-gray-400" data-i18n="index.ho_tro_momo_vnpay_the_tin_dung_tra_gop_0_lai">Hỗ trợ MOMO, VNPay, thẻ tín dụng, trả góp 0% lãi suất. Bảo mật SSL 256-bit.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon bg-orange-500/10 text-orange-400"><i class="fa-solid fa-headset text-xl"></i></div>
-        <h3 class="font-semibold mt-4 mb-2">Hỗ Trợ 24/7</h3>
-        <p class="text-sm text-gray-400">Đội ngũ chuyên gia tư vấn sẵn sàng giải đáp mọi thắc mắc suốt 24 giờ mỗi ngày.</p>
+        <h3 class="font-semibold mt-4 mb-2" data-i18n="index.ho_tro_24_7">Hỗ Trợ 24/7</h3>
+        <p class="text-sm text-gray-400" data-i18n="index.doi_ngu_chuyen_gia_tu_van_san_sang_giai_dap_moi">Đội ngũ chuyên gia tư vấn sẵn sàng giải đáp mọi thắc mắc suốt 24 giờ mỗi ngày.</p>
       </div>
     </div>
   </section>
@@ -596,12 +596,12 @@
   <section class="py-16 bg-gradient-to-r from-primary/10 via-dark-card to-accent/10 border-y border-dark-border">
     <div class="max-w-2xl mx-auto px-6 text-center">
       <i class="fa-solid fa-envelope-open-text text-3xl text-primary mb-4"></i>
-      <h2 class="text-3xl font-bold mb-3">Đăng Ký Nhận Ưu Đãi</h2>
-      <p class="text-gray-400 mb-8">Nhận ngay mã giảm 100K cho đơn hàng đầu tiên và cập nhật sản phẩm mới nhất.</p>
+      <h2 class="text-3xl font-bold mb-3" data-i18n="index.dang_ky_nhan_uu_dai">Đăng Ký Nhận Ưu Đãi</h2>
+      <p class="text-gray-400 mb-8" data-i18n="index.nhan_ngay_ma_giam_100k_cho_don_hang_dau_tien_va">Nhận ngay mã giảm 100K cho đơn hàng đầu tiên và cập nhật sản phẩm mới nhất.</p>
       <div class="flex gap-3">
         <input type="email" placeholder="Nhập email của bạn..."
-          class="flex-1 bg-dark-card border border-dark-border rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/60 transition" />
-        <button class="bg-gradient-to-r from-primary to-accent text-white font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30">
+          class="flex-1 bg-dark-card border border-dark-border rounded-xl px-5 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary/60 transition"  data-i18n-placeholder="index.nhap_email_cua_ban"/>
+        <button class="bg-gradient-to-r from-primary to-accent text-white font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition shadow-lg shadow-primary/30" data-i18n="index.dang_ky">
           Đăng Ký
         </button>
       </div>
@@ -618,9 +618,9 @@
             <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
               <i class="fa-solid fa-bolt text-white text-sm"></i>
             </div>
-            <span class="text-xl font-bold">Tech<span class="text-primary">Store</span></span>
+            <span class="text-xl font-bold"><span data-i18n="common.tech">Tech</span><span class="text-primary" data-i18n="common.store">Store</span></span>
           </a>
-          <p class="text-sm text-gray-400 leading-relaxed mb-5">Chuỗi bán lẻ công nghệ uy tín hàng đầu Việt Nam.</p>
+          <p class="text-sm text-gray-400 leading-relaxed mb-5" data-i18n="index.chuoi_ban_le_cong_nghe_uy_tin_hang_dau_viet_nam">Chuỗi bán lẻ công nghệ uy tín hàng đầu Việt Nam.</p>
           <div class="flex gap-3">
             <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
@@ -630,38 +630,38 @@
         </div>
         <!-- Links -->
         <div>
-          <h4 class="font-semibold mb-4">Sản Phẩm</h4>
+          <h4 class="font-semibold mb-4" data-i18n="common.nav.products">Sản Phẩm</h4>
           <ul class="space-y-3 text-sm text-gray-400">
-            <li><a href="#" class="hover:text-primary transition">Laptop</a></li>
-            <li><a href="#" class="hover:text-primary transition">Điện Thoại</a></li>
-            <li><a href="#" class="hover:text-primary transition">Máy Tính Bảng</a></li>
-            <li><a href="#" class="hover:text-primary transition">Phụ Kiện</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="common.categories.laptop">Laptop</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="common.categories.phone">Điện Thoại</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="index.may_tinh_bang">Máy Tính Bảng</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="common.categories.accessories">Phụ Kiện</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold mb-4">Hỗ Trợ</h4>
+          <h4 class="font-semibold mb-4" data-i18n="index.ho_tro">Hỗ Trợ</h4>
           <ul class="space-y-3 text-sm text-gray-400">
-            <li><a href="#" class="hover:text-primary transition">Chính Sách Bảo Hành</a></li>
-            <li><a href="#" class="hover:text-primary transition">Đổi Trả Hàng</a></li>
-            <li><a href="#" class="hover:text-primary transition">Hướng Dẫn Mua</a></li>
-            <li><a href="#" class="hover:text-primary transition">Liên Hệ</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="index.chinh_sach_bao_hanh">Chính Sách Bảo Hành</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="index.doi_tra_hang">Đổi Trả Hàng</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="index.huong_dan_mua">Hướng Dẫn Mua</a></li>
+            <li><a href="#" class="hover:text-primary transition" data-i18n="index.lien_he">Liên Hệ</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold mb-4">Liên Hệ</h4>
+          <h4 class="font-semibold mb-4" data-i18n="index.lien_he">Liên Hệ</h4>
           <ul class="space-y-3 text-sm text-gray-400">
-            <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-primary mt-0.5"></i>123 Đinh Tiên Hoàng, Q.1, TP.HCM</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-primary mt-0.5"></i><span data-i18n="index.123_dinh_tien_hoang_q_1_tp_hcm">123 Đinh Tiên Hoàng, Q.1, TP.HCM</span></li>
             <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-primary"></i>1800 6789</li>
             <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-primary"></i>hello@techstore.vn</li>
           </ul>
         </div>
       </div>
       <div class="border-t border-dark-border mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-        <p>© 2025 TechStore. All rights reserved.</p>
+        <p data-i18n="index.2025_techstore_all_rights_reserved">© 2025 TechStore. All rights reserved.</p>
         <div class="flex gap-6">
-          <a href="#" class="hover:text-gray-300 transition">Bảo Mật</a>
-          <a href="#" class="hover:text-gray-300 transition">Điều Khoản</a>
-          <a href="#" class="hover:text-gray-300 transition">Cookie</a>
+          <a href="#" class="hover:text-gray-300 transition" data-i18n="index.bao_mat">Bảo Mật</a>
+          <a href="#" class="hover:text-gray-300 transition" data-i18n="index.dieu_khoan">Điều Khoản</a>
+          <a href="#" class="hover:text-gray-300 transition" data-i18n="index.cookie">Cookie</a>
         </div>
       </div>
     </div>
@@ -670,7 +670,7 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast hidden">
     <i class="fa-solid fa-check-circle text-accent"></i>
-    <span id="toastMsg">Đã thêm vào giỏ hàng!</span>
+    <span id="toastMsg" data-i18n="index.da_them_vao_gio_hang">Đã thêm vào giỏ hàng!</span>
   </div>
 
   <script src="assets/js/main.js"></script>

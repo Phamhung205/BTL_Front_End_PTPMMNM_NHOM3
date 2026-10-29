@@ -65,7 +65,7 @@ Backend đi kèm vẫn được dùng bởi lệnh khởi động. SQL nằm tro
 
 ## Tự kiểm thử
 
-Lệnh và môi trường chạy test nằm trong [SETUP.md](docs/SETUP.md). Lượt hoàn thiện ngày 29/10/2026 chạy trọn `scripts/test-all.ps1` trên CSDL demo: **21/21 hạng mục, 557 kiểm tra và 29 nhóm API**; báo cáo ở `artifacts/test-report.md`. Chrome chạy riêng **45/45 kiểm tra**. Đối chiếu 5 phép thử và 2 tình huống: [PHEP_THU_BAT_BUOC.md](docs/PHEP_THU_BAT_BUOC.md). Cách import và trình diễn: [DEMO_NHOM3.md](docs/DEMO_NHOM3.md).
+Lệnh và môi trường chạy test nằm trong [SETUP.md](docs/SETUP.md). Lượt hoàn thiện ngày 29/10/2026 chạy trọn `scripts/test-all.ps1` trên CSDL demo: **21/21 hạng mục, 557 kiểm tra và 29 nhóm API**; báo cáo ở `artifacts/test-report.md`. Chrome chạy riêng **154/154 kiểm tra**. Đối chiếu 5 phép thử và 2 tình huống: [PHEP_THU_BAT_BUOC.md](docs/PHEP_THU_BAT_BUOC.md). Cách import và trình diễn: [DEMO_NHOM3.md](docs/DEMO_NHOM3.md).
 
 Import website có sẵn vào hệ thống (3 website mẫu đã chuẩn bị, công cụ tách chữ HTML và chuyển `languages.js`): [web-sample-import/README.md](web-sample-import/README.md).
 

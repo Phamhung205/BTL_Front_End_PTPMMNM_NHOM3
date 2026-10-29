@@ -20,7 +20,7 @@ for (const [kit, targets] of [['web-test-1-fashion', ['en', 'ja']], ['web-test-2
         for (const [key, value] of target) assert.deepEqual(variables(value), variables(source.get(key)), kit + '/' + locale + '/' + key);
         check(true, kit + '/' + locale + ': exact placeholder sets');
     }
-    const refs = htmlFiles(path.join(root, kit, 'site')).flatMap(file => [...readFileSync(file, 'utf8').matchAll(/\bdata-i18n(?:-placeholder|-title|-document-title)?="([^"]+)"/g)].map(match => match[1]));
+    const refs = htmlFiles(path.join(root, kit, 'site')).flatMap(file => [...readFileSync(file, 'utf8').matchAll(/\bdata-i18n(?:-placeholder|-title|-alt|-aria-label|-document-title)?="([^"]+)"/g)].map(match => match[1]));
     check(refs.length > 0 && refs.every(key => source.has(key)), kit + ': every HTML translation reference exists in the source');
 }
 const tech = path.join(root, 'web-test-2-techstore');

@@ -43,7 +43,7 @@
           <button id="langToggleBtn" onclick="toggleLang()"
             class="lang-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:bg-blush-50 text-xs font-semibold tracking-wider transition-all duration-200 hover:scale-105">
             <i class="fa-solid fa-globe text-xs"></i>
-            <span id="langLabel" data-i18n-skip>VI</span>
+            <span id="langLabel" translate="no" data-i18n-skip>VI</span>
           </button>
           <button class="icon-btn text-neutral-500 hover:text-neutral-800 p-2 rounded-full hover:bg-neutral-100 transition-all">
             <i class="fa-solid fa-magnifying-glass text-sm"></i>
@@ -80,11 +80,11 @@
       </div>
       <!-- Sort -->
       <select class="px-4 py-2 rounded-full border border-neutral-200 text-sm text-neutral-600 focus:outline-none focus:border-blush-400 bg-white cursor-pointer">
-        <option>Nổi bật nhất</option>
-        <option>Giá thấp → cao</option>
-        <option>Giá cao → thấp</option>
-        <option>Mới nhất</option>
-        <option>Đánh giá cao nhất</option>
+        <option value="option-1" data-i18n="products.noi_bat_nhat">Nổi bật nhất</option>
+        <option value="option-2" data-i18n="products.gia_thap_cao">Giá thấp → cao</option>
+        <option value="option-3" data-i18n="products.gia_cao_thap">Giá cao → thấp</option>
+        <option value="option-4" data-i18n="products.moi_nhat">Mới nhất</option>
+        <option value="option-5" data-i18n="products.danh_gia_cao_nhat">Đánh giá cao nhất</option>
       </select>
     </div>
 
@@ -103,7 +103,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Son Môi Velvet Rouge')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -127,7 +127,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Serum Vitamin C')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -150,7 +150,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Nước Hoa Miss Dior')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -173,7 +173,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Mascara Volume')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -197,7 +197,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Kem Dưỡng Ẩm Hoa Hồng')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -219,7 +219,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Toner Cân Bằng Da')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -243,7 +243,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Phấn Mắt 12 Màu')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>
@@ -267,7 +267,7 @@
             <button class="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-colors"><i class="fa-regular fa-heart text-sm"></i></button>
           </div>
           <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-            onclick="addToCart(this,'Kem Chống Nắng SPF50+')">
+            onclick="addToCart(this)">
             <i class="fa-solid fa-bag-shopping mr-1.5"></i><span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
           </div>
         </div>

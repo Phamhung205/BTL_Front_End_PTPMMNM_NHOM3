@@ -78,7 +78,7 @@
               class="lang-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/40 text-white/90 hover:bg-white/20 text-xs font-semibold tracking-wider transition-all duration-200 hover:scale-105 backdrop-blur-sm"
               title="Chuyển đổi ngôn ngữ" data-i18n-title="index.chuyen_doi_ngon_ngu">
               <i class="fa-solid fa-globe text-xs"></i>
-              <span id="langLabel" data-i18n-skip>VI</span>
+              <span id="langLabel" translate="no" data-i18n-skip>VI</span>
             </button>
 
             <!-- Search -->
@@ -313,7 +313,7 @@
               </div>
               <!-- Quick Add -->
               <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-                onclick="addToCart(this, 'Son Môi Velvet Rouge')">
+                onclick="addToCart(this)">
                 <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
               </div>
             </div>
@@ -357,7 +357,7 @@
                 </button>
               </div>
               <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-                onclick="addToCart(this, 'Serum Vitamin C')">
+                onclick="addToCart(this)">
                 <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
               </div>
             </div>
@@ -395,7 +395,7 @@
                 </button>
               </div>
               <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-                onclick="addToCart(this, 'Nước Hoa Miss Dior')">
+                onclick="addToCart(this)">
                 <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
               </div>
             </div>
@@ -433,7 +433,7 @@
                 </button>
               </div>
               <div class="absolute bottom-0 inset-x-0 bg-blush-500 text-white text-center py-2.5 text-xs font-semibold translate-y-full group-hover:translate-y-0 transition-transform cursor-pointer hover:bg-blush-600"
-                onclick="addToCart(this, 'Mascara Volume')">
+                onclick="addToCart(this)">
                 <i class="fa-solid fa-bag-shopping mr-1.5"></i> <span data-i18n="common.them_vao_gio">Thêm vào giỏ</span>
               </div>
             </div>
@@ -710,8 +710,8 @@
         <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p class="text-neutral-500 text-xs" data-i18n="index.2026_lumiere_beauty_bao_luu_moi_quyen">© 2026 Lumière Beauty. Bảo lưu mọi quyền.</p>
           <div class="flex items-center gap-4">
-            <img src="https://img.shields.io/badge/VISA-1A1F71?style=flat&logo=visa&logoColor=white" alt="Visa" class="h-5 opacity-60 hover:opacity-100 transition-opacity"/>
-            <img src="https://img.shields.io/badge/Mastercard-EB001B?style=flat&logo=mastercard&logoColor=white" alt="Mastercard" class="h-5 opacity-60 hover:opacity-100 transition-opacity"/>
+            <img src="https://img.shields.io/badge/VISA-1A1F71?style=flat&logo=visa&logoColor=white" alt="Visa" class="h-5 opacity-60 hover:opacity-100 transition-opacity" data-i18n-alt="index.visa"/>
+            <img src="https://img.shields.io/badge/Mastercard-EB001B?style=flat&logo=mastercard&logoColor=white" alt="Mastercard" class="h-5 opacity-60 hover:opacity-100 transition-opacity" data-i18n-alt="index.mastercard"/>
             <span class="text-neutral-500 text-xs" data-i18n="index.zalopay_momo_cod">ZaloPay · MoMo · COD</span>
           </div>
         </div>

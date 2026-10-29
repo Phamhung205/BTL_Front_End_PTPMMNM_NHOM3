@@ -26,11 +26,7 @@ function initLangDropdown() {
 
   $$('.lang-option', wrap).forEach(opt => {
     opt.addEventListener('click', () => {
-      const text = opt.textContent.trim();
-      const code = text.includes('Việt') ? 'VI'
-                 : text.includes('Eng')  ? 'EN'
-                 : text.includes('日本')  ? 'JP'
-                 : text.includes('한국')  ? 'KR' : 'VI';
+      const code = opt.dataset.language?.toUpperCase();
       menu.classList.add('hidden');
 
       if (code === 'VI' || code === 'EN') {
@@ -38,7 +34,7 @@ function initLangDropdown() {
           detail: { language: code.toLowerCase() },
         }));
       } else {
-        showToast('Hiện chỉ hỗ trợ Tiếng Việt và English.');
+        showToast('messages.language_unsupported');
       }
     });
   });
@@ -86,14 +82,7 @@ function filterCategory(cat) {
   const sec = $('#products');
   if (sec) sec.scrollIntoView({ behavior: 'smooth' });
   currentFilter = cat;
-  const btn = $$(`.filter-btn`).find(b => b.textContent.toLowerCase().includes(
-    cat === 'laptop' ? 'laptop'
-  : cat === 'phone'  ? 'điện'
-  : cat === 'tablet' ? 'máy tính'
-  : cat === 'audio'  ? 'âm'
-  : cat === 'watch'  ? 'đồng'
-  : 'phụ'
-  ));
+  const btn = $$('.filter-btn').find(b => b.dataset.category === cat);
   if (btn) { $$('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
   filterProducts();
 }
@@ -125,18 +114,22 @@ function addToCart(btn) {
   const cartBadge = document.querySelector('nav .relative.-top-1');
   if (cartBadge) cartBadge.textContent = cartCount;
 
-  showToast('Đã thêm vào giỏ hàng!');
+  showToast('index.da_them_vao_gio_hang');
 }
 
 /* ================================================================
    6. TOAST NOTIFICATION
    ================================================================ */
 let toastTimeout;
-function showToast(msg = 'Thành công!') {
+function showToast(key = 'messages.success', variables = {}) {
   const toast    = $('#toast');
   const toastMsg = $('#toastMsg');
   if (!toast) return;
-  if (toastMsg) toastMsg.textContent = msg;
+  if (toastMsg) {
+    toastMsg.dataset.i18n = key;
+    toastMsg.dataset.i18nVars = JSON.stringify(variables);
+    toastMsg.textContent = TranslationManager.t(key, variables);
+  }
   toast.classList.remove('hidden');
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => toast.classList.add('hidden'), 2800);
@@ -171,10 +164,12 @@ function handleLogin(e) {
 
   // ── TEST MODE: bỏ qua kiểm tra, vào thẳng dashboard ──
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang đăng nhập...';
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span data-i18n="login.status.pending"></span>';
+  TranslationManager.apply();
 
   setTimeout(() => {
-    btn.innerHTML = '<i class="fa-solid fa-check"></i> Thành công!';
+    btn.innerHTML = '<i class="fa-solid fa-check"></i><span data-i18n="login.status.success"></span>';
+    TranslationManager.apply();
     btn.style.background = 'linear-gradient(135deg, #00D4AA, #00B894)';
     setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
   }, 900);
@@ -187,11 +182,11 @@ function handleRegister(e) {
   const success  = $('#registerSuccess');
 
   if (pass !== passConf) {
-    showToast('Mật khẩu xác nhận không khớp!');
+    showToast('messages.password_mismatch');
     return;
   }
   if (pass.length < 8) {
-    showToast('Mật khẩu phải có ít nhất 8 ký tự!');
+    showToast('messages.password_short', { count: 8 });
     return;
   }
   // Show success
@@ -207,6 +202,8 @@ function togglePwd(inputId, btn) {
   btn.innerHTML = isText
     ? '<i class="fa-regular fa-eye"></i>'
     : '<i class="fa-regular fa-eye-slash"></i>';
+  btn.dataset.i18nAriaLabel = isText ? 'password.show' : 'password.hide';
+  TranslationManager.apply();
 }
 
 /* ================================================================
@@ -224,14 +221,16 @@ function checkStrength(val) {
   if (/[^A-Za-z0-9]/.test(val))      score++;
 
   const colors  = ['bg-red-500', 'bg-orange-400', 'bg-yellow-400', 'bg-accent'];
-  const labels  = ['Rất yếu', 'Yếu', 'Trung bình', 'Mạnh', 'Rất mạnh'];
+  const levels = ['password.weak', 'password.fair', 'password.strong', 'password.very_strong'];
   const txtCols = ['text-red-400', 'text-orange-400', 'text-yellow-400', 'text-accent'];
 
   bars.forEach((b, i) => {
     b.className = `h-1 flex-1 rounded-full transition-all duration-300 ${i < score ? colors[score - 1] : 'bg-dark-border'}`;
   });
   textEl.className = `text-xs ${score > 0 ? txtCols[score - 1] : 'text-gray-500'}`;
-  textEl.textContent = score > 0 ? `Độ mạnh: ${labels[score]}` : 'Nhập mật khẩu để kiểm tra độ mạnh';
+  textEl.dataset.i18n = score > 0 ? 'password.strength' : 'register.nhap_mat_khau_de_kiem_tra_do_manh';
+  textEl.dataset.i18nVars = JSON.stringify(score > 0 ? { level: TranslationManager.t(levels[score - 1]) } : {});
+  textEl.textContent = TranslationManager.t(textEl.dataset.i18n, JSON.parse(textEl.dataset.i18nVars));
 }
 
 /* ================================================================
@@ -262,7 +261,12 @@ function initDashboard() {
       link.classList.add('active');
       const title = link.querySelector('.sidebar-text')?.textContent?.trim() || '';
       const pageTitle = $('#pageTitle');
-      if (pageTitle) pageTitle.textContent = title;
+      if (pageTitle) {
+        const label = link.querySelector('.sidebar-text');
+        const key = label?.dataset.i18n || label?.querySelector('[data-i18n]')?.dataset.i18n;
+        if (key) pageTitle.dataset.i18n = key;
+        pageTitle.textContent = title;
+      }
       // Close mobile sidebar
       const sb = $('#sidebar');
       if (sb && sb.classList.contains('open')) toggleSidebar();
@@ -310,4 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initCountdown();
   initDashboard();
   setTimeout(initScrollAnimations, 100); // slight delay to avoid flash
+});
+
+document.addEventListener('translationmanager:language-changed', () => {
+  const password = document.getElementById('regPass');
+  if (password) checkStrength(password.value);
 });

@@ -91,7 +91,7 @@ function login() {
     };
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
     showPage('dashboardPage');
-    alert('Login successful! Welcome to the dashboard.');
+    alert(t('messages.login_success'));
 }
 
 // Register function
@@ -102,12 +102,12 @@ function register() {
     const confirmPassword = document.getElementById('registerConfirmPassword').value;
 
     if (!name || !email || !password || !confirmPassword) {
-        alert('Please fill in all fields');
+        alert(t('messages.required'));
         return;
     }
 
     if (password !== confirmPassword) {
-        alert('Passwords do not match');
+        alert(t('messages.password_mismatch'));
         return;
     }
 
@@ -119,7 +119,7 @@ function register() {
     };
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
     showPage('dashboardPage');
-    alert('Registration successful! Welcome to the dashboard.');
+    alert(t('messages.register_success'));
 }
 
 // Logout function
@@ -128,15 +128,15 @@ function logout() {
     currentUser = null;
     localStorage.removeItem('currentUser');
     showPage('loginPage');
-    alert('You have been logged out.');
+    alert(t('messages.logged_out'));
 }
 
 // Add to cart function (demo)
 function addToCart(productId) {
-    alert('Product added to cart! (Demo mode)');
+    alert(t('messages.cart_added'));
 }
 
 // Filter products function (demo)
 function filterProducts(category) {
-    alert('Filter by: ' + category + ' (Demo mode)');
+    alert(t('messages.filter', { category: t(category === 'all' ? 'allCategories' : category) }));
 }
